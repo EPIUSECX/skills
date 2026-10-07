@@ -56,6 +56,12 @@ A route stays in the open sidebar only if that sidebar lists its target. Otherwi
   ```
 - Cold-load each `/desk/<page>` URL. 16.50 rewrites it to `/desk/<shell>/<page>`.
 
+## A workspace hides a DocType or Page with the same slug
+
+The desk resolves `/desk/<slug>` to a workspace before a DocType or a Page (`frappe/public/js/frappe/router.js`, `segment_kind`). Frappe itself ships workspaces called Automation, System, Workflow and others. A custom DocType named `Automation` therefore has no reachable list or form: `/desk/automation` and `/desk/automation/<name>` open Frappe's workspace. The audit reports this as a `routes` FAIL.
+
+Rename the DocType. Move its folder and files in git, change every reference, and add a `pre_model_sync` patch that calls `frappe.rename_doc("DocType", old, new, force=True)`. In a patch, Frappe renames the table, the link fields, the workspace and sidebar links, and the dynamic links, but no files.
+
 ## Workspace charts
 
 A chart block in the workspace content, `{"type": "chart", "data": {"chart_name": "X"}}`, finds its chart by the **label** of the Workspace Chart row, not by the Dashboard Chart name. If the row has the label "Cases by Severity" and the block says "My Cases by Severity", the chart does not show. Keep the two values equal.

@@ -445,6 +445,34 @@ def audit(bench: Path, app: str) -> list[tuple[str, str, str]]:
 				f"{' …' if len(leaving) > 6 else ''}",
 			)
 
+	# 5b. Route collisions --------------------------------------------------------------------
+	# The desk resolves /desk/<slug> to a workspace before a DocType or Page with the same slug
+	# (frappe/public/js/frappe/router.js, segment_kind), so such a DocType's list and forms, or
+	# such a Page, cannot be opened. Frappe itself ships workspaces named Automation, System, ...
+	def slug(name: str) -> str:
+		return name.lower().replace(" ", "-")
+
+	workspace_by_slug = {}
+	for path in (bench / "apps").glob("*/*/*/workspace/*/*.json"):
+		data = read_json(path)
+		if data.get("doctype") == "Workspace" and data.get("name"):
+			workspace_by_slug.setdefault(slug(data["name"]), (data["name"], path.parts[-6]))
+	own = [
+		(kind, name)
+		for (kind, name), module in entity_module.items()
+		if module in modules and kind in ("DocType", "Page")
+	]
+	for kind, name in sorted(own):
+		key = slug(name) if kind == "DocType" else name
+		if key in workspace_by_slug and not (kind == "DocType" and name in tables):
+			ws_name, ws_app = workspace_by_slug[key]
+			add(
+				"FAIL",
+				"routes",
+				f"{kind} '{name}' cannot be opened: /desk/{key} resolves to workspace '{ws_name}' ({ws_app}) "
+				"first. Rename the DocType or Page (a patch with frappe.rename_doc keeps the data)",
+			)
+
 	# 6. Legacy fixtures -----------------------------------------------------------------------
 	# Frappe 16.50 no longer imports these (frappe/model/sync.py). ERPNext still keeps some next to
 	# their converted Sidebars, which is harmless; one with no Sidebar is a curated sidebar lost.
