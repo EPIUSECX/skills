@@ -17,6 +17,7 @@ After any install or migrate on a developer-mode site, run `git status` in the a
 An install that fails leaves the app half installed. It shows in `list-apps`, but its hooks did not finish. Fix the cause, then run `bench --site <site> install-app <app> --force` in dependency order. Known causes:
 
 - `Unknown column 'app'`: 16.50 removed `Workspace.app`. A workspace's app now comes from its module. Guard the write with `frappe.db.has_column("Workspace", "app")`.
+- `No module named '<app>.<module>'` after you change the app's branch: the bench still has the old module list in its cache. Run `bench --site <site> clear-cache`, then install again.
 - `Could not find Parent Icon: <Other App>`: the code creates Desktop Icons under another app's grid icon. A site on the Apps screen does not import grid icons. Skip the write when the parent Desktop Icon does not exist.
 - Reports or charts fail with `Unknown column` on a fresh site: custom fields are made only by a demo or setup step. Create them in `after_install` or `after_migrate`.
 
@@ -54,6 +55,12 @@ A route stays in the open sidebar only if that sidebar lists its target. Otherwi
   ;[cs.DocType["<DocType>"], cs.Page["<page>"], cs.Report["<Report>"]]
   ```
 - Cold-load each `/desk/<page>` URL. 16.50 rewrites it to `/desk/<shell>/<page>`.
+
+## Workspace charts
+
+A chart block in the workspace content, `{"type": "chart", "data": {"chart_name": "X"}}`, finds its chart by the **label** of the Workspace Chart row, not by the Dashboard Chart name. If the row has the label "Cases by Severity" and the block says "My Cases by Severity", the chart does not show. Keep the two values equal.
+
+The desk keeps workspace pages in memory for the session. Check a chart change after a full page reload.
 
 ## Move between apps without a refresh
 

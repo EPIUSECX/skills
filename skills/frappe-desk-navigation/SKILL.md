@@ -43,7 +43,7 @@ Retiring (read only when Desktop Settings is not "Apps"):
 | Apps-screen tile | `add_to_apps_screen` in `hooks.py` | Frappe reads only the first entry. Its `has_permission` also hides the rail. A title over 12 characters is cut off. |
 | Rail | `Dock` document, `name == app`, `standard: 1` | No Dock means no rail. Each row needs `icon` and `title`. |
 | Rail and header icons | app sprite in `app_include_icons` | The name must end in `-duotone`. |
-| Sidebar | `Sidebar` document per module, `standard: 1` | The file name must be `scrub(title)`. Child rows have no icon. |
+| Sidebar | `Sidebar` document per module, `standard: 1` | The file name must be `scrub(title)`. A child row draws its own icon, or a generic list icon, unless its section has `indent: 1`. |
 | Sidebar item icons | Lucide sprite | Old Timeless and Feather names draw nothing or draw the old set. |
 
 ## Global rules
@@ -54,6 +54,8 @@ Retiring (read only when Desktop Settings is not "Apps"):
 - Never put `--` inside an XML comment in a sprite. It breaks the whole SVG.
 - Never add `from __future__ import annotations` to `hooks.py`. Frappe loads `annotations` as a hook.
 - Back up the site before you install an app on it only to test this work.
+- Give every drawn row an icon that is unique in its sidebar. Desk draws top-level rows, section headers, and the children of a section without `indent: 1`. A drawn row without an icon gets the same generic `list` icon as its neighbours. ERPNext sets `indent: 1` on its sections, so its child rows show no icon. Choose one style per sidebar.
+- Use only icons from the sprites in `app_include_icons`. Frappe also ships a full `public/icons/lucide.svg`, but Desk does not load it, so an icon found only there (`fingerprint`, `book-marked`) is blank.
 - Run the audit until it reports 0 FAIL.
 
 ## Flow
@@ -64,7 +66,9 @@ Retiring (read only when Desktop Settings is not "Apps"):
    python3 <skill>/scripts/audit_desk_navigation.py --bench <bench> --app <app>
    ```
    Fix each FAIL, then judge each WARN. Run it with `--app erpnext` to see the shipped formats. ERPNext 16.50 is not a clean result: it keeps old `workspace_sidebar/` files, and five of them have no converted Sidebar.
-3. Convert the sidebar. Run `bench --site <site> convert-sidebar-fixtures --app <app>`, then delete `workspace_sidebar/`. If the app builds sidebars in code instead, install it and use `scripts/promote_runtime_sidebars.py`. Then refine each Sidebar with `scripts/refine_sidebars.py`. It fixes icon names and saves through the document, so Frappe checks every link.
+3. Convert the sidebar. Run `bench --site <site> convert-sidebar-fixtures --app <app>`, then delete `workspace_sidebar/`. If the app builds sidebars in code instead, install it and use `scripts/promote_runtime_sidebars.py`. Then refine each Sidebar with `scripts/refine_sidebars.py`. It fixes icon names and saves through the document, so Frappe checks every link. Its overrides are keyed by sidebar and row label, so give a section and a row different labels.
+
+   The converter makes one Sidebar per module. When a module had two old sidebars, it merges them: the second one goes behind a collapsed section with a second "Home" row, and rows that both had are dropped, which can leave an empty section. Reorder the result through the document. `frappe.rename_doc("Sidebar", ...)` does not write a new file: save the document again and delete the old folder.
 4. Draw the logo and the sprite. Read [icons.md](./references/icons.md).
 5. Set the hooks. Read [hooks-and-permissions.md](./references/hooks-and-permissions.md). It covers the tile, the permission check, apps with their own SPA, and companion apps that add rail entries to a host app.
 6. Create the Dock and the Sidebars in developer mode. Read [file-formats.md](./references/file-formats.md).
@@ -85,7 +89,7 @@ Retiring (read only when Desktop Settings is not "Apps"):
 | Script | Run from | Job |
 | --- | --- | --- |
 | `audit_desk_navigation.py` | shell | File-only audit. Exit code 1 on FAIL. |
-| `refine_sidebars.py` | bench console | Fix icon names, remove child-row icons, check that icons are unique, save |
+| `refine_sidebars.py` | bench console | Fix icon names, remove the icons that Desk hides, check that each drawn row has a unique icon that Desk can draw, save |
 | `promote_runtime_sidebars.py` | bench console | Turn sidebars built at runtime into shipped Sidebar files |
 | `extend_sidebar.py` | bench console | Insert rows or sections into a Sidebar |
 | `check_imported.py` | bench console | Print STALE for each fixture file that the database does not match |

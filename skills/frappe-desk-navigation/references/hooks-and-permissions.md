@@ -45,6 +45,18 @@ Some apps have a React or Vue portal, for example at `/portal`, and the tile ope
 - SPA first: keep the route. Add `"desk_route": "/desk/<workspace>"` to the entry. The Apps screen shows it as a second link under the tile.
 - Do not add a `URL` row to the Dock. The desk sends every rail entry through `frappe.set_route`, so `/portal` becomes `/desk/portal`.
 
+## Modules with no rail entry
+
+Some modules hold records that other sidebars already list, such as an evidence ledger. Do not ship a near-empty Sidebar for them. Declare them in `hooks.py`:
+
+```python
+code_only_modules = {
+	"My Evidence": ["My Compliance", "My Insights"],  # module: modules whose sidebars carry it
+}
+```
+
+The module gets no rail entry. Its DocTypes, reports and pages open in the first heir sidebar that lists them. ERPNext does this for Utilities, Telephony and other small modules.
+
 ## Companion apps
 
 A companion app adds its entries to a host app's rail and has no tile of its own. Set `mount_on: "<host app>"` on the companion's Dock. The mount works only when:

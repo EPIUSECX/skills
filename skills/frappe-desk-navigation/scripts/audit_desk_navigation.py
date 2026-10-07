@@ -57,10 +57,25 @@ def _eval_with_names(node, names):
 		return None
 
 
+def loaded_sprites(bench: Path) -> list[Path]:
+	"""The sprites Desk loads: every app's `app_include_icons`. Not every SVG under public/icons:
+	Frappe also ships a full public/icons/lucide.svg that Desk never loads, so an icon found only
+	there (`fingerprint`, `book-marked`) renders blank."""
+	sprites = []
+	for hooks_py in sorted((bench / "apps").glob("*/*/hooks.py")):
+		value = load_hooks(hooks_py.parent).get("app_include_icons") or []
+		for asset in [value] if isinstance(value, str) else value:
+			app, _, rest = str(asset).removeprefix("/assets/").partition("/")
+			path = bench / "apps" / app / app / "public" / rest
+			if path.exists():
+				sprites.append(path)
+	return sprites
+
+
 def icon_names(bench: Path) -> tuple[dict[str, str], set[str]]:
 	"""Every icon id the desk can draw, mapped to the sprite set it comes from."""
 	found: dict[str, str] = {}
-	for sprite in sorted((bench / "apps").glob("*/*/public/icons/**/*.svg")):
+	for sprite in loaded_sprites(bench):
 		kind = sprite.parent.name if sprite.name == "icons.svg" else sprite.stem
 		for name in ICON_ID.findall(sprite.read_text(errors="ignore")):
 			found.setdefault(name, kind)
@@ -274,11 +289,21 @@ def audit(bench: Path, app: str) -> list[tuple[str, str, str]]:
 	for module in modules:
 		folder = app_pkg / scrub(module) / "sidebar"
 		files = sorted(folder.glob("*/*.json")) if folder.exists() else []
-		if not files:
+		code_only = hooks.get("code_only_modules") or {}
+		if not files and module in code_only:
+			heirs = code_only[module] if isinstance(code_only, dict) else []
+			add(
+				"INFO",
+				"sidebar",
+				f"module '{module}' is in code_only_modules: no rail entry"
+				+ (f"; its entities resolve to {', '.join(heirs)}" if heirs else ""),
+			)
+		elif not files:
 			add(
 				"WARN",
 				"sidebar",
-				f"module '{module}' ships no Sidebar: the desk generates one from its contents",
+				f"module '{module}' ships no Sidebar: the desk generates one from its contents; ship "
+				"one, or list it in code_only_modules with the modules whose sidebars carry it",
 			)
 		for file in files:
 			sb = read_json(file)
@@ -308,6 +333,7 @@ def audit(bench: Path, app: str) -> list[tuple[str, str, str]]:
 				)
 			check_icon("sidebar", f"{sb.get('name')} header", sb.get("header_icon"), want_duotone=True)
 			seen_icons: dict[str, str] = {}
+			indented = False
 			for row in sb.get("items") or []:
 				where = f"{sb.get('name')} / {row.get('label')}"
 				check_icon("sidebar", where, row.get("icon"))
@@ -318,15 +344,20 @@ def audit(bench: Path, app: str) -> list[tuple[str, str, str]]:
 						f"{where}: '{row.get('link_to')}' is a child table and has no list view; "
 						"link its parent DocType instead",
 					)
-				if row.get("child") and row.get("icon"):
-					add("WARN", "sidebar", f"{where}: child rows carry no icon in ERPNext's sidebars")
-				if not row.get("child") and row.get("type") in ("Link", "Section Break"):
+				if row.get("type") == "Section Break" and not row.get("child"):
+					indented = bool(row.get("indent"))
+				# Desk hides the icons of an indented section's children (ERPNext's style) and draws
+				# every other row's icon, or the generic `list` icon for a row without one
+				# (frappe/public/js/frappe/ui/sidebar/sidebar_item.js).
+				drawn = not (row.get("child") and indented)
+				if drawn and row.get("type") in ("Link", "Section Break"):
 					icon = row.get("icon")
 					if not icon:
 						add(
 							"WARN",
 							"sidebar",
-							f"{where}: top-level row has no icon; the desk draws a default one",
+							f"{where}: no icon, so the desk draws the generic list icon on it; give it one, "
+							"or set indent on its section to hide the icons of that section's rows",
 						)
 					elif icon in seen_icons:
 						add("WARN", "sidebar", f"{where}: icon '{icon}' already used by '{seen_icons[icon]}'")

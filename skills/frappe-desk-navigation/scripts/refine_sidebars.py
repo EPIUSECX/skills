@@ -18,9 +18,12 @@ module globals.)
 What it does, per Sidebar of the app:
 - maps legacy icon names (Timeless, old Feather) to their Lucide names
 - applies `overrides` (sidebar title, row label) -> icon, then `headers` (sidebar title) -> header_icon
-- drops icons from child rows (ERPNext convention)
-- refuses to save if any icon is in no installed sprite, a top-level row or section header has no
-  icon, or two top-level rows share one. The message says which row, so add an override and rerun.
+- drops icons only from child rows under an indented section (`indent: 1`): Desk hides those
+  icons (ERPNext's style). Every other child row draws its own icon, or Desk's generic `list`
+  icon when it has none (frappe/public/js/frappe/ui/sidebar/sidebar_item.js), so it keeps one
+- refuses to save if any icon is in no installed sprite, a drawn row (top-level row, section
+  header, or child of a section that is not indented) has no icon, or two drawn rows of one sidebar
+  share an icon. The message says which row, so add an override and rerun.
 """
 
 from __future__ import annotations
@@ -98,11 +101,19 @@ def legacy_icons() -> set[str]:
 
 
 def installed_icons() -> set[str]:
+	"""Symbols in the sprites Desk actually loads: every app's `app_include_icons`.
+
+	Not every SVG under `public/icons`: Frappe also ships a full `public/icons/lucide.svg` that Desk
+	never loads, so an icon found only there (`fingerprint`, `book-marked`) renders blank.
+	"""
 	names = set()
-	for app in frappe.get_installed_apps():
-		for path in glob.glob(
-			os.path.join(frappe.get_app_path(app), "public", "icons", "**", "*.svg"), recursive=True
-		):
+	for asset in frappe.get_hooks("app_include_icons"):
+		app, _, rest = asset.removeprefix("/assets/").partition("/")
+		try:
+			path = frappe.get_app_path(app, "public", rest)
+		except Exception:
+			continue
+		if os.path.exists(path):
 			with open(path, errors="ignore") as f:  # an installed app's own sprite
 				names.update(re.findall(r'id="icon-([^"]+)"', f.read()))
 	return names
@@ -119,18 +130,20 @@ def refine(app: str, headers: dict | None = None, overrides: dict | None = None,
 		if doc.title in headers and doc.header_icon != headers[doc.title]:
 			changes.append(("header", doc.header_icon, headers[doc.title]))
 			doc.header_icon = headers[doc.title]
+		drawn, indented = [], False
 		for row in doc.items:
 			old = row.icon
-			if row.child:
-				row.icon = None
+			if row.type == "Section Break" and not row.child:
+				indented = bool(row.indent)
+			if row.child and indented:
+				row.icon = None  # Desk does not draw it
 			else:
 				row.icon = overrides.get((doc.title, row.label)) or RENAMES.get(row.icon, row.icon)
+				drawn.append(row)
 			if row.icon != old:
 				changes.append((row.label, old, row.icon))
 		seen = {}
-		for row in doc.items:
-			if row.child:
-				continue
+		for row in drawn:
 			where = f"{doc.title} / {row.label}"
 			if row.type in ("Link", "Section Break") and not row.icon:
 				problems.append(f"{where}: no icon")
