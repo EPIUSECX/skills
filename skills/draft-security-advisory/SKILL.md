@@ -63,7 +63,7 @@ That is the whole advisory: the body carries no summary, no root-cause walkthrou
 - PR — None if unauthenticated; Low for any authenticated user or common operational role; High for admin/superuser only.
 - UI — None, unless a victim must take an action.
 - S — Changed when the exploit reaches resources outside the attacker's own authorization scope (cross-tenant data, document types the role cannot normally access).
-- C — High if arbitrary sensitive records are readable; Medium if limited; None otherwise.
+- C — High if arbitrary sensitive records are readable; Low if limited; None otherwise. (CVSS 3.1 has no Medium value for C, I or A.)
 - I — High for arbitrary writes or deletes; Low for constrained or incidental writes; None if read-only.
 - A — High if service disruption is possible; None otherwise.
 

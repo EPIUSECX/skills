@@ -18,8 +18,8 @@ description: >-
 
 - Use bare `bench`. Not `./env/bin/bench`. Not a full path.
 - Do not run `which bench`, `bench --version`, `bench --help`, or check frappe version. No discovery commands.
-- Do not delegate bench detection to a subagent. Run `ls apps/ sites/ Procfile` yourself.
-- Do not create DocType folders with `mkdir`. Frappe creates them via `bench migrate`.
+- Do not delegate bench detection to a subagent. Run `ls apps/ sites/` yourself, and look for `Procfile` or `bench.toml` (a Pilot-managed bench has no Procfile).
+- A new DocType needs its folder with the JSON, an empty `__init__.py`, and a `<name>.py` controller class. `bench migrate` imports the JSON but creates no files, and a missing controller class raises `ImportError`. Or create the DocType in the desk in developer mode, which writes all the files.
 - Run `bench start` in a background process only.
 - Before running `bench start`, check if it's already running in an existing terminal. Do not start a second instance.
 - Always pass `--site <site>` explicitly to bench commands. Never run bare `bench migrate`.
@@ -55,3 +55,5 @@ Load ONLY the references needed for the current task:
 | Testing          | Writing & running tests                      | [testing.md](./references/testing.md)                   |
 | Frontend & UI    | Desk UI, Vue SPA, portal pages           | [frontend.md](./references/frontend.md) (router → 3 sub-files) |
 | Bench CLI        | All bench commands reference                 | [bench-operations.md](./references/bench-operations.md) |
+
+For the Apps-screen tile, the rail (Dock), module Sidebars and desk icons on v16.50, use the `frappe-desk-navigation` skill.

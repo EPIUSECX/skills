@@ -18,7 +18,9 @@ required_apps = ["frappe"]         # apps that must be installed first
 ## App install/uninstall hooks
 
 ```python
+before_install = "myapp.setup.before_install"
 after_install = "myapp.setup.after_install"       # runs after app is installed on a site
+after_app_install = "myapp.setup.after_app_install"  # runs when ANOTHER app is installed; gets its name
 before_uninstall = "myapp.setup.before_uninstall" # runs before app is removed
 after_uninstall = "myapp.setup.after_uninstall"   # runs after app is removed
 ```
@@ -67,7 +69,33 @@ See [background-jobs.md](./background-jobs.md) for details.
 ```python
 app_include_css = "/assets/myapp/css/myapp.css"
 app_include_js = "/assets/myapp/js/myapp.js"
+app_include_icons = ["/assets/myapp/icons/module-icons.svg"]  # SVG sprite for desk icons
+doctype_js = {"Sales Invoice": "public/js/sales_invoice.js"}
+doctype_list_js = {"Sales Invoice": "public/js/sales_invoice_list.js"}
 ```
+
+## Apps screen and desk navigation (v16)
+
+```python
+add_to_apps_screen = [
+    {
+        "name": "myapp",                       # must equal the app name
+        "logo": "/assets/myapp/images/myapp-logo.svg",
+        "title": "My App",                     # about 12 characters fit on the tile
+        "route": "/desk/my-workspace",         # /desk/..., not /app/...
+        "has_permission": "myapp.permissions.has_app_permission",  # no arguments, returns bool
+        "sequence_id": 20,                     # lower sorts first; default 100
+    }
+]
+```
+
+- Frappe uses only the first entry (`apps[0]`) for the tile, the rail and the permission check.
+- `has_permission` also hides the app's rail, not only the tile.
+- `app_home` is used as the route only when the entry has no `route`. `app_home` alone does not add a tile.
+- The logo falls back to `app_logo_url`, then to a letter icon.
+- The rail is a `Dock` record, and module sidebars are `Sidebar` records. They are JSON files, not hooks. See the `frappe-desk-navigation` skill.
+- `code_only_modules` (a list, or a dict of module to heir modules) hides modules from the rail.
+- `/app/...` redirects to `/desk/...`.
 
 ## Override standard classes
 
@@ -88,7 +116,15 @@ class CustomToDo(ToDo):
         # custom logic
 ```
 
-Use sparingly — prefer `doc_events` hooks when possible.
+Use sparingly — prefer `doc_events` hooks when possible. Only the last installed app's `override_doctype_class` entry for a DocType wins. The same is true for `override_whitelisted_methods`.
+
+On v16, prefer `extend_doctype_class`. The mixins of every app stack in front of the base class, so apps do not overwrite each other:
+
+```python
+extend_doctype_class = {
+    "ToDo": ["myapp.overrides.ToDoMixin"]
+}
+```
 
 ## Whitelisted methods exposed via hooks
 
@@ -132,6 +168,7 @@ jinja = {
 
 # Add data to the boot response (loaded on Desk startup)
 boot_session = "myapp.boot.boot_session"
+extend_bootinfo = "myapp.boot.extend_bootinfo"   # called as extend_bootinfo(bootinfo)
 
 # Permission query conditions for list filtering
 permission_query_conditions = {

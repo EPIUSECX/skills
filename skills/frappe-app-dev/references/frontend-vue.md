@@ -15,11 +15,15 @@ apps/<app>/
       router.js        # vue-router setup
       composables/     # Vue composables
     index.html
-    vite.config.ts
+    vite.config.js     # .js, .mjs or .ts
     package.json
     tailwind.config.js
+  package.json         # root: {"scripts": {"build": "cd frontend && yarn build"}} for bench build
   <app>/
     hooks.py           # website_route_rules to serve the SPA
+    www/
+      <route>.html     # the built index.html, copied here by the build
+      <route>.py       # boot context for the page (usually no_cache = 1)
 ```
 
 ## Key dependencies
@@ -41,7 +45,8 @@ export default defineConfig(async () => {
   return {
     plugins: [
       frappeui({
-        frontendRoute: '/myapp',       // route prefix for the SPA
+        frontendRoute: '/myapp',       // route prefix; newer frappe-ui (1.0 betas) only.
+                                        // Older 0.1.x needs buildConfig.indexHtmlPath instead.
         frappeTypes: {                  // auto-generate TypeScript types for DocTypes
           input: {
             myapp: ['my_doctype'],
@@ -91,6 +96,8 @@ Or via bench:
 bench build --app <app-name>
 ```
 
+`bench build` runs `yarn build` in the app root, not in `frontend/`. It works only if the root `package.json` has a `build` script that builds the frontend.
+
 ## Calling Frappe APIs from Vue
 
 frappe-ui provides composables for data fetching:
@@ -107,7 +114,7 @@ const result = useCall({
     console.log(data)
   },
 })
-result.fetch({ status: 'Draft' })  // call manually with params
+result.submit({ status: 'Draft' })  // call with params (fetch() and execute() take none)
 
 // Document list
 const expenses = useList({

@@ -51,7 +51,8 @@ Connect via Socket.IO using the site URL and cookie-based auth:
 ```javascript
 import { io } from "socket.io-client";
 
-const socket = io("http://site.localhost:9000", {
+// The namespace must be /<sitename>, or the server rejects it with "Invalid namespace".
+const socket = io(`http://site.localhost:9000/${sitename}`, {
     withCredentials: true,
     reconnectionAttempts: 5,
 });
@@ -71,5 +72,9 @@ socket.disconnect();
 ```
 
 Port 9000 is the default Socket.IO port in Frappe development (`bench start`).
+
+The server accepts a connection only when the `Origin` host name equals the `Host` host name, and it authenticates with the `sid` cookie or an `Authorization` header. So a page on another origin cannot connect from a browser.
+
+`doc_subscribe` and `doctype_subscribe` are checked against the user's permissions on the server. Room names are `user:<user>`, `doc:<doctype>/<name>`, `doctype:<doctype>`, `task_progress:<id>`, `all` (System Users only) and `website`.
 
 Use `after_commit=True` for events triggered during document saves. Site-wide broadcasts reach Desk users only, not guests or portal users.

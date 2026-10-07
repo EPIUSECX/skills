@@ -72,12 +72,16 @@ filters = [
     ["creation", "between", ["2024-01-01", "2024-12-31"]]
 ]
 
-# Supported operators: =, !=, >, <, >=, <=, like, not like, in, not in, between, is (for NULL)
+# Supported operators: =, !=, >, <, >=, <=, like, not like, ilike, in, not in, between, timespan,
+# regex, is ("set" or "not set" only), descendants of / ancestors of (tree DocTypes)
+["description", "is", "not set"]   # NULL or empty; ["is", "null"] raises ValueError
 ```
 
 ## `frappe.qb.get_query` (preferred for complex queries)
 
 Use instead of `get_all` when you need: joins via linked/child fields, aggregations, OR conditions, subqueries, or record locking. Docs: https://docs.frappe.io/framework/get_query
+
+On v16, `get_all`, `get_list` and `get_query` reject SQL functions written as strings in `fields` (`"sum(amount) as total"`, `"count(name)"`). Use the dict form: `{"SUM": "amount", "as": "total"}`. Use `limit` and `offset`; `limit_page_length`, `limit_start`, `start` and `page_length` are deprecated and go in v17.
 
 ```python
 # Basic usage
@@ -138,12 +142,14 @@ with frappe.db.unbuffered_cursor():
 
 Frappe manages transactions automatically. You almost never need `frappe.db.commit()` or `frappe.db.rollback()`.
 
-- **POST/PUT web requests**: auto-commit after successful completion. GET requests do NOT commit.
+- **POST/PUT/PATCH/DELETE web requests**: auto-commit after successful completion. GET requests roll back (unless `frappe.local.flags.commit` is set). So a whitelisted method that writes should declare `methods=["POST"]`.
 - **Background/scheduled jobs**: auto-commit after successful completion.
 - **Patches**: auto-commit after successful `execute()`.
 - **Uncaught exceptions**: auto-rollback in all contexts (web requests, background jobs, patches).
 
-`frappe.db.commit()` is only needed in rare cases like flushing writes mid-script so a subsequent `frappe.enqueue` call can read them.
+`frappe.db.commit()` is rarely needed. To let a background job read rows that the current transaction writes, use `frappe.enqueue(..., enqueue_after_commit=True)` instead of committing first.
+
+`frappe.db.set_value` on a Single DocType is deprecated. Use `frappe.db.set_single_value`.
 
 ```python
 # Use savepoints for partial rollback within a transaction

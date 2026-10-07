@@ -43,10 +43,11 @@ POST /api/v2/document/Expense/EXP-0001/method/approve
 
 import frappe
 
-@frappe.whitelist()
-def get_expense_summary(status=None):
+@frappe.whitelist(methods=["GET"])
+def get_expense_summary(status: str | None = None):
     filters = {"status": status} if status else {}
-    return frappe.db.get_all("Expense", filters=filters, fields=["name", "title", "amount"])
+    # get_list applies the user's permissions. get_all would return every Expense to any user.
+    return frappe.get_list("Expense", filters=filters, fields=["name", "title", "amount"])
 ```
 
 Call from client JS:
@@ -96,12 +97,16 @@ def public_endpoint():
 
 - **Always add type hints** to whitelisted method parameters. Frappe validates and casts arguments based on type hints, preventing type-confusion attacks:
 ```python
-@frappe.whitelist()
-def create_expense(title: str, amount: float, tags: list | None = None):
+@frappe.whitelist(methods=["POST"])
+def create_expense(title: str, amount: float, tags: str | list | None = None):
     # title is guaranteed to be str, amount is cast to float
-    # Without type hints, all args arrive as untrusted strings
+    tags = frappe.parse_json(tags) if isinstance(tags, str) else tags
     ...
 ```
+
+Type hints are checked on every request; arguments without hints are not checked. `frappe.call` from the desk sends lists and dicts as JSON strings, so a parameter typed only `list` or `dict` rejects a desk call. Type such parameters `str | list` (or `str | dict`) and parse them, as Frappe's own `frappe.client` does. A JSON request body keeps its JSON types. Query-string and form values arrive as strings.
+
+Signature: `frappe.whitelist(allow_guest=False, xss_safe=False, methods=None)`. Without `methods`, GET, POST, PUT and DELETE are allowed (not PATCH). For guests, string arguments are HTML-sanitized unless `xss_safe=True`.
 
 - Use `frappe.form_dict` for raw request data:
 ```python
@@ -110,7 +115,7 @@ data = frappe.form_dict
 
 ## Return values
 
-- Return a dict/list → auto-serialized to JSON under `{"message": <return_value>}`
+- Return a dict/list → auto-serialized to JSON. `/api/method/...` (v1, and `frappe.call`) wraps it as `{"message": <return_value>}`. `/api/v2/...` and `/api/resource/...` wrap it as `{"data": <return_value>}`.
 - For custom HTTP responses:
 ```python
 frappe.response["meta"] = meta
@@ -139,18 +144,27 @@ GET    /api/v2/doctype/<DocType>/count                     # count records
 Response includes `has_next_page` boolean for pagination.
 
 ### Bulk operations
+
+v2 has no bulk routes. Use the v1 RPC methods:
 ```
-POST /api/v2/document/<DocType>/bulk_delete   # body: {"names": [...]}
-POST /api/v2/document/<DocType>/bulk_update   # body: {"docs": [{"name": "...", ...fields}]}
+POST /api/method/frappe.desk.reportview.delete_items   # form: doctype, items (JSON list of names)
+POST /api/method/frappe.client.bulk_update             # form: docs (JSON list, each with "docname")
 ```
 
-Large bulk operations (>20 items by default) are automatically enqueued as background jobs.
+`delete_items` runs as a background job when it gets more than 10 names.
+
+### Other v2 behavior
+
+- `PUT` and `PATCH` on `/api/v2/document/<DocType>/<name>/` both update. `DELETE` returns HTTP 202 with `"ok"`.
+- A document method call checks permission by HTTP verb: GET needs `read`, POST needs `write`. The response has `docs` (the updated document) next to `data`.
+- A static `get_list(query)` method on the controller can change the v2 list query. It gets and must return a query builder object.
+- The v1 surface still works: `/api/method/<dotted.path>` (also `/api/v1/...`) and `/api/resource/<DocType>[/<name>]`. v1 lists use `limit_page_length` (default 20).
 
 Only create custom `@frappe.whitelist()` endpoints for logic that goes beyond CRUD.
 
 ## Specify HTTP methods
 
-Always declare allowed HTTP methods explicitly. Frappe auto-commits only for POST/PUT — GET requests do not commit.
+Always declare allowed HTTP methods explicitly. Frappe commits after POST, PUT, PATCH and DELETE. GET requests roll back, and CSRF is not checked for GET. So a method that writes must not allow GET.
 
 ```python
 @frappe.whitelist(methods=["GET"])

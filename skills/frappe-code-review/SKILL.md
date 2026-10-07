@@ -40,11 +40,13 @@ is not an option"** code.
   Don't degrade working code to accommodate broken code.
 - **Validate the issue before fixing it.** Sometimes the correct fix is "don't
   fix this". Identify the root causes first.
-- **Watch for destructive DB APIs with empty/`None` filters.**
-  `set_value("Site", None, ...)` / `db.delete` with no filter updates/deletes
-  *every* row. These must error, not silently operate on the whole table. Flag
-  any `set_value`/`delete`/`get_value` where the name/filter could be `None` or
-  empty- or attacker-controlled.
+- **Watch for destructive DB APIs with empty filters.** `db.set_value(dt, {}, ...)`
+  or `db.set_value(dt, [], ...)` runs an `UPDATE` with no `WHERE` clause, and
+  `db.delete(dt)`, `db.delete(dt, None)` or `db.delete(dt, {})` empties the whole
+  table. (`db.set_value(dt, None, ...)` on a non-Single doctype silently does
+  nothing.) These must error, not silently operate on the whole table or on
+  nothing. Flag any `set_value`/`delete`/`get_value` whose filter could be `None`,
+  empty, or attacker-controlled.
 - **Check the types in a condition actually match.** A comparison between
   mismatched types (string vs `datetime`, string vs int) silently never matches
   or is always true — cast explicitly (`cint`/`flt`) at the boundary.
@@ -70,8 +72,11 @@ especially hard.
 - **Type confusion is an injection vector even with the ORM.** Frappe accepts
   complex types, so a parameter expected to be a string can arrive as a filter
   list: `{"key": ["!=", ""]}` passed to `db.get_value` bypasses a secret-key
-  check. **Validate input *types* at trust boundaries** — explicit
-  `isinstance(key, str)`. Audit every `@frappe.whitelist` method for this.
+  check. **Validate input *types* at trust boundaries.** On v16, type annotations
+  on a `@frappe.whitelist` method are enforced per request
+  (`validate_argument_types`): `key: str` rejects the filter list above.
+  Un-annotated arguments are not checked at all. Require annotations on every
+  whitelisted method, or an explicit `isinstance(key, str)`.
 - Never `eval`/`exec` anything yourself. `safe_eval`/`safe_exec` only, in limited
   volume, and "safe_exec is not magic." Never accept a client-supplied method
   path to execute.
@@ -87,7 +92,13 @@ especially hard.
 **Access control**
 - "Think 10 times before `allow_guest=True`" — it is not a shortcut around real
   authn/authz. Web pages must apply permissions *before* reading/sharing data.
-  Prefer `get_list`/`get_all` over hand-rolled queries.
+  Use `frappe.get_list` (or `frappe.qb.get_query(..., ignore_permissions=False)`)
+  for user-facing reads. `frappe.get_all` and `frappe.qb.get_query` skip
+  permissions by default, and `get_all` also removes the row limit.
+- **State-changing endpoints declare `methods=["POST"]`.** `@frappe.whitelist()`
+  allows GET by default, CSRF is checked only for unsafe methods, and a GET
+  request is rolled back. A write behind GET is CSRF-able, and it only persists
+  because of an explicit `frappe.db.commit()`, which is itself a smell.
 - **Scope relaxations precisely.** Verify a rate-limit/permission exception
   targets exactly the intended principal — not, say, all non-guest users.
 
@@ -108,6 +119,10 @@ especially hard.
 - Don't inject user input into the DOM. Treat XSS as critical even when it looks
   trivial — HTML/JS injection usually leads to account hijack.
 - Don't fix XSS by sanitizing and throwing away special characters. Prefer escaping right before injecting values in DOM.
+- Flag every switch that turns the built-in filters off: `allow_guest=True,
+  xss_safe=True` on a whitelisted method (guest input is otherwise sanitized), and
+  `ignore_xss_filter` on a new field (field values are otherwise sanitized on
+  save, except Code, JSON and Attach fields).
 
 ## 3. Performance is correctness
 
@@ -206,7 +221,12 @@ perceive ~100ms).
   tribal knowledge are a liability."
 - **Build for extension, not override.** Provide hooks; never monkey-patch
   core at runtime ("inexcusably horrible" — breaks future fixes) and never copy a
-  whole core file to change a few lines (fixes won't propagate).
+  whole core file to change a few lines (fixes won't propagate). On v16, prefer
+  the `extend_doctype_class` hook to `override_doctype_class`: extensions stack in
+  the MRO, so several apps can extend one doctype. Each overridden method must
+  call `super()`. Desk JS that replaces a framework method (for example
+  `frappe.app.sidebar.set_workspace_sidebar`) runs for every app on the site and
+  breaks with the next desk change.
 - **Backward compatibility is an obligation** for mature/public APIs. Follow
   semver; **minor versions = zero breaking changes**. Breaking changes include:
   removing public functions/fields, reordering args, new mandatory args, changed
@@ -223,6 +243,13 @@ perceive ~100ms).
 - **New parameters go last as keyword args with safe defaults** (`None`, not
   `""`) so existing positional callers don't break. When renaming, keep the old
   name as a shim: `def old_name(...): return new_name(...)`.
+- **Shipped JSON edits need a newer `modified`.** `bench migrate` re-imports a
+  module JSON file (Workspace, Report, Sidebar, Dock, ...) only when its
+  `modified` is newer than the database row (DocTypes also compare a hash). A
+  hand edit without a new `modified` merges cleanly and reaches no existing
+  site. The opposite holds for `hooks.fixtures`: those are re-imported with
+  `force=True` on every migrate and overwrite site edits. A standard Workspace
+  can only be edited in developer mode and exported.
 - **Patch hygiene.** Data patches must be **idempotent** (safe to re-run),
   **correctly ordered** (run after the field/doctype they read exists), and live
   in the **right app** (a framework change is patched in the framework, not the

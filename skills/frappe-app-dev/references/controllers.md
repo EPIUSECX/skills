@@ -39,8 +39,9 @@ Called in this order:
 7. (db insert)
 8. `after_insert`
 9. `on_update`
-10. `after_save`
-11. `on_change`
+10. `on_change`
+
+`autoname` is skipped when a Document Naming Rule has already set the name. There is no `after_save` hook.
 
 ### On update (existing document)
 1. `before_validate`
@@ -48,18 +49,22 @@ Called in this order:
 3. `before_save`
 4. (db update)
 5. `on_update`
-6. `after_save`
-7. `on_change`
+6. `on_change`
 
 ### On submit (submittable DocTypes)
 1. `before_validate`
 2. `validate`
-3. `before_save`
-4. `before_submit`
-5. `on_submit`
-6. `on_update`
-7. `after_save`
-8. `on_change`
+3. `before_submit` (`before_save` does not run on submit)
+4. (db update)
+5. `on_update`
+6. `on_submit`
+7. `on_change`
+
+### On update after submit
+1. `before_update_after_submit` (`before_validate` and `validate` do not run)
+2. (db update)
+3. `on_update_after_submit`
+4. `on_change`
 
 ### On cancel
 1. `before_cancel`
@@ -68,7 +73,22 @@ Called in this order:
 
 ### On delete
 1. `on_trash`
-2. `after_delete`
+2. `on_change` (with `self.flags.in_delete = True`)
+3. (link check, then db delete)
+4. `after_delete`
+
+Other hooks: `before_rename` / `after_rename`, and `before_discard` / `on_discard` for the v16 Discard action.
+
+## Extending another app's DocType (v16)
+
+Use the `extend_doctype_class` hook instead of `override_doctype_class`. Extensions stack in the method resolution order, so several apps can extend one DocType. Each overridden method must call `super()`.
+
+```python
+# hooks.py
+extend_doctype_class = {"Sales Invoice": ["my_app.overrides.sales_invoice.SalesInvoiceMixin"]}
+```
+
+Set `export_python_type_annotations = True` in `hooks.py` to have Frappe write a typed field block into each controller when the DocType is saved in developer mode.
 
 ## Common patterns
 
@@ -101,7 +121,7 @@ def on_submit(self):
 
 ### Access flags
 ```python
-# Set a flag to skip validation in specific cases
+# Skip validate and before_save (before_validate still runs)
 doc.flags.ignore_validate = True
 doc.save()
 ```
@@ -117,7 +137,8 @@ doc.save()
   doc.status = "Approved"
   doc.save()
   ```
-- **Don't call `frappe.db.commit()` in controller methods or request handlers.** See the Transactions section in [database](./database.md) reference.
+- **Don't call `frappe.db.commit()` in controller methods or request handlers.** See the Transactions section in [database](./database.md) reference. Inside a `doc_events` handler, commit and rollback are ignored with a warning.
+- **Prefer `frappe.new_doc("Expense")` to `frappe.get_doc({...})` for new records.** `new_doc` applies field defaults, and v16 marks the dict form as not recommended.
 - **Put permission checks inside controller methods**, not in API wrapper helpers. This ensures enforcement regardless of call path (API, desk, background job).
   ```python
   # BAD — check in api.py wrapper
