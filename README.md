@@ -7,6 +7,7 @@ A collection of agent skills for building [Frappe Framework](https://frappeframe
 | Skill | What it covers |
 | ----- | -------------- |
 | `frappe-app-dev` | Full-stack Frappe: DocTypes, controllers, APIs, database/ORM, hooks, permissions, jobs, realtime, caching, testing, app setup, frontend (Desk/Vue/portal), and the bench CLI + site management |
+| `frappe-desk-navigation` | Frappe v16.50 desk navigation for custom apps: Apps-screen tile, rail (Dock), module Sidebars, duotone icons, and logo. Includes an audit script, sidebar tools, and a repair patch for sites that the v16 migration left with one `(Custom)` rail entry |
 | `frappe-code-review` | Review checklist for Frappe applications: correctness, security, performance, concurrency, readability, API design, and testing |
 | `code-style` | General code style rules |
 | `technical-writing` | Write documentation, READMEs, commits, pull requests, and release notes in Simplified Technical English |

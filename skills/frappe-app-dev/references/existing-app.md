@@ -4,15 +4,15 @@ Use this flow when the user wants to extend, modify, or fix an app that already 
 
 ## Step 1: Find and confirm bench root
 
-The bench root is typically the parent of the workspace directory, or the workspace itself. Look for `apps/`, `sites/`, and `Procfile`.
+The bench root is typically the parent of the workspace directory, or the workspace itself. Look for `apps/`, `sites/`, and `Procfile` (or `bench.toml` on a Pilot-managed bench).
 
 ```bash
-ls apps/ sites/ Procfile
+ls apps/ sites/ && ls Procfile bench.toml 2>/dev/null
 ```
 
 If the workspace is inside the app (e.g. user opened `apps/myapp/`), go up:
 ```bash
-ls ../../apps/ ../../sites/ ../../Procfile
+ls ../../apps/ ../../sites/
 ```
 
 ## Step 2: Locate the app
@@ -26,9 +26,10 @@ Find the app directory. Read its module structure:
 ls apps/<app-name>/<app-name>/
 ```
 
-Each subdirectory under the module is a Frappe module (contains DocTypes, etc.):
+The app's modules are the lines in `modules.txt`. Not every subdirectory is a module: `public/`, `templates/`, `www/`, `config/` and `patches/` are not. A module folder has a `.frappe` marker file.
 ```bash
-ls apps/<app-name>/<app-name>/<module-name>/
+cat apps/<app-name>/<app-name>/modules.txt
+ls apps/<app-name>/<app-name>/<module_folder>/
 ```
 
 Do NOT create a second app. Do NOT run `bench new-app`.

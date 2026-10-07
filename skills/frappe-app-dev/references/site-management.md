@@ -3,10 +3,10 @@
 ## Finding existing sites
 
 ```bash
-ls sites/
+ls sites/*/site_config.json
 ```
 
-Ignore these entries: `assets`, `apps.txt`, `common_site_config.json`, `currentsite.txt`. Everything else is a site directory.
+A site is a directory in `sites/` with a `site_config.json`. Other entries (`assets`, `apps.txt`, `apps.json`, `common_site_config.json`, and so on) are not sites.
 
 ## Matching a site to an app
 
@@ -17,7 +17,7 @@ To confirm which apps are on a site:
 bench --site <site> list-apps
 ```
 
-If multiple sites exist, check each until you find the one with the target app installed.
+If multiple sites exist, check each until you find the one with the target app installed. `bench --site all list-apps` checks all sites in one call, but it stops at the first broken site.
 
 ## Creating a new site
 
@@ -35,9 +35,16 @@ bench new-site <name>.localhost --admin-password admin
 
 # Otherwise, pass it explicitly:
 bench new-site <name>.localhost --db-root-password '<pwd>' --admin-password admin
+
+# Install apps at creation time (repeat the flag per app)
+bench new-site <name>.localhost --admin-password admin --install-app <app-name>
 ```
 
-Naming convention: `<app-name>.localhost` (e.g. `expense_tracker.localhost`).
+Without a root password in config or on the command line, `new-site`, `restore` and `drop-site` ask for it interactively, which hangs a non-interactive agent.
+
+Naming convention: `<app-name>.localhost` with hyphens, not underscores (e.g. `expense-tracker.localhost`). Underscores are not valid in host names.
+
+A new site is not reachable on its own host name through `bench start` while `default_site` is set: the dev server serves the default site for every host. See [bench-operations.md](./bench-operations.md).
 
 ## Other site commands
 

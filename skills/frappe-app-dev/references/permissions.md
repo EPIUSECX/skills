@@ -19,7 +19,7 @@ Define in the DocType JSON under `permissions`:
 }
 ```
 
-Permission levels: `read`, `write`, `create`, `delete`, `submit`, `cancel`, `amend`, `print`, `email`, `share`, `export`, `import`, `report`.
+Permission types: `select`, `read`, `write`, `create`, `delete`, `submit`, `cancel`, `amend`, `print`, `email`, `share`, `export`, `import`, `report`, and `mask` (see masked values). These are not permission levels: `permlevel` (0-9) is a separate field that groups fields.
 
 ## Custom roles
 
@@ -33,7 +33,7 @@ Create a Role DocType JSON:
 }
 ```
 
-Place at: `apps/<app>/<app>/<module>/role/expense_user/expense_user.json`
+Migrate does not import a Role JSON file by default. It imports `apps/<app>/<app>/<module>/role/expense_user/expense_user.json` only if `hooks.py` has `importable_doctypes = ["Role"]`. The usual way is fixtures:
 
 Or use fixtures in `hooks.py`:
 ```python
@@ -85,15 +85,26 @@ Add `"if_owner": 1` to a permission rule to restrict users to their own document
 }
 ```
 
-## `has_permission` controller hook
+## `has_permission` hook
+
+Register the check in `hooks.py`. Do not define `has_permission` on the controller class: that overrides `Document.has_permission`, skips the role checks, and is not called by `frappe.has_permission`, list views or `get_list`.
 
 ```python
-class Expense(Document):
-    def has_permission(self, permtype, user=None):
-        if permtype == "read" and self.department == get_user_department(user):
-            return True
-        return False
+# hooks.py
+has_permission = {
+    "Expense": "myapp.permissions.expense_has_permission",
+}
 ```
+
+```python
+# myapp/permissions.py
+def expense_has_permission(doc, ptype, user):
+    if ptype == "read" and doc.department != get_user_department(user):
+        return False
+    return True  # required: None also denies
+```
+
+The hook can only deny. It cannot grant a permission the roles do not give. Any falsy return, `None` included, denies, so return `True` explicitly. The hooks of all apps run, and the `"*"` key applies to every DocType.
 
 ## Row-level filtering on list views (`get_query_conditions`)
 
@@ -118,6 +129,10 @@ def expense_query_conditions(user=None):
     return f"`tabExpense`.`owner` = {frappe.db.escape(user)}"
 ```
 
-Return a SQL WHERE clause fragment (string), or `""` for no restriction. Return `False` to deny all access.
+Return a SQL WHERE clause fragment (string). Any falsy return (`""`, `None`, `False`) adds no condition, so it means no restriction. To deny all rows, return `"1=0"`.
+
+The handler is called as `(user, doctype=...)`. The `"*"` key applies to every DocType. Permission Query server scripts add their conditions too.
+
+`frappe.get_all` and `frappe.db.get_all` skip these conditions. Only `frappe.get_list` applies them.
 
 Pair with `has_permission` for complete coverage — `permission_query_conditions` filters lists, `has_permission` guards individual documents.

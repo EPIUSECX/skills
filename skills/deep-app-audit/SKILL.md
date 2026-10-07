@@ -217,7 +217,8 @@ lets verifiers send real requests. Without it, the audit reads the source only.
    `ignore_csrf`, `developer_mode`, `allow_tests`, `server_script_enabled`,
    `disable_website_cache`, `maintenance_mode`, and every `*_disabled` or `allow_*` key, with its
    value. Mark each key whose value disables or loosens a control as `weakens: true`, with one
-   line on the effect. A bench with `ignore_csrf: 1` accepts a cross-site request that
+   line on the effect. Frappe reads `server_script_enabled` only from
+   `common_site_config.json`. In `site_config.json` it has no effect, so do not mark it there. A bench with `ignore_csrf: 1` accepts a cross-site request that
    production rejects, so a 200 from it proves nothing about production.
 8. Prove that the site works:
    - `curl -sS -o /dev/null -w '%{http_code}' <base url>/api/method/ping` returns 200
