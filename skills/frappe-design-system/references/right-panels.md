@@ -37,7 +37,7 @@ Source: `frontend/src/components/SidePanelLayout.vue` at `47bb9417bd74`.
 - Section padding `p-1` / `sm:p-3`
 - Collapsible header `h-8`, label semibold, horizontal padding 8px
 - Fields: `gap-1.5`, row padding `px-3`, label column `w-[35%]` min 20, value `w-[65%]`
-- Label 13px `--ink-gray-5`. Value 14px, min-height 28px
+- Label 14px / 420 `--ink-gray-6` on a Desk form. CRM side-panel labels are the 35/65 row in `SidePanelLayout.vue`. Value 14px, min-height 28px
 - Required mark `--ink-red-4` (the class in the file is `text-ink-red-4`)
 
 Cargo `SidePanel.vue` is a third width: `w-[22rem]` (352px) and a 52px header (`h-[3.25rem]`). That is app-specific. It is not the form sidebar and not the CRM field grid. New record panels in this system use 277px or the CRM 35/65 rows inside that column. Do not add another width.

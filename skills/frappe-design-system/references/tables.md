@@ -11,7 +11,7 @@ The User list at 1440×900 (`assets/screenshots/list-user-1440x900.png`):
 - Measured data row at 1440, 1280, and 1920: border box 41px. The children are 40px (`.level-left` padding `5px 0`, `.level-right` padding `9px 10px`, line-height 21px) plus a 1px bottom border. Trace: `references/visual-audit/list-row-trace.json`.
 - At 390×844 the same row measured 67px tall. `--grid-padding: 10px 8px` is the grid form, not this list.
 
-Type: 14px, weight 420. Header labels are quieter (`--ink-gray-5`, 13px in the example tables).
+Type: 14px. The row is weight 420. The subject link is weight 600 and `--ink-gray-8`. Header labels are 14px, weight 400, `--ink-gray-6`. Below 576px the row is 67px and grows a 14px meta line (`list.scss`).
 
 ## Selection and sort
 

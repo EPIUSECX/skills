@@ -8,9 +8,9 @@
 | `--input-padding` | `6px 8px` | `espresso/_spacing.scss` |
 | `--btn-height` | 28px | same file, legacy |
 | Radius | 8px (`--radius`) | Espresso |
-| Border | 1px `--outline-gray-2` | outline buttons and inputs |
-| Focus | `--focus-outline-default` | `effects.css` |
-| Label | 13px `--ink-gray-5`, 6px under the label (`gap-1.5` on the login form) | login HTML, measured page |
+| Border | none on a text input. 1px `--outline-gray-2` on an outline button | measured User form |
+| Focus | `0 0 0 2px rgba(124,124,124,0.25)` | measured. `--focus-outline-default` is a different ring |
+| Label | 14px / 420 `--ink-gray-6`, 6px above the control | measured User form |
 | Helper | 12px `--ink-gray-5` | |
 | Error | `--red-500` text, `--focus-outline-red` on the control | button.css `aria-invalid` |
 
@@ -25,7 +25,7 @@ The User form and the Item form in the reference screenshot share this chrome. N
 | Page head border box | 49px (x=281) | token 48px plus the bottom border |
 | Tab strip `.form-tabs-list` | y=49, height 42, radius `10px 10px 0 0`, width 871 (stops at the sidebar) | `form.scss` |
 | Tab link | padding `10px 0`, horizontal margin 15px (`--margin-md`) | `form.scss` |
-| Active tab | 1px bottom border, computed weight 400 | the rule literally sets `font-weight: 400`. New UI keeps weight 420 |
+| Active tab | 1px bottom border, weight 400, `--ink-gray-8` | `form.scss` sets `font-weight: 400`. Keep 400 here. 420 is for body text |
 | Inactive tab | `--text-light` | |
 | Section body | padding-top 12px | `.form-section > .section-body:first-child` |
 | Columns | a `col-sm-12` section, then `col-sm-4` columns at 280px | Bootstrap 12-column grid. The Item screenshot uses two `col-sm-6` columns |
@@ -33,7 +33,7 @@ The User form and the Item form in the reference screenshot share this chrome. N
 | Form sidebar | x=1153, width 277 | `--form-sidebar-width` |
 | Letter mark | 80×80, radius `--radius-lg` (12px), initials at 40px | `.standard-image` in `form_sidebar.scss`. Hidden when the record has no image (`sidebar-image hide` measured 0×0 on User) |
 
-The header holds the breadcrumb, the document title, the status badge, and the actions (outline Duplicate, previous, next, more, solid Save) on one 48px row. Do not add a second title under the tabs.
+The header holds the breadcrumb, the document title, the status badge, and the actions (subtle Duplicate, previous, next, more, solid Save) on one 49px row. Duplicate is the default subtle button, not an outline button. Do not add a second title under the tabs.
 
 `examples/record-form/index.html` is that page, using the Item screenshot as the content.
 

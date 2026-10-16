@@ -47,9 +47,12 @@ Letter-spacing on `.text-base` is `0.015em`. The SCSS map still has older values
 
 | Role | Style |
 | --- | --- |
-| Page title in the header | 14px, weight 500, `--ink-gray-8` |
+| Page title (breadcrumb) | 16px, weight 500, current crumb `--ink-gray-9`, parent `--ink-gray-5` |
 | Section title | 14px, weight 500 |
-| Field label | 13px, `--ink-gray-5` |
-| Field value | 14px, `--ink-gray-8` |
+| Sidebar row | 13px, weight 420, `--ink-gray-6` |
+| Field label | 14px, weight 420, `--ink-gray-6`, 6px above the control |
+| Field value | 14px, `--ink-gray-8`. Required input text is weight 600 |
+| List header label | 14px, weight 400, `--ink-gray-6` |
+| Form tab | 14px, weight 400 |
 | Meta / helper | 12px, `--ink-gray-5` |
-| Metric number | 20px, weight 500, line-height 1.15 |
+| Metric number | 17px, weight 600, line-height 1.35, `--ink-gray-8` |

@@ -76,9 +76,9 @@ Light: `--focus-outline-default: 2px solid #c9c9c9e5`. Also red, green, amber, b
 
 Resting surfaces have no shadow. Elevations in `effects.css` are for floating layers:
 
-- `--shadow-sm` — active dock tile, small raised control
-- `--shadow-md` — modal (`--modal-shadow`)
+- `--shadow-sm` — v16.52 active dock tile, active sidebar row
+- Dialog — `0 5px 10px rgba(0,0,0,0.1)` (`$modal-content-box-shadow-sm-up`). Not `--shadow-md`
 - `--shadow-lg` — `.side-panel`
-- `--shadow-2xl` — floating dock
+- `--shadow-2xl` — floating dock and `.dropdown-menu`
 
 A dashboard card does not get `--shadow-md`.
