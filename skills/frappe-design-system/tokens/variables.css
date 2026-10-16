@@ -1,9 +1,17 @@
 /* Espresso subset for standalone pages.
- * Values are copied from Frappe v16.52.0 (4515014), file frappe/public/css/espresso/*.css
+ * Light values are copied from Frappe v16.52.0 (4515014), frappe/public/css/espresso/*.css
  * and the Desk layout partials. They are not a new token system.
- * Dark theme values are in the same Frappe files under [data-theme="dark"] and are
- * not repeated here. See tokens/tokens.json for the full light extraction.
+ * Dark values below were computed on the same bench after setting data-theme="dark".
+ * See tokens/tokens.json for the full light extraction.
  */
+
+@font-face {
+  font-family: InterVariable;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../assets/fonts/InterVariable.woff2") format("woff2");
+}
 
 :root {
   --spacing: 0.25rem;
@@ -67,6 +75,7 @@
   --radius-4: 8px;
   --radius: 8px;
   --radius-md: 10px;
+  --radius-lg: 12px;
   --radius-full: 9999px;
 
   --shadow-sm: inset 0px 0.25px 1.5px 0px #ffffff29, 0px 0px 1px 0px #00000033, 0px 1px 3px 0px #00000024;
@@ -99,4 +108,19 @@
   --dock-gap: 4px;
   --dock-pad: 8px;
   --dock-radius: 8px;
+}
+
+/* Computed on ess.localhost with data-theme="dark". Page surface painted #171717. */
+:root[data-theme="dark"] {
+  --surface-base: #171717;
+  --surface-sidebar: #ffffff00;
+  --surface-gray-1: #1f1f1f;
+  --surface-gray-2: #242424;
+  --ink-gray-8: #d9d9d9;
+  --ink-gray-5: #7a7a7a;
+  --ink-base: #171717;
+  --outline-gray-1: #242424;
+  --gray-900: #1f1f1f;
+  --desk-sidebar-bg: #1f1f1f;
+  --focus-outline-default: 3px solid #464646cc;
 }

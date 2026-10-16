@@ -1,0 +1,10 @@
+{
+  "url": "http://127.0.0.1:8000/desk/accounts/accounting",
+  "title": "Accounting",
+  "found": true,
+  "cls": "widget onboarding-widget-box",
+  "w": 864,
+  "h": 589,
+  "pad": "16px 12px",
+  "radius": "12px"
+}

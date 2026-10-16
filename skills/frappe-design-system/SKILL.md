@@ -87,7 +87,9 @@ Pick the dock profile for the Desk version you are matching:
 | Example | What it proves |
 | --- | --- |
 | [examples/dashboard](examples/dashboard/index.html) | Compact metric row and a 20×42 dashboard grid |
-| [examples/detail-view](examples/detail-view/index.html) | List, filters, and a 277px detail panel |
+| [examples/detail-view](examples/detail-view/index.html) | List, filters, and a 277px detail panel. Data rows are 41px |
+| [examples/record-form](examples/record-form/index.html) | Item form chrome: tabs, two columns, 80px mark, 277px panel |
+| [examples/modal](examples/modal/index.html) | 575px dialog |
 | [examples/standalone-frontend](examples/standalone-frontend/index.html) | Dock, 224px sidebar, 48px header |
 | [examples/desk-page](examples/desk-page/page.js) | Mode A page that does not draw a shell |
 | [examples/right-panel](examples/right-panel/index.html) | CRM field rows inside the 277px panel |

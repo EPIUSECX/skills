@@ -1,0 +1,74 @@
+{
+  "dialog": {
+    "w": 575,
+    "h": 221,
+    "x": 433,
+    "y": 28,
+    "pad": "0px",
+    "radius": "0px",
+    "shadow": "none",
+    "fs": "14px",
+    "fw": "420",
+    "bg": "rgba(0, 0, 0, 0)"
+  },
+  "content": {
+    "w": 575,
+    "h": 221,
+    "x": 433,
+    "y": 28,
+    "pad": "0px",
+    "radius": "12px",
+    "shadow": "rgba(0, 0, 0, 0.1) 0px 5px 10px 0px",
+    "fs": "14px",
+    "fw": "420",
+    "bg": "rgb(255, 255, 255)"
+  },
+  "header": {
+    "w": 573,
+    "h": 47,
+    "x": 434,
+    "y": 29,
+    "pad": "7px 15px",
+    "radius": "11px 11px 0px 0px",
+    "shadow": "none",
+    "fs": "14px",
+    "fw": "420",
+    "bg": "rgb(255, 255, 255)"
+  },
+  "body": {
+    "w": 573,
+    "h": 113,
+    "x": 434,
+    "y": 76,
+    "pad": "15px",
+    "radius": "0px",
+    "shadow": "none",
+    "fs": "14px",
+    "fw": "420",
+    "bg": "rgba(0, 0, 0, 0)"
+  },
+  "input": {
+    "w": 543,
+    "h": 28,
+    "x": 449,
+    "y": 130,
+    "pad": "6px 8px",
+    "radius": "8px",
+    "shadow": "rgba(124, 124, 124, 0.25) 0px 0px 0px 2px",
+    "fs": "14px",
+    "fw": "600",
+    "bg": "rgb(243, 243, 243)"
+  },
+  "primary": {
+    "w": 72,
+    "h": 28,
+    "x": 920,
+    "y": 205,
+    "pad": "1px 8px",
+    "radius": "8px",
+    "shadow": "none",
+    "fs": "14px",
+    "fw": "420",
+    "bg": "rgb(23, 23, 23)"
+  }
+}

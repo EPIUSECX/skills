@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Workout Card 10 sessions</title>
+  <link rel="stylesheet" href="../../tokens/variables.css" />
+  <link rel="stylesheet" href="../../assets/templates/shell.css" />
+  <style>
+    .page-head .title-line { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .page-title { white-space: nowrap; }
+    .icon-btn { width: 28px; height: 28px; padding: 0; }
+    .section-label { grid-column: 1 / -1; margin: 12px 0 0; font-size: var(--text-base); font-weight: var(--font-weight-medium); }
+    .panel .who { padding: 12px 15px 8px; }
+    .panel .who h2 { font-size: var(--text-base); font-weight: var(--font-weight-medium); margin: 8px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="dock" aria-label="Apps">
+      <button class="dock-tile" type="button" aria-current="page" aria-label="Stock">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2"/></svg>
+      </button>
+    </aside>
+    <aside class="sidebar" aria-label="Stock">
+      <h1>Stock</h1>
+      <a class="nav-item" href="#search">Search</a>
+      <a class="nav-item" href="#home">Home</a>
+      <a class="nav-item" href="#dashboard">Dashboard</a>
+      <a class="nav-item" aria-current="page" href="#item">Item</a>
+      <a class="nav-item" href="#warehouse">Warehouse</a>
+      <a class="nav-item" href="#entry">Stock Entry</a>
+      <a class="nav-item" href="#receipt">Purchase Receipt</a>
+      <a class="nav-item" href="#delivery">Delivery Note</a>
+    </aside>
+    <div class="main">
+      <header class="page-head">
+        <div class="title-line">
+          <div class="crumbs">Item /</div>
+          <div class="page-title">Workout Card 10 sessions</div>
+          <span class="badge" data-theme="green">Enabled</span>
+        </div>
+        <div class="actions">
+          <button class="es-btn" data-variant="outline" type="button">Duplicate</button>
+          <button class="es-btn icon-btn" type="button" aria-label="Previous">‹</button>
+          <button class="es-btn icon-btn" type="button" aria-label="Next">›</button>
+          <button class="es-btn icon-btn" type="button" aria-label="More">…</button>
+          <button class="es-btn" data-variant="solid" type="button">Save</button>
+        </div>
+      </header>
+      <div class="content">
+        <div class="work">
+          <div class="canvas" style="display:flex;flex-direction:column;padding:0">
+            <nav class="tabs" aria-label="Form sections">
+              <a href="#details" aria-current="page">Details</a>
+              <a href="#accounting">Accounting</a>
+              <a href="#uom">UOM</a>
+              <a href="#tax">Tax</a>
+              <a href="#purchasing">Purchasing</a>
+              <a href="#sales">Sales</a>
+              <a href="#quality">Quality</a>
+              <a href="#pricing">Pricing</a>
+              <a href="#connections">Connections</a>
+            </nav>
+            <div style="padding:12px">
+            <div class="form-grid">
+              <div>
+                <label class="control-label" for="item-name">Item Name</label>
+                <div class="control" id="item-name">Workout Card 10 sessions</div>
+              </div>
+              <label class="check"><input type="checkbox" /> <span>Disabled</span></label>
+              <div>
+                <label class="control-label">Xero Item ID</label>
+                <div class="control">4b4de99d-4c5b-4784-88e0-0e698cd5575d</div>
+              </div>
+              <div>
+                <label class="check"><input type="checkbox" /> <span>Maintain Stock</span></label>
+                <p class="help">ERPNext will make a stock ledger entry for each transaction of this item. Keep unchecked for non-stock or service items.</p>
+              </div>
+              <div>
+                <label class="control-label">Xero Sync Status</label>
+                <div class="control">Synced</div>
+              </div>
+              <label class="check"><input type="checkbox" /> <span>Is Fixed Asset</span></label>
+              <div>
+                <label class="control-label">Item Group</label>
+                <div class="control">Consumable</div>
+              </div>
+              <div></div>
+              <label class="check"><input type="checkbox" /> <span>Is Zero Rated</span></label>
+              <div>
+                <label class="control-label">South Africa VAT Category</label>
+                <div class="control"></div>
+                <p class="help">Used to support VAT201 classification and tax invoice checks.</p>
+              </div>
+              <div>
+                <label class="control-label">Default Unit of Measure</label>
+                <div class="control">Nos</div>
+              </div>
+              <h2 class="section-label">Item Attributes</h2>
+              <label class="check"><input type="checkbox" checked /> <span>Allow Sales</span></label>
+              <label class="check"><input type="checkbox" checked /> <span>Allow Purchase</span></label>
+              <label class="check"><input type="checkbox" /> <span>Allow Alternative Item</span></label>
+              <label class="check"><input type="checkbox" /> <span>Is Customer Provided Item</span></label>
+            </div>
+            </div>
+          </div>
+          <aside class="panel" aria-label="Details">
+            <div class="who">
+              <div class="avatar-tile" aria-hidden="true">WC</div>
+              <h2>Workout Card 10 sessions</h2>
+            </div>
+            <div class="side-link">Assign <span>+</span></div>
+            <div class="side-link">Attachments <span>+</span></div>
+            <div class="side-link">Tags <span>+</span></div>
+            <div class="side-link">Share <span>+</span></div>
+            <div class="side-meta">Last Edited By You<strong>18 hours ago</strong></div>
+            <div class="side-meta">Created By Christiaan Swart<strong>3 months ago</strong></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

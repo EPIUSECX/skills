@@ -1,0 +1,121 @@
+{
+  "head": {
+    "sel": ".page-head",
+    "x": 281,
+    "y": 0,
+    "w": 1149,
+    "h": 49,
+    "pad": "0px",
+    "fs": "14px",
+    "fw": "420",
+    "radius": "0px",
+    "bg": "rgb(255, 255, 255)"
+  },
+  "tabs": {
+    "sel": ".form-tabs-list",
+    "x": 281,
+    "y": 49,
+    "w": 871,
+    "h": 42,
+    "pad": "0px",
+    "fs": "14px",
+    "fw": "420",
+    "radius": "10px 10px 0px 0px",
+    "bg": "rgb(255, 255, 255)"
+  },
+  "tabLinks": [
+    {
+      "text": "User Details",
+      "h": 41,
+      "pad": "10px 0px 9px",
+      "fw": "400",
+      "active": true
+    },
+    {
+      "text": "Roles & Permissions",
+      "h": 41,
+      "pad": "10px 0px",
+      "fw": "400",
+      "active": false
+    },
+    {
+      "text": "More Information",
+      "h": 41,
+      "pad": "10px 0px",
+      "fw": "400",
+      "active": false
+    },
+    {
+      "text": "Settings",
+      "h": 41,
+      "pad": "10px 0px",
+      "fw": "400",
+      "active": false
+    },
+    {
+      "text": "Connections",
+      "h": 41,
+      "pad": "10px 0px",
+      "fw": "400",
+      "active": false
+    },
+    {
+      "text": "Sessions",
+      "h": 41,
+      "pad": "10px 0px",
+      "fw": "400",
+      "active": false
+    }
+  ],
+  "sidebar": {
+    "sel": ".form-sidebar",
+    "x": 1153,
+    "y": 49,
+    "w": 277,
+    "h": 482,
+    "pad": "0px",
+    "fs": "13px",
+    "fw": "420",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)"
+  },
+  "avatar": {
+    "w": 0,
+    "h": 0,
+    "cls": "sidebar-image hide"
+  },
+  "cols": [
+    {
+      "w": 841,
+      "h": 33,
+      "cls": "form-column col-sm-12"
+    },
+    {
+      "w": 280,
+      "h": 284,
+      "cls": "form-column col-sm-4"
+    },
+    {
+      "w": 280,
+      "h": 284,
+      "cls": "form-column col-sm-4"
+    },
+    {
+      "w": 280,
+      "h": 284,
+      "cls": "form-column col-sm-4"
+    }
+  ],
+  "section": {
+    "sel": ".form-section .section-body",
+    "x": 296,
+    "y": 101,
+    "w": 841,
+    "h": 45,
+    "pad": "12px 0px 0px",
+    "fs": "14px",
+    "fw": "420",
+    "radius": "0px",
+    "bg": "rgba(0, 0, 0, 0)"
+  }
+}

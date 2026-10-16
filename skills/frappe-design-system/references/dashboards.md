@@ -31,7 +31,7 @@ Four metrics in one row, 8px gap. On a 768px window, two columns. On a 390px win
 
 ## Workspace cards
 
-Desk workspace cards (links, charts, shortcuts) use the same border and radius. A chart sits in a card with 12px padding, not in a hero panel.
+The Accounting workspace at `/desk/accounts/accounting` (`assets/screenshots/workspace-1440x900.png`) rendered an onboarding widget at 864×589, padding `16px 12px`, radius 12px. That padding is the widget's own, larger than a number card. Number cards stay on `--number-card-padding`. A chart sits in a card with 12px padding.
 
 ## Mistakes
 
