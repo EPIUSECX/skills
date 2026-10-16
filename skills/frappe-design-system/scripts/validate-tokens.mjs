@@ -36,6 +36,7 @@ for (const key of [
   '--ink-gray-9: #0f0f0f', '--ink-gray-6: #525252', '--surface-gray-2: #f3f3f3', '--focus-ring: rgba(124, 124, 124, 0.25)',
   '--icon-xs: 12px', '--icon-sm: 16px', '--icon-md: 20px', '--icon-lg: 24px',
   '--dock-tile: 34px', '--dock-radius: 8px', '--dock-icon: 22px',
+  '--dock-logo-height: calc(var(--page-head-height) + 1px)', '--dock-items-pad: 12px', '--dock-items-bleed: 11px',
 ]) {
   expect(light.includes(key), `:root missing ${key}`)
 }

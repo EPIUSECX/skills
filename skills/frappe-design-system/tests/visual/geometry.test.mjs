@@ -49,6 +49,9 @@ async function measure(name) {
     return {
       dock: w('.dock'),
       tile: w('.dock-items .dock-tile'),
+      logoY: rect('.dock-logo') ? Math.round(rect('.dock-logo').y) : null,
+      logoH: h('.dock-logo'),
+      firstTileY: rect('.dock-items .dock-tile') ? Math.round(rect('.dock-items .dock-tile').y) : null,
       sidebar: w('.sidebar'),
       navRow: h('.nav-item'),
       header: h('.page-head'),
@@ -86,7 +89,7 @@ fs.writeFileSync(path.join(root, 'tests/visual/example-geometry.json'), JSON.str
 console.log(JSON.stringify(result, null, 2))
 
 // Default profile is v16.52. null means "element not on this page".
-const expect = { dock: 57, tile: 34, sidebar: 224, navRow: 28, header: 49, panel: 277, listHead: 30, listRow: 41, tabs: 42, modal: 575, button: 28, input: 28, cardPad: '12px 16px', cardRadius: '12px' }
+const expect = { dock: 57, tile: 34, logoY: 0, logoH: 49, firstTileY: 61, sidebar: 224, navRow: 28, header: 49, panel: 277, listHead: 30, listRow: 41, tabs: 42, modal: 575, button: 28, input: 28, cardPad: '12px 16px', cardRadius: '12px' }
 const problems = []
 for (const [name, got] of Object.entries(result)) {
   for (const [key, want] of Object.entries(expect)) {

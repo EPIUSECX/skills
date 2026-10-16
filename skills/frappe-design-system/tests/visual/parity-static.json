@@ -42,6 +42,30 @@
           ]
         },
         {
+          "name": "dock logo band",
+          "ref": ".dock-logo",
+          "cand": ".dock-logo",
+          "props": ["x", "y", "w", "h"]
+        },
+        {
+          "name": "dock logo mark",
+          "ref": ".dock-logo img",
+          "cand": ".dock-mark",
+          "props": ["x", "y", "w", "h"]
+        },
+        {
+          "name": "dock items",
+          "ref": ".dock-items",
+          "cand": ".dock-items",
+          "props": ["x", "y", "w", "h", "padding-top", "padding-bottom"]
+        },
+        {
+          "name": "dock first tile",
+          "ref": ".dock-item",
+          "cand": ".dock-items .dock-tile",
+          "props": ["x", "y", "w", "h"]
+        },
+        {
           "name": "dock tile",
           "ref": ".dock-item:not(.active)",
           "cand": ".dock-items .dock-tile:not([aria-current])",

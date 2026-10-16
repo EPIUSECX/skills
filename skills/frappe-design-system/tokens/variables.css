@@ -113,6 +113,18 @@
   --dock-tile-active: var(--surface-elevation-3);
   --dock-tile-active-shadow: var(--shadow-sm);
   --dock-rule: var(--outline-gray-2);
+  /* The mark sits in a band the height of the page head. The rule is that band's bottom border.
+     Items then start 12px below it (dock.scss: margin-top -4px cancels the tray gap, padding-top 12px). */
+  --dock-logo-height: calc(var(--page-head-height) + 1px);
+  --dock-logo-shift: -8px;
+  --dock-logo-margin-bottom: 0px;
+  --dock-logo-border: 1px solid var(--outline-gray-1);
+  --dock-items-shift: -4px;
+  --dock-items-pad: 12px;
+  /* Pinned scroller cancels the 11px side pad so an active tile's shadow is not clipped, and keeps 4px under the last tile. */
+  --dock-items-bleed: 11px;
+  --dock-items-pad-bottom: 4px;
+  --dock-rule-display: none;
 }
 
 /* Dock, v16.50.0. Hover changes ink only; active is a translucent fill.
@@ -130,6 +142,16 @@
   --dock-tile-active: rgba(0, 0, 0, 0.12);
   --dock-tile-active-shadow: none;
   --dock-rule: rgba(0, 0, 0, 0.12);
+  /* v16.50: the mark is a tile, and a 24px rule sits between it and the modules. */
+  --dock-logo-height: var(--dock-tile);
+  --dock-logo-shift: 0px;
+  --dock-logo-margin-bottom: -4px;
+  --dock-logo-border: 0;
+  --dock-items-shift: 0px;
+  --dock-items-pad: 0px;
+  --dock-items-bleed: 0px;
+  --dock-items-pad-bottom: 0px;
+  --dock-rule-display: block;
 }
 
 /* Computed on ess.localhost after setting data-theme="dark" and letting transitions finish. */

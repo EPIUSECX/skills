@@ -33,6 +33,7 @@ Different:
 | Tile hover | Ink only. No fill. The SCSS comment says "a step in ink and no fill" | Fill `--surface-gray-2`, ink `--ink-gray-7` |
 | Active fill | `rgba(0,0,0,0.12)` | `--surface-elevation-3` plus `--shadow-sm` |
 | Glyph | 20px Lucide, 24px duotone | 22px `.icon-rail` |
+| Mark | 40px tile, then a 24×1 rule (`margin: 2px auto 6px`) | 49px band (page head + 1px border). 32×32 logo at y=8. First tile at y=61 (12px below the rule) |
 
 `--dock-tile-hover` (`rgba(0,0,0,0.07)` in light) is the user-menu button fill, not the tile hover.
 

@@ -20,7 +20,7 @@ The supported range is Frappe Desk 16.50 and later. It is not locked to 16.50. v
 | Release | Commit | Dock |
 | --- | --- | --- |
 | v16.50.0, oldest profile | `f20f92d29706510551b4438cc196b0323a7f1a92` | Tile 40px, gap 6px, radius 12px. Set `data-dock="v16.50"` |
-| v16.52.0, latest measured, the default | `4515014c87ece6cb20ee91d2cfb121c5cbd1ff4a` | Tile 34px, gap 4px, radius 8px |
+| v16.52.0, latest measured, the default | `4515014c87ece6cb20ee91d2cfb121c5cbd1ff4a` | Tile 34px, gap 4px, radius 8px. Logo band 49px, first tile at y=61 |
 
 Sidebar 224px, collapsed sidebar 48px, pinned dock outer width 57px, page head border box 49px, and the Espresso color and spacing scales are the same across this range. The dock is the piece that moves. When a later 16.x release changes it, add a profile. Do not invent a third tile size. Copy numbers from [references/measured-desk.md](references/measured-desk.md).
 

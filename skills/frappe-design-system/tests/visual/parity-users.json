@@ -42,6 +42,30 @@
           ]
         },
         {
+          "name": "dock logo band",
+          "ref": ".dock-logo",
+          "cand": ".desk-dock-logo",
+          "props": ["x", "y", "w", "h"]
+        },
+        {
+          "name": "dock logo mark",
+          "ref": ".dock-logo img",
+          "cand": ".desk-dock-logo span",
+          "props": ["x", "y", "w", "h"]
+        },
+        {
+          "name": "dock items",
+          "ref": ".dock-items",
+          "cand": ".desk-dock-items",
+          "props": ["x", "y", "w", "h", "padding-top", "padding-bottom"]
+        },
+        {
+          "name": "dock first tile",
+          "ref": ".dock-item",
+          "cand": ".desk-dock-items .desk-dock-tile",
+          "props": ["x", "y", "w", "h"]
+        },
+        {
           "name": "dock tile",
           "ref": ".dock-item:not(.active)",
           "cand": ".desk-dock-items .desk-dock-tile:not(.active)",

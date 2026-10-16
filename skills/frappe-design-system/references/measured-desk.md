@@ -23,6 +23,10 @@ v16.50 source (`dock.scss` at `f20f92d`): tile 40px, gap 6px, base padding 8px, 
 
 v16.52, measured: padding `8px 11px 12px`, tile 34px, radius 8px, gap 4px, idle ink `--ink-gray-5`, hover fill `--surface-gray-2` with ink `--ink-gray-7`, active `--surface-elevation-3` plus `--shadow-sm`. Glyph `.icon-rail` is 22px.
 
+The mark is not a tile. `.dock-logo` is a 49px band (`--page-head-height` plus the 1px rule), `margin-top: -8px` so it sits on the window edge, and `border-bottom: 1px solid var(--outline-gray-1)`. The 32×32 logo is centered in that band (y=8). `.dock-items` then uses `margin-top: -4px` (cancels the tray gap) and `padding-top: 12px`, so the first tile is at y=61. On a pinned dock the scroller is `width: calc(100% + 22px)` with `margin-inline: -11px` and `padding-bottom: 4px`, which lets the active tile's shadow clear the padding.
+
+v16.50 keeps the mark as a 40px tile. The divider is `.dock-logo + .dock-items::before`: 24×1, `margin: 2px auto 6px`. Pinned `.dock-logo { margin-bottom: -4px }`. There is no 49px band.
+
 The default profile is v16.52. Set `data-dock="v16.50"` on `:root` for the 40px dock. A later 16.x release gets its own profile when its dock changes. Until then it uses the default.
 
 ## Controls
