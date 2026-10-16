@@ -16,7 +16,7 @@ A header, a filter row (outline controls, 28px, gap 16px — this is the CRM exc
 
 ## 4. Record detail
 
-Page header with the document title and primary action. Body is the form. Right column is the 277px form sidebar. Example: the User form screenshot `assets/screenshots/form-user-1440x900.png`.
+One header row: breadcrumb, title, status badge, then outline Duplicate, previous, next, more, and solid Save. Under it, a 42px tab strip. The body is a two-column field grid (Desk `col-sm-6`) with 28px controls. The right column is the 277px form sidebar: an 80px letter tile, the title, Assign / Attachments / Tags / Share, then the edited and created lines. Example: `examples/record-form/index.html`, taken from the Item screenshot. The live User form is `assets/screenshots/form-user-1440x900.png`.
 
 ## 5. Master-detail
 

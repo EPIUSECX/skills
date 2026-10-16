@@ -28,10 +28,15 @@ async function measure(name) {
       sidebar: size('.sidebar')?.w ?? null,
       header: size('.page-head')?.h ?? null,
       panel: size('.panel')?.w ?? null,
+      avatar: size('.avatar-tile')?.w ?? null,
+      tabs: size('.tabs')?.h ?? null,
+      modal: size('.modal')?.w ?? null,
+      row: size('table.data td')?.h ?? null,
       metricPad: (() => {
         const el = document.querySelector('.metric')
         return el ? getComputedStyle(el).padding : null
       })(),
+      font: getComputedStyle(document.body).fontFamily,
     }
   })
   const shot = path.join(root, 'assets/screenshots', `example-${name}-1440x900.png`)
@@ -40,7 +45,7 @@ async function measure(name) {
   return box
 }
 
-const names = ['dashboard', 'detail-view', 'standalone-frontend', 'right-panel']
+const names = ['dashboard', 'detail-view', 'standalone-frontend', 'right-panel', 'record-form', 'modal']
 const result = {}
 for (const name of names) result[name] = await measure(name)
 await browser.close()
@@ -58,6 +63,13 @@ if (shell.tile !== 40) problems.push(`tile ${shell.tile}`)
 if (result['detail-view'].panel !== 277) problems.push(`panel ${result['detail-view'].panel}`)
 if (result['right-panel'].panel !== 277) problems.push(`right panel ${result['right-panel'].panel}`)
 if (result.dashboard.metricPad !== '8px 8px 8px 12px') problems.push(`metric padding ${result.dashboard.metricPad}`)
+if (result['record-form'].panel !== 277) problems.push(`record panel ${result['record-form'].panel}`)
+if (result['record-form'].avatar !== 80) problems.push(`avatar ${result['record-form'].avatar}`)
+if (result['record-form'].tabs !== 42) problems.push(`tabs ${result['record-form'].tabs}`)
+if (result['record-form'].header !== 48) problems.push(`record header ${result['record-form'].header}`)
+if (result.modal.modal !== 575) problems.push(`modal ${result.modal.modal}`)
+if (result['detail-view'].row !== 41) problems.push(`data row ${result['detail-view'].row}`)
+if (!String(result.dashboard.font).includes('InterVariable')) problems.push(`font ${result.dashboard.font}`)
 if (problems.length) {
   console.error(problems.join('\n'))
   process.exit(1)

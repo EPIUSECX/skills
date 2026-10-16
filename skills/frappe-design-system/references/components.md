@@ -26,7 +26,7 @@ Kinds:
 | FormField | Native control or Frappe UI `FormControl` | Label 13px, control 28px | forms.md |
 | Tabs | `.es` tab styles, Frappe UI `Tabs` / `TabButtons` | Desk form tabs sit under the header | |
 | DropdownMenu | Frappe UI `Dropdown`. Padding `--dropdown-padding: 4px 8px` | `--shadow-md` | |
-| ModalDialog | Frappe UI `Dialog`. Desk modal uses `--modal-shadow: var(--shadow-md)` | Do not invent a width | |
+| ModalDialog | Frappe UI `Dialog`. Desk `$modal-md` is 575px | Measured Rename dialog: 575×221, content radius 12px, shadow `0 5px 10px rgba(0,0,0,0.1)` | |
 | ContextDrawer | Desk `.side-panel` | `clamp(380px, 46vw, 780px)`, shadow lg, 200ms | right-panels.md |
 | RightDetailPanel | Desk `.form-sidebar` or CRM `SidePanelLayout` | 277px, or 35/65 fields | right-panels.md |
 | EmptyState | Frappe UI empty pattern. ESS `EmptyState.vue` | Centered, no illustration larger than 48px | |

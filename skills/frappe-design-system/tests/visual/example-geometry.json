@@ -5,7 +5,12 @@
     "sidebar": 224,
     "header": 48,
     "panel": null,
-    "metricPad": "8px 8px 8px 12px"
+    "avatar": null,
+    "tabs": null,
+    "modal": null,
+    "row": 41,
+    "metricPad": "8px 8px 8px 12px",
+    "font": "InterVariable, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
   },
   "detail-view": {
     "dock": 57,
@@ -13,7 +18,12 @@
     "sidebar": 224,
     "header": 48,
     "panel": 277,
-    "metricPad": null
+    "avatar": null,
+    "tabs": null,
+    "modal": null,
+    "row": 41,
+    "metricPad": null,
+    "font": "InterVariable, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
   },
   "standalone-frontend": {
     "dock": 57,
@@ -21,7 +31,12 @@
     "sidebar": 224,
     "header": 48,
     "panel": null,
-    "metricPad": "8px 8px 8px 12px"
+    "avatar": null,
+    "tabs": null,
+    "modal": null,
+    "row": null,
+    "metricPad": "8px 8px 8px 12px",
+    "font": "InterVariable, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
   },
   "right-panel": {
     "dock": null,
@@ -29,6 +44,37 @@
     "sidebar": null,
     "header": 48,
     "panel": 277,
-    "metricPad": null
+    "avatar": null,
+    "tabs": null,
+    "modal": null,
+    "row": null,
+    "metricPad": null,
+    "font": "InterVariable, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
+  },
+  "record-form": {
+    "dock": 57,
+    "tile": 40,
+    "sidebar": 224,
+    "header": 48,
+    "panel": 277,
+    "avatar": 80,
+    "tabs": 42,
+    "modal": null,
+    "row": null,
+    "metricPad": null,
+    "font": "InterVariable, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
+  },
+  "modal": {
+    "dock": null,
+    "tile": null,
+    "sidebar": null,
+    "header": null,
+    "panel": null,
+    "avatar": null,
+    "tabs": null,
+    "modal": 575,
+    "row": null,
+    "metricPad": null,
+    "font": "InterVariable, Inter, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen, Ubuntu, Cantarell, \"Fira Sans\", \"Droid Sans\", \"Helvetica Neue\", sans-serif"
   }
 }

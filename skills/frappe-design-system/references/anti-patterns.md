@@ -17,7 +17,7 @@ Reject these in review.
 | "Fixing" ESS tiles from 40px to 34px without a version move | Leave them |
 | A 22rem detail panel on a new screen | 277px |
 | A second sidebar inside a Desk Page | The Desk sidebar is already there |
-| Row height 48px on a desktop list | 30px |
+| A desktop data row of 30px or 48px | 30px header, 41px data row |
 | Tailwind `shadow-lg` because it looks finished | No shadow, unless the layer floats (menu, dialog, slide-over) |
 | Spacing `13px` or `18px` | The scales in spacing.md |
 
