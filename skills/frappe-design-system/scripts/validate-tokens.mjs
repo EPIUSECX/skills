@@ -13,7 +13,9 @@ function expect(cond, message) {
 
 expect(tokens.extractedFrom.runtime.version === '16.52.0', 'runtime version')
 expect(tokens.extractedFrom.runtime.commit.startsWith('4515014'), 'runtime commit')
-expect(tokens.extractedFrom.designTarget.version === '16.50.0', 'target version')
+expect(tokens.extractedFrom.designTarget.version === '>=16.50.0', 'supported range')
+expect(tokens.extractedFrom.designTarget.latestMeasured === '16.52.0', 'latest measured')
+expect(tokens.extractedFrom.designTarget.oldestProfile === '16.50.0', 'oldest profile')
 expect(tokens.espresso['--spacing'].value === '0.25rem', '--spacing')
 expect(tokens.espresso['--text-base'].value === '14px', '--text-base')
 expect(tokens.espresso['--font-weight-regular'].value === '420', 'weight 420')
@@ -33,11 +35,12 @@ for (const key of [
   '--sidebar-width: 224px', '--form-sidebar-width: 277px', '--input-height: 28px',
   '--ink-gray-9: #0f0f0f', '--ink-gray-6: #525252', '--surface-gray-2: #f3f3f3', '--focus-ring: rgba(124, 124, 124, 0.25)',
   '--icon-xs: 12px', '--icon-sm: 16px', '--icon-md: 20px', '--icon-lg: 24px',
-  '--dock-tile: 40px', '--dock-radius: 12px', '--dock-tile-active: rgba(0, 0, 0, 0.12)',
+  '--dock-tile: 34px', '--dock-radius: 8px', '--dock-icon: 22px',
 ]) {
   expect(light.includes(key), `:root missing ${key}`)
 }
-expect(block(':root[data-dock="v16.52"]').includes('--dock-tile: 34px'), 'v16.52 dock override')
+const v1650 = block(':root[data-dock="v16.50"]')
+expect(v1650.includes('--dock-tile: 40px') && v1650.includes('--dock-radius: 12px'), 'v16.50 dock profile')
 expect(block(':root[data-theme="dark"]').includes('--desk-sidebar-bg: var(--surface-gray-1)'), 'dark sidebar surface')
 expect(css.includes(`--gray-900: ${tokens.espresso['--gray-900'].value}`) || light.includes('--ink-gray-8: #171717'), 'gray-900 / ink-gray-8')
 

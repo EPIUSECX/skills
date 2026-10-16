@@ -2,7 +2,7 @@
 
 A Cursor skill for building Frappe Desk pages and standalone Vue frontends that follow Desk.
 
-The design target is Frappe **v16.50.0**. The bench this skill was measured on runs **v16.52.0**. The Espresso tokens and the sidebar match. The dock tile does not: 40px on v16.50, 34px on v16.52. `SKILL.md` tells an agent which one to draw.
+The shell covers Frappe Desk **16.50 and later**. It is not locked to 16.50. The bench this skill was measured on runs **v16.52.0**, and that release is the default dock. Espresso tokens and the sidebar match across the range. The dock tile does not: 40px on v16.50 (`data-dock="v16.50"`), 34px on v16.52 (the default). `SKILL.md` tells an agent which one to draw.
 
 ## Install
 

@@ -1,6 +1,6 @@
-/* Desk shell for framework-free pages. Every value is measured on Desk v16.52.0 at 1440x900 or read
-   from frappe/public/scss at v16.50.0; see references/measured-desk.md. The dock follows the v16.50
-   target unless the root carries data-dock="v16.52". */
+/* Desk shell for framework-free pages. Shared chrome is Frappe Desk 16.50 and later.
+   The dock defaults to the latest measured release (v16.52). Set data-dock="v16.50" for the
+   40px profile. See references/measured-desk.md. */
 
 html, body { margin: 0; height: 100%; }
 body {
@@ -19,7 +19,7 @@ button, input, select, textarea { font: inherit; letter-spacing: inherit; color:
 
 .shell { display: flex; height: 100vh; background: var(--surface-base); }
 
-/* Dock. v16.50 pinned: 56px tray + 1px border, padding 4px 8px 8px, 40px tiles 6px apart. */
+/* Dock. Width is 56px plus the 1px border. Tile size, padding, and ink come from the dock profile. */
 .dock {
   flex: 0 0 calc(var(--dock-width) + 1px);
   width: calc(var(--dock-width) + 1px);

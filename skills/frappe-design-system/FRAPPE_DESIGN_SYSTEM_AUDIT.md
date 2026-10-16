@@ -2,6 +2,8 @@
 
 Independent audit of `skills/frappe-design-system` against Frappe Desk. The skill was already on this branch. This pass re-measured it, corrected the values that did not match Desk, and re-ran the comparisons.
 
+**Update.** The shell is no longer locked to v16.50. The supported range is Frappe Desk 16.50 and later. v16.52 is a supported release and the default dock profile. `data-dock="v16.50"` keeps the 40px dock for an app that still ships that release. The findings below describe the measurement pass; the version lock they mention was lifted after it.
+
 ## Executive summary
 
 The skill's procedure was ahead of its measurements. `SKILL.md` and several references told an agent to draw a 14px page title, 8px cards with padding `8px 8px 8px 12px`, and a 22px dock glyph on both versions. None of those match the Desk that is running here, or v16.50 source.

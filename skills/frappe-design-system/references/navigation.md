@@ -22,7 +22,7 @@ Shared by v16.50.0 and v16.52.0:
 
 Different:
 
-| | v16.50.0 (target) | v16.52.0 (this bench) |
+| | v16.50.0 (`data-dock="v16.50"`) | v16.52.0 (default, this bench) |
 | --- | --- | --- |
 | `--dock-tile` | 40px | 34px |
 | Gap | 6px | `var(--spacing)` (4px) |
@@ -36,7 +36,7 @@ Different:
 
 `--dock-tile-hover` (`rgba(0,0,0,0.07)` in light) is the user-menu button fill, not the tile hover.
 
-Cohenix ESS `DockRail.vue` and Cargo `shell.css` implement the v16.50 column (40px tiles, 12px radius, 6px gap) and say they follow `dock.scss`. That comment is true for v16.50.0 and false for the v16.52.0 file on this bench. Keep their 40px tiles while the product target stays v16.50.
+Cohenix ESS `DockRail.vue` and Cargo `shell.css` implement the v16.50 column (40px tiles, 12px radius, 6px gap). That matches `dock.scss` at v16.50.0 and not the v16.52.0 file. Keep their 40px tiles until that product moves. New work on 16.52 or later uses the default profile.
 
 ## Sidebar
 

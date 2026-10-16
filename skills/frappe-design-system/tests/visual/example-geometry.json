@@ -1,7 +1,7 @@
 {
   "dashboard": {
     "dock": 57,
-    "tile": 40,
+    "tile": 34,
     "sidebar": 224,
     "navRow": 28,
     "header": 49,
@@ -15,11 +15,12 @@
     "cardPad": "12px 16px",
     "cardRadius": "12px",
     "font": "InterVariable",
-    "missingIcons": []
+    "missingIcons": [],
+    "tileV1650": 40
   },
   "detail-view": {
     "dock": 57,
-    "tile": 40,
+    "tile": 34,
     "sidebar": 224,
     "navRow": 28,
     "header": 49,
@@ -33,7 +34,8 @@
     "cardPad": null,
     "cardRadius": null,
     "font": "InterVariable",
-    "missingIcons": []
+    "missingIcons": [],
+    "tileV1650": 40
   },
   "modal": {
     "dock": null,
@@ -51,11 +53,12 @@
     "cardPad": null,
     "cardRadius": null,
     "font": "InterVariable",
-    "missingIcons": []
+    "missingIcons": [],
+    "tileV1650": null
   },
   "record-form": {
     "dock": 57,
-    "tile": 40,
+    "tile": 34,
     "sidebar": 224,
     "navRow": 28,
     "header": 49,
@@ -69,7 +72,8 @@
     "cardPad": null,
     "cardRadius": null,
     "font": "InterVariable",
-    "missingIcons": []
+    "missingIcons": [],
+    "tileV1650": 40
   },
   "right-panel": {
     "dock": null,
@@ -87,6 +91,7 @@
     "cardPad": null,
     "cardRadius": null,
     "font": "InterVariable",
-    "missingIcons": []
+    "missingIcons": [],
+    "tileV1650": null
   }
 }

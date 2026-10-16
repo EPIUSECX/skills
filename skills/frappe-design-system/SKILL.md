@@ -5,8 +5,8 @@ description: >-
   Use when creating a Frappe frontend, a Vue or Frappe UI page, a custom Desk
   page, a dashboard, a CRM-style record with a right-hand panel, a Cohenix
   interface, or when auditing visual consistency. Covers native Desk (Mode A)
-  and a standalone Vue shell (Mode B), Espresso tokens, and the v16.50 dock
-  versus the v16.52 dock.
+  and a standalone Vue shell (Mode B), Espresso tokens, and the dock
+  profiles for Frappe Desk 16.50 and later, including v16.52.
 ---
 
 # Frappe design system
@@ -15,14 +15,14 @@ Match Frappe Desk. Do not invent a second visual language.
 
 Read the token file before writing CSS. If a pattern is missing, inspect the closest native Desk file and record the value. Do not guess a spacing step, type size, radius, or icon set.
 
-Two versions matter:
+The supported range is Frappe Desk 16.50 and later. It is not locked to 16.50. v16.52 is a supported release.
 
-| Role | Version | Commit | What differs |
-| --- | --- | --- | --- |
-| Design target | v16.50.0 | `f20f92d29706510551b4438cc196b0323a7f1a92` | Dock tile 40px, gap 6px, tile radius 12px |
-| Runtime that was measured | v16.52.0 | `4515014c87ece6cb20ee91d2cfb121c5cbd1ff4a` | Dock tile 34px, gap 4px, tile radius 8px |
+| Release | Commit | Dock |
+| --- | --- | --- |
+| v16.50.0, oldest profile | `f20f92d29706510551b4438cc196b0323a7f1a92` | Tile 40px, gap 6px, radius 12px. Set `data-dock="v16.50"` |
+| v16.52.0, latest measured, the default | `4515014c87ece6cb20ee91d2cfb121c5cbd1ff4a` | Tile 34px, gap 4px, radius 8px |
 
-Sidebar 224px, collapsed sidebar 48px, pinned dock outer width 57px, page head border box 49px, and the Espresso color and spacing scales are the same in both tags. The dock is not. Copy numbers from [references/measured-desk.md](references/measured-desk.md), not from memory.
+Sidebar 224px, collapsed sidebar 48px, pinned dock outer width 57px, page head border box 49px, and the Espresso color and spacing scales are the same across this range. The dock is the piece that moves. When a later 16.x release changes it, add a profile. Do not invent a third tile size. Copy numbers from [references/measured-desk.md](references/measured-desk.md).
 
 Navigation records (Dock, Sidebar, Apps tile) belong to the `frappe-desk-navigation` skill. This skill owns how those surfaces are drawn.
 
@@ -44,8 +44,8 @@ Frappe UI does not match Desk until you override these. `examples/standalone-vue
 
 Pick the dock profile for the Desk version you are matching:
 
-- New Cohenix apps that follow the v16.50 target, including current Cohenix ESS and Cargo Learning: 40px tiles. Set no `data-dock`, or `data-dock="v16.50"`.
-- A page that must match a v16.52 bench: `data-dock="v16.52"` (34px tiles). Do not copy the ESS dock CSS onto that bench.
+- No attribute: the latest measured release. Today that is v16.52 (34px tiles). Use this for a new app on Frappe 16.52 or later.
+- `data-dock="v16.50"`: 40px tiles. Current Cohenix ESS and Cargo Learning ship this profile. Leave them on it until that product moves.
 
 ## Before you write UI
 
@@ -66,7 +66,7 @@ Pick the dock profile for the Desk version you are matching:
 
 ### Modify
 
-1. Read the existing shell first. ESS and Cargo already implement the v16.50 dock. Do not "correct" them to 34px unless the product is moving to v16.52.
+1. Read the existing shell first. ESS and Cargo ship the v16.50 dock. Leave that profile in place until the product moves to a later Desk. New pages use the default profile.
 2. Change tokens, not one-off pixel values.
 3. Re-run the consistency script on the touched files.
 
@@ -74,7 +74,7 @@ Pick the dock profile for the Desk version you are matching:
 
 1. Measure the running Desk with `node scripts/audit-ui.mjs` when a bench is up.
 2. Compare computed custom properties to `tokens.json`.
-3. List mismatches as target (v16.50), runtime (v16.52), or drift. Drift is a value that matches neither.
+3. List mismatches as the v16.50 profile, the current profile (v16.52), or drift. Drift is a value that matches neither.
 
 ### Reproduce
 

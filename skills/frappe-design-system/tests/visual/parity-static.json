@@ -42,7 +42,7 @@
           ]
         },
         {
-          "name": "dock tile (v16.50 target vs v16.52 runtime)",
+          "name": "dock tile",
           "ref": ".dock-item:not(.active)",
           "cand": ".dock-items .dock-tile:not([aria-current])",
           "props": [
@@ -51,13 +51,7 @@
             "border-radius",
             "color"
           ],
-          "accept": [
-            "w",
-            "h",
-            "border-radius",
-            "color"
-          ],
-          "note": "40px/12px/ink-gray-7 is the v16.50 target; the bench runs v16.52 (34px/8px/ink-gray-5)"
+          "note": "Default profile is v16.52, the latest measured release. It matches this bench."
         },
         {
           "name": "sidebar column",
@@ -670,11 +664,11 @@
       ]
     },
     {
-      "name": "detail-view-dock-v16.52",
+      "name": "detail-view-dock-v16.50",
       "ref": "/desk/user",
       "cand": "/examples/detail-view/index.html",
       "wait": 2500,
-      "candAction": "document.documentElement.setAttribute('data-dock','v16.52')",
+      "candAction": "document.documentElement.setAttribute('data-dock','v16.50')",
       "pairs": [
         {
           "name": "dock column",
@@ -685,7 +679,12 @@
             "w",
             "padding-top",
             "padding-left"
-          ]
+          ],
+          "accept": [
+            "padding-top",
+            "padding-left"
+          ],
+          "note": "v16.50 profile against the v16.52 bench. Width of the column still matches. A v16.50 site was not booted."
         },
         {
           "name": "dock tile",
@@ -697,7 +696,15 @@
             "border-radius",
             "color",
             "background-color"
-          ]
+          ],
+          "accept": [
+            "w",
+            "h",
+            "border-radius",
+            "color",
+            "background-color"
+          ],
+          "note": "v16.50 profile against the v16.52 bench. Width of the column still matches. A v16.50 site was not booted."
         },
         {
           "name": "dock active tile",
@@ -710,7 +717,16 @@
             "color",
             "background-color",
             "box-shadow"
-          ]
+          ],
+          "accept": [
+            "w",
+            "h",
+            "border-radius",
+            "color",
+            "background-color",
+            "box-shadow"
+          ],
+          "note": "v16.50 profile against the v16.52 bench. Width of the column still matches. A v16.50 site was not booted."
         },
         {
           "name": "dock icon",
@@ -719,7 +735,12 @@
           "props": [
             "w",
             "h"
-          ]
+          ],
+          "accept": [
+            "w",
+            "h"
+          ],
+          "note": "v16.50 profile against the v16.52 bench. Width of the column still matches. A v16.50 site was not booted."
         }
       ]
     }
