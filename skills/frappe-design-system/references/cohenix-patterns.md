@@ -1,6 +1,6 @@
 # Cohenix patterns
 
-Desk is the authority. ESS and Cargo are supplements. Where they disagree with a verified Desk value, follow Desk, unless the disagreement is the v16.50 dock that this system still targets.
+Desk is the authority. ESS and Cargo are supplements. Where they disagree with a verified Desk value, follow Desk. Their 40px dock is the v16.50 profile (`data-dock="v16.50"`), which this system still ships. The default profile is the latest measured release.
 
 ## Cohenix ESS
 
@@ -9,7 +9,7 @@ Path: `frontend/src`. Vue 3.5, Frappe UI 1.0.0, Tailwind 3.4. Shell: `AppLayout.
 | Pattern | Verdict |
 | --- | --- |
 | Frappe UI shell, no second header | Matches Mode B |
-| Dock 40px / 12px radius / 6px gap (`style.css`, `DockRail.vue`) | Matches the v16.50 target. Conflicts with v16.52's 34px tile. Keep it for ESS |
+| Dock 40px / 12px radius / 6px gap (`style.css`, `DockRail.vue`) | The v16.50 profile. The default profile is v16.52 (34px). Keep 40px for ESS until that product moves |
 | Dashboard grid 20 columns, 42px rows, 12px page padding, 8px cell padding | Matches CRM `DashboardGrid.vue`. Standardize |
 | Lucide-style duotone module icons | Matches the dock icon rule |
 | Org chart, check-in map, PWA banners | Application-specific. Do not copy into other apps |

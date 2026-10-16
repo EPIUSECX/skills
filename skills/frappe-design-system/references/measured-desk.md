@@ -1,6 +1,6 @@
 # Measured Desk
 
-Numbers an agent should copy. Each one was computed on the v16.52.0 bench (`4515014`, site on port 8000) at 1440×900 unless the row says otherwise, or read from `frappe/public/scss` at tag v16.50.0 (`f20f92d`). The live bench is v16.52, so the v16.50 dock was checked in source and in `shell.css`, then confirmed by switching the example to `data-dock="v16.52"` and comparing it to the running dock with no accepted deltas.
+Numbers an agent should copy. The supported range is Frappe Desk 16.50 and later, not 16.50 alone. Shared chrome below was computed on the v16.52.0 bench (`4515014`, site on port 8000) at 1440×900, and the same values are in the v16.50.0 tag (`f20f92d`) except the dock. The default dock profile is v16.52, because that is the latest release measured here. `data-dock="v16.50"` selects the older profile. That older profile was checked in `dock.scss` and by switching an example; a v16.50 site was not booted.
 
 `tests/visual/parity-static.json`, `parity-users.json`, and `parity-mobile.json` are the checks. A pair listed there passed on the last run of this audit.
 
@@ -23,7 +23,7 @@ v16.50 source (`dock.scss` at `f20f92d`): tile 40px, gap 6px, base padding 8px, 
 
 v16.52, measured: padding `8px 11px 12px`, tile 34px, radius 8px, gap 4px, idle ink `--ink-gray-5`, hover fill `--surface-gray-2` with ink `--ink-gray-7`, active `--surface-elevation-3` plus `--shadow-sm`. Glyph `.icon-rail` is 22px.
 
-Set `data-dock="v16.52"` on `:root` to use the second profile. The default is v16.50.
+The default profile is v16.52. Set `data-dock="v16.50"` on `:root` for the 40px dock. A later 16.x release gets its own profile when its dock changes. Until then it uses the default.
 
 ## Controls
 

@@ -2,8 +2,8 @@
 import { Avatar, Tooltip } from 'frappe-ui'
 import { useRoute } from 'vue-router'
 
-// Pinned v16.50 dock (frappe/public/scss/desk/dock.scss at f20f92d). Frappe UI's SidebarRail is 50px with
-// 28px items, so it is not used here. Geometry lives in style.css (.desk-dock).
+// Pinned Desk dock. Frappe UI's SidebarRail is 50px with 28px items, so it is not used here.
+// Geometry lives in style.css and follows the dock profile (v16.52 by default, v16.50 behind data-dock).
 defineProps({ items: { type: Array, required: true } })
 const route = useRoute()
 </script>

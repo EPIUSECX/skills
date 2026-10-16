@@ -7,7 +7,7 @@ Measured on this bench on 2026-10-16. Source-defined values come from the files 
 | Piece | Version | Commit | Where |
 | --- | --- | --- | --- |
 | Frappe (runtime) | 16.52.0 | `4515014c87ece6cb20ee91d2cfb121c5cbd1ff4a` | `/home/ubuntu/frappe-bench/apps/frappe` |
-| Frappe (design target) | 16.50.0 | `f20f92d29706510551b4438cc196b0323a7f1a92` | GitHub tag. Not checked out locally. The dock file was fetched and diffed. |
+| Frappe (supported range) | 16.50.0 and later | oldest profile `f20f92d29706510551b4438cc196b0323a7f1a92` | Not locked to 16.50. v16.52 is measured and is the default dock. The v16.50 dock file was fetched and diffed. |
 | ERPNext | 16.51.1 | `5af6561f5aa48104559692fb4fd82f2580e8d338` | bench app |
 | HRMS | 16.51.0 | `2478afc7a8f4959d500f6d17522853f0d244e38f` | bench app |
 | Frappe UI (installed) | 1.0.0 | package in `cohenix_ess/frontend/node_modules/frappe-ui` | Vue app dependency |
@@ -18,7 +18,7 @@ Measured on this bench on 2026-10-16. Source-defined values come from the files 
 | Node used to build the bench | 24.22.0 | `/usr/local/bin/node` | |
 | Site | `ess.localhost` | developer mode | web on port 8000, Vite on 8080 |
 
-## What differs between the target and the runtime
+## What differs inside the supported range
 
 `diff -rq` of these files at the two tags found a difference only in `frappe/public/scss/desk/dock.scss`:
 

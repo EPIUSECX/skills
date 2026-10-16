@@ -1,6 +1,6 @@
 /**
  * Render every static example and check the shell against Desk numbers measured on a
- * v16.5x bench (references/measured-desk.md). No Desk needed; for live parity run
+ * v16.52 bench, the default profile (references/measured-desk.md). No Desk needed; for live parity run
  * scripts/compare-pages.mjs. Also fails when an icon reference does not resolve: the
  * box of a broken <use> still measures 16px, so geometry alone cannot see it.
  *
@@ -63,6 +63,12 @@ async function measure(name) {
       cardRadius: css('.number-card', 'border-radius'),
       font: document.fonts.check('14px InterVariable') ? css('body', 'font-family').split(',')[0] : 'InterVariable not loaded',
       missingIcons,
+      tileV1650: (() => {
+        document.documentElement.setAttribute('data-dock', 'v16.50')
+        const width = w('.dock-items .dock-tile')
+        document.documentElement.removeAttribute('data-dock')
+        return width
+      })(),
     }
   })
   await page.screenshot({ path: path.join(root, 'assets/screenshots', `example-${name}-1440x900.png`) })
@@ -79,13 +85,14 @@ server.close()
 fs.writeFileSync(path.join(root, 'tests/visual/example-geometry.json'), JSON.stringify(result, null, 2) + '\n')
 console.log(JSON.stringify(result, null, 2))
 
-// Desk v16.50 values; null means "element not on this page".
-const expect = { dock: 57, tile: 40, sidebar: 224, navRow: 28, header: 49, panel: 277, listHead: 30, listRow: 41, tabs: 42, modal: 575, button: 28, input: 28, cardPad: '12px 16px', cardRadius: '12px' }
+// Default profile is v16.52. null means "element not on this page".
+const expect = { dock: 57, tile: 34, sidebar: 224, navRow: 28, header: 49, panel: 277, listHead: 30, listRow: 41, tabs: 42, modal: 575, button: 28, input: 28, cardPad: '12px 16px', cardRadius: '12px' }
 const problems = []
 for (const [name, got] of Object.entries(result)) {
   for (const [key, want] of Object.entries(expect)) {
     if (got[key] !== null && got[key] !== want) problems.push(`${name}: ${key} ${got[key]} (want ${want})`)
   }
+  if (got.tileV1650 !== null && got.tileV1650 !== 40) problems.push(`${name}: v16.50 tile ${got.tileV1650} (want 40)`)
   if (got.font !== 'InterVariable') problems.push(`${name}: font ${got.font}`)
   if (got.missingIcons.length) problems.push(`${name}: unresolved icons ${[...new Set(got.missingIcons)].join(', ')}`)
 }
