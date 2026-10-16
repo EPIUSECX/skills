@@ -27,7 +27,7 @@ A Desk Page script must fill the page body only. `examples/desk-page/page.js` sh
 
 ## Standalone Vue (Mode B)
 
-Cohenix ESS composes Frappe UI `DesktopShell`, `Sidebar`, and a local `DockRail`. Cargo Learning does the same in `admin/src/shell/`. Both apps set their own dock geometry in CSS. That geometry matches v16.50, not the v16.52 file on this bench.
+Cohenix ESS composes Frappe UI `DesktopShell`, `Sidebar`, and a local `DockRail`. Cargo Learning does the same in `admin/src/shell/`. Both apps set their own dock geometry in CSS. That geometry is the v16.50 profile. The default profile in this skill is v16.52, the latest measured release. Leave ESS and Cargo on `data-dock="v16.50"` until those products move.
 
 Frappe UI 1.0.0 `Sidebar` defaults:
 

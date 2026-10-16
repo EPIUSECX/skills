@@ -21,18 +21,59 @@ body {
 /* Desk geometry that Frappe UI does not ship. Every number is measured on Desk or read from
    frappe/public/scss; see references/measured-desk.md. */
 
+/* Default dock is the latest measured release (v16.52). data-dock="v16.50" restores the 40px profile. */
 :root {
-  --dock-tile-active: rgba(0, 0, 0, 0.12);
-  --dock-tile-hover: rgba(0, 0, 0, 0.07);
-  --dock-rule: rgba(0, 0, 0, 0.12);
+  --dock-tile: 34px;
+  --dock-gap: 4px;
+  --dock-pad: 8px 11px 12px;
+  --dock-radius: 8px;
+  --dock-icon: 22px;
+  --dock-ink: var(--ink-gray-5);
+  --dock-ink-strong: var(--ink-gray-8);
+  --dock-ink-hover: var(--ink-gray-7);
+  --dock-tile-hover-fill: var(--surface-gray-2);
+  --dock-tile-active: var(--surface-elevation-3);
+  --dock-tile-active-shadow: var(--shadow-sm);
+  --dock-rule: var(--outline-gray-2);
+  --dock-logo-height: 49px;
+  --dock-logo-shift: -8px;
+  --dock-logo-margin-bottom: 0px;
+  --dock-logo-border: 1px solid var(--outline-gray-1);
+  --dock-items-shift: -4px;
+  --dock-items-pad: 12px;
+  --dock-items-bleed: 11px;
+  --dock-items-pad-bottom: 4px;
+  --dock-rule-display: none;
 }
-[data-theme='dark'] {
+:root[data-dock='v16.50'] {
+  --dock-tile: 40px;
+  --dock-gap: 6px;
+  --dock-pad: 4px 8px 8px;
+  --dock-radius: 12px;
+  --dock-icon: 20px;
+  --dock-ink: var(--ink-gray-7);
+  --dock-ink-strong: var(--ink-gray-9);
+  --dock-ink-hover: var(--ink-gray-9);
+  --dock-tile-hover-fill: transparent;
+  --dock-tile-active: rgba(0, 0, 0, 0.12);
+  --dock-tile-active-shadow: none;
+  --dock-rule: rgba(0, 0, 0, 0.12);
+  --dock-logo-height: var(--dock-tile);
+  --dock-logo-shift: 0px;
+  --dock-logo-margin-bottom: -4px;
+  --dock-logo-border: 0;
+  --dock-items-shift: 0px;
+  --dock-items-pad: 0px;
+  --dock-items-bleed: 0px;
+  --dock-items-pad-bottom: 0px;
+  --dock-rule-display: block;
+}
+[data-theme='dark'][data-dock='v16.50'] {
   --dock-tile-active: rgba(255, 255, 255, 0.22);
-  --dock-tile-hover: rgba(255, 255, 255, 0.14);
   --dock-rule: rgba(255, 255, 255, 0.18);
 }
 
-/* v16.50 pinned dock: 56px tray + 1px border, 40px tiles, 6px gap, padding 4px 8px 8px. */
+/* Pinned dock: 56px tray + 1px border. Tile size follows the dock profile. */
 .desk-dock {
   flex: 0 0 57px;
   width: 57px;
@@ -40,27 +81,39 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 4px 8px 8px;
+  gap: var(--dock-gap);
+  padding: var(--dock-pad);
   border-right: 1px solid var(--outline-gray-1);
   overflow: hidden;
 }
-.desk-dock-logo { margin-bottom: -4px; }
-.desk-dock-rule { flex: none; width: 24px; height: 1px; background: var(--dock-rule); }
-.desk-dock-items { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: 6px; overflow-y: auto; scrollbar-width: none; }
-.desk-dock-user { margin-top: auto; }
-.desk-dock-tile {
-  width: 40px;
-  height: 40px;
+.desk-dock-logo {
+  flex: none;
+  width: 100%;
+  height: var(--dock-logo-height);
+  margin-top: var(--dock-logo-shift);
+  margin-bottom: var(--dock-logo-margin-bottom);
+  border-bottom: var(--dock-logo-border);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  color: var(--ink-gray-7);
+}
+.desk-dock-rule { display: var(--dock-rule-display); flex: none; width: 24px; height: 1px; margin: 2px auto 6px; background: var(--dock-rule); }
+.desk-dock-items { flex: 1 1 auto; width: calc(100% + 2 * var(--dock-items-bleed)); min-height: 0; margin-top: var(--dock-items-shift); margin-inline: calc(var(--dock-items-bleed) * -1); padding-top: var(--dock-items-pad); padding-bottom: var(--dock-items-pad-bottom); display: flex; flex-direction: column; align-items: center; gap: var(--dock-gap); overflow-y: auto; scrollbar-width: none; }
+.desk-dock-items::-webkit-scrollbar { display: none; }
+.desk-dock-user { margin-top: auto; }
+.desk-dock-tile {
+  width: var(--dock-tile);
+  height: var(--dock-tile);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--dock-radius);
+  color: var(--dock-ink);
   transition: background-color 0.15s ease, color 0.15s ease;
 }
-.desk-dock-tile:hover { color: var(--ink-gray-9); }
-.desk-dock-tile.active { background: var(--dock-tile-active); color: var(--ink-gray-9); }
+.desk-dock-tile [class*='lucide-'] { width: var(--dock-icon); height: var(--dock-icon); }
+.desk-dock-tile:hover { color: var(--dock-ink-hover); background: var(--dock-tile-hover-fill); }
+.desk-dock-tile.active { background: var(--dock-tile-active); color: var(--dock-ink-strong); box-shadow: var(--dock-tile-active-shadow); }
 .desk-dock-tile:focus-visible { outline: 2px solid var(--ink-gray-9); outline-offset: 2px; }
 
 /* Desk paints both columns with --desk-sidebar-bg: --surface-sidebar in light, --surface-gray-1 in

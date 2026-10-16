@@ -23,7 +23,7 @@ Updated after the second measurement pass on the same bench (Frappe v16.52.0, `4
 ## Still open
 
 - Frappe CRM is not installed on this bench. The 20×42 grid and the 35/65 side panel stay source-defined from CRM `develop` `47bb9417bd74`.
-- v16.50 was not booted. Its dock comes from `dock.scss` at `f20f92d`. The v16.52 profile was compared live, with no accepted deltas, via `data-dock="v16.52"`.
+- The supported range is Desk 16.50 and later. v16.52 is the default profile and was compared live. v16.50 was not booted. Its dock comes from `dock.scss` at `f20f92d` and from `data-dock="v16.50"` on the examples.
 - The User form had no image, so the 80px letter tile is from `form_sidebar.scss` and the example, not from a record that shows a photo.
 - At 390 the open drawer matches the 224px sidebar box. The pixel diff stays high because the example's link list is shorter than Desk's and Desk's mobile sidebar shows a search field plus the user card.
 - List and form at 1280 and 1920 were not given a second visual pass beyond the earlier box measurements.

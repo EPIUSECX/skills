@@ -1,6 +1,6 @@
-/* Desk shell for framework-free pages. Every value is measured on Desk v16.52.0 at 1440x900 or read
-   from frappe/public/scss at v16.50.0; see references/measured-desk.md. The dock follows the v16.50
-   target unless the root carries data-dock="v16.52". */
+/* Desk shell for framework-free pages. Shared chrome is Frappe Desk 16.50 and later.
+   The dock defaults to the latest measured release (v16.52). Set data-dock="v16.50" for the
+   40px profile. See references/measured-desk.md. */
 
 html, body { margin: 0; height: 100%; }
 body {
@@ -19,7 +19,7 @@ button, input, select, textarea { font: inherit; letter-spacing: inherit; color:
 
 .shell { display: flex; height: 100vh; background: var(--surface-base); }
 
-/* Dock. v16.50 pinned: 56px tray + 1px border, padding 4px 8px 8px, 40px tiles 6px apart. */
+/* Dock. Width is 56px plus the 1px border. Tile size, padding, and ink come from the dock profile. */
 .dock {
   flex: 0 0 calc(var(--dock-width) + 1px);
   width: calc(var(--dock-width) + 1px);
@@ -32,8 +32,35 @@ button, input, select, textarea { font: inherit; letter-spacing: inherit; color:
   background: var(--desk-sidebar-bg);
   border-right: 1px solid var(--outline-gray-1);
 }
-.dock-logo { margin-bottom: -4px; }
-.dock-items { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; align-items: center; gap: var(--dock-gap); }
+/* v16.52: a 49px band (the page head) with the rule as its bottom border, then 12px to the first tile.
+   v16.50: the band shrinks to the tile and .dock-rule draws the 24px divider. */
+.dock-logo {
+  flex: none;
+  width: 100%;
+  height: var(--dock-logo-height);
+  margin-top: var(--dock-logo-shift);
+  margin-bottom: var(--dock-logo-margin-bottom);
+  border-bottom: var(--dock-logo-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dock-items {
+  flex: 1 1 auto;
+  width: calc(100% + 2 * var(--dock-items-bleed));
+  min-height: 0;
+  margin-top: var(--dock-items-shift);
+  margin-inline: calc(var(--dock-items-bleed) * -1);
+  padding-top: var(--dock-items-pad);
+  padding-bottom: var(--dock-items-pad-bottom);
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--dock-gap);
+}
+.dock-items::-webkit-scrollbar { display: none; }
 .dock-user { margin-top: auto; }
 .dock-tile {
   width: var(--dock-tile);
@@ -52,7 +79,7 @@ button, input, select, textarea { font: inherit; letter-spacing: inherit; color:
 .dock-tile:hover { color: var(--dock-ink-hover); background: var(--dock-tile-hover-fill); }
 .dock-tile[aria-current="page"] { color: var(--dock-ink-strong); background: var(--dock-tile-active); box-shadow: var(--dock-tile-active-shadow); }
 .dock-tile:focus-visible { outline: 2px solid var(--dock-ink-strong); outline-offset: 2px; }
-.dock-rule { flex: none; width: 24px; height: 1px; background: var(--dock-rule); }
+.dock-rule { display: var(--dock-rule-display); flex: none; width: 24px; height: 1px; margin: 2px auto 6px; background: var(--dock-rule); }
 .dock-mark { width: 32px; height: 32px; border-radius: var(--radius-4); display: grid; place-items: center; background: var(--surface-gray-10); color: var(--ink-base); font-size: var(--text-sm); font-weight: var(--font-weight-semibold); }
 .dock-avatar { width: 28px; height: 28px; border-radius: var(--radius-full); display: grid; place-items: center; background: var(--surface-green-2); color: var(--ink-green-8); font-size: var(--text-xs); }
 
@@ -73,6 +100,8 @@ button, input, select, textarea { font: inherit; letter-spacing: inherit; color:
   align-items: center;
   gap: 8px;
   height: 40px;
+  /* Desk uses margin: 4px and 2px of padding on .body-sidebar-top. Those are one 6px margin on the
+     first group here: a bottom margin on this row would collapse with the group's margin and lift Search. */
   margin: 4px 4px 0;
   padding: 0 15px 0 12px;
   border-radius: var(--radius);

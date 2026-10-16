@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Flag values that measured Desk v16.50 never uses. Every rule cites a measured value in
+ * Flag values that measured Desk 16.50 and later never uses. Every rule cites a measured value in
  * references/measured-desk.md; a hit is a prompt to check, not proof of a bug.
  *
  *   node scripts/check-design-consistency.mjs                 # the skill's own examples and templates
