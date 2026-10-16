@@ -1,0 +1,9 @@
+{
+  "name": "frappe-design-system-checks",
+  "private": true,
+  "type": "module",
+  "description": "Local checks for the frappe-design-system skill. Not published.",
+  "dependencies": {
+    "puppeteer-core": "24.22.0"
+  }
+}

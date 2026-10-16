@@ -1,0 +1,68 @@
+{
+  "generatedFrom": "compare-screenshots.mjs",
+  "report": [
+    {
+      "name": "example sidebar width",
+      "expected": 224,
+      "actual": 224,
+      "ok": true,
+      "note": "Desk token, both versions"
+    },
+    {
+      "name": "example header height",
+      "expected": 48,
+      "actual": 48,
+      "ok": true,
+      "note": "border is extra on Desk; the example uses the token"
+    },
+    {
+      "name": "example dock outer width",
+      "expected": 57,
+      "actual": 57,
+      "ok": true,
+      "note": "56px + 1px border, both versions"
+    },
+    {
+      "name": "example v16.50 tile",
+      "expected": 40,
+      "actual": 40,
+      "ok": true,
+      "note": "design target"
+    },
+    {
+      "name": "desk sidebar width",
+      "expected": 224,
+      "actual": 224,
+      "ok": true,
+      "note": "measured v16.52"
+    },
+    {
+      "name": "desk dock outer width",
+      "expected": 57,
+      "actual": 57,
+      "ok": true,
+      "note": "measured v16.52"
+    },
+    {
+      "name": "desk dock tile token",
+      "expected": "34px",
+      "actual": "34px",
+      "ok": true,
+      "note": "runtime. Examples intentionally stay at 40px"
+    },
+    {
+      "name": "desk page head border box",
+      "expected": 49,
+      "actual": 49,
+      "ok": true,
+      "note": "48px token + 1px border"
+    },
+    {
+      "name": "detail panel width",
+      "expected": 277,
+      "actual": 277,
+      "ok": true,
+      "note": "form sidebar token"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "dashboard": {
+    "dock": 57,
+    "tile": 40,
+    "sidebar": 224,
+    "header": 48,
+    "panel": null,
+    "metricPad": "8px 8px 8px 12px"
+  },
+  "detail-view": {
+    "dock": 57,
+    "tile": 40,
+    "sidebar": 224,
+    "header": 48,
+    "panel": 277,
+    "metricPad": null
+  },
+  "standalone-frontend": {
+    "dock": 57,
+    "tile": 40,
+    "sidebar": 224,
+    "header": 48,
+    "panel": null,
+    "metricPad": "8px 8px 8px 12px"
+  },
+  "right-panel": {
+    "dock": null,
+    "tile": null,
+    "sidebar": null,
+    "header": 48,
+    "panel": 277,
+    "metricPad": null
+  }
+}

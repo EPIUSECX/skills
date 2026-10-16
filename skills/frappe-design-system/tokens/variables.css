@@ -1,0 +1,102 @@
+/* Espresso subset for standalone pages.
+ * Values are copied from Frappe v16.52.0 (4515014), file frappe/public/css/espresso/*.css
+ * and the Desk layout partials. They are not a new token system.
+ * Dark theme values are in the same Frappe files under [data-theme="dark"] and are
+ * not repeated here. See tokens/tokens.json for the full light extraction.
+ */
+
+:root {
+  --spacing: 0.25rem;
+
+  --font-stack: "InterVariable", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  --font-weight-regular: 420;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-lg: 16px;
+  --text-xl: 17px;
+  --text-2xl: 18px;
+  --text-3xl: 20px;
+
+  --gray-50: #f8f8f8;
+  --gray-100: #f3f3f3;
+  --gray-200: #ededed;
+  --gray-300: #e2e2e2;
+  --gray-400: #c7c7c7;
+  --gray-500: #999999;
+  --gray-600: #7c7c7c;
+  --gray-700: #525252;
+  --gray-800: #383838;
+  --gray-900: #171717;
+  --white: #ffffff;
+
+  --blue-500: #0d8ef8;
+  --green-600: #268c5c;
+  --green-50: #f0faf3;
+  --red-500: #e03434;
+  --red-50: #fff5f5;
+  --amber-500: #df9311;
+  --amber-50: #fdf8ed;
+
+  --surface-base: var(--white);
+  --surface-gray-1: var(--gray-50);
+  --surface-gray-2: var(--gray-100);
+  --surface-gray-3: var(--gray-200);
+  --surface-gray-7: var(--gray-600);
+  --surface-gray-10: var(--gray-900);
+  --surface-sidebar: var(--gray-50);
+  --ink-base: var(--white);
+  --ink-gray-5: var(--gray-600);
+  --ink-gray-6: var(--gray-700);
+  --ink-gray-7: var(--gray-800);
+  --ink-gray-8: var(--gray-900);
+  --ink-gray-9: #0f0f0f;
+  --outline-gray-1: var(--gray-200);
+  --outline-gray-2: var(--gray-300);
+  --outline-gray-3: var(--gray-400);
+  --ink-blue-link: var(--blue-500);
+  --ink-green-7: var(--green-600);
+  --ink-red-6: var(--red-500);
+  --ink-amber-6: var(--amber-500);
+
+  --radius-3: 6px;
+  --radius-4: 8px;
+  --radius: 8px;
+  --radius-md: 10px;
+  --radius-full: 9999px;
+
+  --shadow-sm: inset 0px 0.25px 1.5px 0px #ffffff29, 0px 0px 1px 0px #00000033, 0px 1px 3px 0px #00000024;
+  --focus-outline-default: 2px solid #c9c9c9e5;
+
+  /* Desk layout. Same in v16.50.0 and v16.52.0 except the dock tile. */
+  --sidebar-width: 224px;
+  --sidebar-collapsed-width: 48px;
+  --dock-width: 56px;
+  --page-head-height: 48px;
+  --navbar-height: 48px;
+  --form-sidebar-width: 277px;
+  --side-panel-min-width: 380px;
+  --page-max-width: 900px;
+  --input-height: 28px;
+  --list-row-height: 30px;
+  --icon-sm: 16px;
+  --icon-md: 20px;
+  --icon-rail: 22px;
+
+  /* Default the page to the requested design target. Switch to v16.52 on the root. */
+  --dock-tile: 40px;
+  --dock-gap: 6px;
+  --dock-pad: 8px;
+  --dock-radius: 12px;
+}
+
+:root[data-dock="v16.52"] {
+  --dock-tile: 34px;
+  --dock-gap: 4px;
+  --dock-pad: 8px;
+  --dock-radius: 8px;
+}
