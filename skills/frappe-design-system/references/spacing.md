@@ -44,14 +44,14 @@ Build component spacing as `calc(var(--spacing) * N)`. The button file does this
 | `--input-padding` | `6px 8px` |
 | `--dropdown-padding` | `4px 8px` |
 | `--grid-padding` | `10px 8px` |
-| `--number-card-padding` | `8px 8px 8px 12px` |
+| `--number-card-padding` | `8px 8px 8px 12px` in Espresso. The Desk number card that renders is `12px 16px`. Use the measured padding |
 
 ## Page gutters
 
 - Header content inset: 15px (legacy).
 - Dashboard grid padding: 12px, then 8px inside each cell. Source: CRM `DashboardGrid.vue` (`p-3` on the scroller, `p-2` on the item) and ESS `.dash-grid`.
 - Form sections: `--padding-md` (15px) on `.sidebar-section` in `form_sidebar.scss`.
-- Do not put 24px or 32px of padding around a dashboard card. The number card is 8px, with 12px on the left.
+- Do not put 24px or 32px of padding around a dashboard card. The rendered number card is `12px 16px`.
 
 ## Table cells
 

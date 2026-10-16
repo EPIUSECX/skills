@@ -18,7 +18,7 @@ Shared by v16.50.0 and v16.52.0:
 - Pinned width `calc(var(--dock-width) + 1px)` → 57px. Measured 57 on the User list.
 - Pinned: in flow, full viewport height, radius 0, no shadow, `border-right: 1px solid var(--outline-gray-1)`
 - Floating: `position: fixed; left: 8px; top: 50%`, radius 18px, `--shadow-2xl`, transform `0.28s cubic-bezier(0.4, 0, 0.2, 1)`
-- Glyph size `.icon-rail` is 22px, stroke 1.5
+- v16.50 glyphs are Lucide at `--icon-md` (20px) or a duotone at `--icon-lg` (24px), stroke 1.5. `.icon-rail` (22px) exists only in v16.52.
 
 Different:
 
@@ -26,12 +26,15 @@ Different:
 | --- | --- | --- |
 | `--dock-tile` | 40px | 34px |
 | Gap | 6px | `var(--spacing)` (4px) |
-| Padding | 8px | `8px 11px 12px` (measured on `.dock`) |
+| Padding | 8px, then pinned `padding-top: 4px` → `4px 8px 8px` | `8px 11px 12px` (measured on `.dock`) |
 | Tile radius | 12px | `var(--radius-4)` (8px) |
 | Idle ink | `--ink-gray-7` | `--ink-gray-5` |
 | Active ink | `--ink-gray-9` | `--ink-gray-8` |
-| Hover fill | `rgba(0,0,0,0.07)` | `--surface-gray-2` |
+| Tile hover | Ink only. No fill. The SCSS comment says "a step in ink and no fill" | Fill `--surface-gray-2`, ink `--ink-gray-7` |
 | Active fill | `rgba(0,0,0,0.12)` | `--surface-elevation-3` plus `--shadow-sm` |
+| Glyph | 20px Lucide, 24px duotone | 22px `.icon-rail` |
+
+`--dock-tile-hover` (`rgba(0,0,0,0.07)` in light) is the user-menu button fill, not the tile hover.
 
 Cohenix ESS `DockRail.vue` and Cargo `shell.css` implement the v16.50 column (40px tiles, 12px radius, 6px gap) and say they follow `dock.scss`. That comment is true for v16.50.0 and false for the v16.52.0 file on this bench. Keep their 40px tiles while the product target stays v16.50.
 
@@ -56,7 +59,7 @@ Frappe UI `Sidebar` defaults to 15rem. Override it.
 
 ## Breadcrumbs
 
-User list showed `Users > User` in the header, with the title "User" and a `+` on the right. Keep breadcrumbs in the header row. Do not add a second title band under it.
+The breadcrumb is the title: 16px / 500, line-height 24px, padding `4px 2px`. A parent crumb is `--ink-gray-5`. The current crumb is `--ink-gray-9`. Keep it in the header row. Do not add a second title band under it.
 
 ## User menu
 

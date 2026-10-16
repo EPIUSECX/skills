@@ -26,6 +26,6 @@ Later captures, from the gap pass:
 | `list-1280x800.json`, `list-1920x1080.json`, `list-390x844.json` | List shell at the other viewports |
 | `form-1280x800.json`, `form-1920x1080.json`, `form-390x844.json` | Form shell at the other viewports |
 
-`comparison.json` is written by `scripts/compare-screenshots.mjs` after the example geometry test.
+Live parity is `node scripts/compare-pages.mjs` with `tests/visual/parity-static.json`, `parity-users.json`, and `parity-mobile.json`. Those runs write `tests/visual/out/` (gitignored). `comparison.json` is an older geometry dump and is not the current check.
 
 A zero width on `.dock` or `.body-sidebar` on the Apps screen means the element is in the DOM and not in the layout. It does not mean the token is 0. The token dump on the same file still says `--sidebar-width: 224px`.
