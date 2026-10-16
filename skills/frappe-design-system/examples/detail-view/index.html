@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>People</title>
+  <link rel="stylesheet" href="../../tokens/variables.css" />
+  <link rel="stylesheet" href="../../assets/templates/shell.css" />
+</head>
+<body>
+  <div class="shell">
+    <aside class="dock" aria-label="Apps">
+      <button class="dock-tile" type="button" aria-current="page" aria-label="People">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 4-4.5 7-4.5S17.5 16 19 19"/></svg>
+      </button>
+    </aside>
+    <aside class="sidebar" aria-label="People">
+      <h1>People</h1>
+      <a class="nav-item" aria-current="page" href="#directory">Directory</a>
+      <a class="nav-item" href="#org">Org chart</a>
+    </aside>
+    <div class="main">
+      <header class="page-head">
+        <div>
+          <div class="crumbs">People <span>/</span> Directory</div>
+          <div class="page-title">Directory</div>
+        </div>
+        <div class="actions">
+          <input class="search" type="search" placeholder="Search" aria-label="Search people" />
+          <button class="es-btn" data-variant="outline" type="button">Department</button>
+          <button class="es-btn" data-variant="solid" type="button">New</button>
+        </div>
+      </header>
+      <div class="content">
+        <div class="work">
+          <div class="canvas">
+            <table class="data">
+              <thead>
+                <tr><th>Name</th><th>Department</th><th>Status</th></tr>
+              </thead>
+              <tbody>
+                <tr aria-selected="true">
+                  <td>Alex Cohen</td><td>People</td><td><span class="badge" data-theme="green">Active</span></td>
+                </tr>
+                <tr>
+                  <td>Sam Naidoo</td><td>Delivery</td><td><span class="badge" data-theme="amber">Leave</span></td>
+                </tr>
+                <tr>
+                  <td>Riley Adams</td><td>Finance</td><td><span class="badge" data-theme="green">Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <aside class="panel" aria-label="Details">
+            <header>
+              <h2>Alex Cohen</h2>
+              <span class="badge" data-theme="green">Active</span>
+            </header>
+            <div class="field"><div class="k">Employee</div><div class="v">HR-EMP-00001</div></div>
+            <div class="field"><div class="k">Company</div><div class="v">EPI-USE</div></div>
+            <div class="field"><div class="k">Department</div><div class="v">People</div></div>
+            <div class="field"><div class="k">Email</div><div class="v">admin@cohenix.local</div></div>
+            <div class="field"><div class="k">Leave</div><div class="v">20 days</div></div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
