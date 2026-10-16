@@ -2,123 +2,126 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Workout Card 10 sessions</title>
   <link rel="stylesheet" href="../../tokens/variables.css" />
   <link rel="stylesheet" href="../../assets/templates/shell.css" />
   <style>
-    .page-head .title-line { display: flex; align-items: center; gap: 8px; min-width: 0; }
-    .page-title { white-space: nowrap; }
-    .icon-btn { width: 28px; height: 28px; padding: 0; }
-    .section-label { grid-column: 1 / -1; margin: 12px 0 0; font-size: var(--text-base); font-weight: var(--font-weight-medium); }
-    .panel .who { padding: 12px 15px 8px; }
-    .panel .who h2 { font-size: var(--text-base); font-weight: var(--font-weight-medium); margin: 8px 0 0; }
+    .panel .who { padding: 15px 15px 8px; }
+    .panel .who h2 { margin: 8px 0 0; font-size: var(--text-base); font-weight: var(--font-weight-medium); color: var(--ink-gray-8); }
+    .side-meta strong { display: block; font-weight: var(--font-weight-regular); color: var(--ink-gray-6); }
   </style>
 </head>
 <body>
   <div class="shell">
+    <div class="nav-scrim" data-nav-toggle></div>
     <aside class="dock" aria-label="Apps">
-      <button class="dock-tile" type="button" aria-current="page" aria-label="Stock">
-        <svg viewBox="0 0 24 24"><path d="M4 7h16v12H4z"/><path d="M8 7V5h8v2"/></svg>
-      </button>
+      <div class="dock-logo"><button class="dock-tile" type="button" aria-label="App menu"><span class="dock-mark">E</span></button></div>
+      <div class="dock-rule" aria-hidden="true"></div>
+      <div class="dock-items">
+        <a class="dock-tile" href="#" aria-current="page" aria-label="Stock"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#layout-grid" /></svg></a>
+        <a class="dock-tile" href="../dashboard/index.html" aria-label="Selling"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#store" /></svg></a>
+      </div>
+      <div class="dock-user"><button class="dock-tile" type="button" aria-label="Account"><span class="dock-avatar">CS</span></button></div>
     </aside>
-    <aside class="sidebar" aria-label="Stock">
-      <h1>Stock</h1>
-      <a class="nav-item" href="#search">Search</a>
-      <a class="nav-item" href="#home">Home</a>
-      <a class="nav-item" href="#dashboard">Dashboard</a>
-      <a class="nav-item" aria-current="page" href="#item">Item</a>
-      <a class="nav-item" href="#warehouse">Warehouse</a>
-      <a class="nav-item" href="#entry">Stock Entry</a>
-      <a class="nav-item" href="#receipt">Purchase Receipt</a>
-      <a class="nav-item" href="#delivery">Delivery Note</a>
-    </aside>
+    <nav class="sidebar" id="sidebar" aria-label="Stock">
+      <div class="sidebar-header" role="button" tabindex="0" aria-haspopup="menu">
+        <span class="title">Stock</span>
+        <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-down" /></svg>
+      </div>
+      <div class="sidebar-group">
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#search" /></svg><span class="label">Search</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#bell" /></svg><span class="label">Notification</span></a>
+      </div>
+      <div class="sidebar-group">
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#house" /></svg><span class="label">Home</span></a>
+        <a class="nav-item" href="#" aria-current="page"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#file-text" /></svg><span class="label">Item</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#store" /></svg><span class="label">Warehouse</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#scroll-text" /></svg><span class="label">Stock Entry</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#id-card" /></svg><span class="label">Reports</span><svg class="icon chevron"><use href="../../assets/icons/lucide-sprite.svg#chevron-right" /></svg></a>
+      </div>
+    </nav>
     <div class="main">
       <header class="page-head">
-        <div class="title-line">
-          <div class="crumbs">Item /</div>
-          <div class="page-title">Workout Card 10 sessions</div>
+        <div>
+          <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#menu" /></svg></button>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Item</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Workout Card 10 sessions</span></nav>
           <span class="badge" data-theme="green">Enabled</span>
         </div>
         <div class="actions">
-          <button class="es-btn" data-variant="outline" type="button">Duplicate</button>
-          <button class="es-btn icon-btn" type="button" aria-label="Previous">‹</button>
-          <button class="es-btn icon-btn" type="button" aria-label="Next">›</button>
-          <button class="es-btn icon-btn" type="button" aria-label="More">…</button>
+          <button class="es-btn" type="button">Duplicate</button>
+          <button class="es-btn" data-icon-only type="button" aria-label="Previous document" title="Previous"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-left" /></svg></button>
+          <button class="es-btn" data-icon-only type="button" aria-label="Next document" title="Next"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-right" /></svg></button>
+          <button class="es-btn" data-icon-only type="button" aria-label="Menu" title="Menu"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#ellipsis" /></svg></button>
           <button class="es-btn" data-variant="solid" type="button">Save</button>
         </div>
       </header>
-      <div class="content">
-        <div class="work">
-          <div class="canvas" style="display:flex;flex-direction:column;padding:0">
-            <nav class="tabs" aria-label="Form sections">
-              <a href="#details" aria-current="page">Details</a>
-              <a href="#accounting">Accounting</a>
-              <a href="#uom">UOM</a>
-              <a href="#tax">Tax</a>
-              <a href="#purchasing">Purchasing</a>
-              <a href="#sales">Sales</a>
-              <a href="#quality">Quality</a>
-              <a href="#pricing">Pricing</a>
-              <a href="#connections">Connections</a>
-            </nav>
-            <div style="padding:12px">
+      <div class="work">
+        <main class="content">
+          <nav class="tabs" aria-label="Form sections">
+            <a href="#details" aria-current="page">Details</a>
+            <a href="#accounting">Accounting</a>
+            <a href="#uom">UOM</a>
+            <a href="#tax">Tax</a>
+            <a href="#purchasing">Purchasing</a>
+            <a href="#sales">Sales</a>
+            <a href="#connections">Connections</a>
+          </nav>
+          <section class="form-section">
+            <div class="form-grid" style="padding-top: 15px">
+              <div>
+                <div class="field">
+                  <label class="control-label reqd" for="item-name">Item Name</label>
+                  <input class="input bold" id="item-name" style="width: 100%" value="Workout Card 10 sessions" required />
+                </div>
+                <div class="field">
+                  <label class="control-label" for="item-group">Item Group</label>
+                  <input class="input" id="item-group" style="width: 100%" value="Consumable" />
+                </div>
+                <div class="field">
+                  <label class="control-label" for="xero">Xero Sync Status</label>
+                  <div class="control read-only" id="xero">Synced</div>
+                </div>
+              </div>
+              <div>
+                <label class="check"><input class="checkbox" type="checkbox" /> <span>Disabled</span></label>
+                <label class="check"><input class="checkbox" type="checkbox" checked /> <span>Maintain Stock</span></label>
+                <p class="help">ERPNext makes a stock ledger entry for each transaction of this item.</p>
+                <label class="check"><input class="checkbox" type="checkbox" /> <span>Is Fixed Asset</span></label>
+              </div>
+            </div>
+          </section>
+          <section class="form-section">
+            <div class="section-head">Item Attributes</div>
             <div class="form-grid">
               <div>
-                <label class="control-label" for="item-name">Item Name</label>
-                <div class="control" id="item-name">Workout Card 10 sessions</div>
-              </div>
-              <label class="check"><input type="checkbox" /> <span>Disabled</span></label>
-              <div>
-                <label class="control-label">Xero Item ID</label>
-                <div class="control">4b4de99d-4c5b-4784-88e0-0e698cd5575d</div>
+                <label class="check"><input class="checkbox" type="checkbox" checked /> <span>Allow Sales</span></label>
+                <label class="check"><input class="checkbox" type="checkbox" checked /> <span>Allow Purchase</span></label>
               </div>
               <div>
-                <label class="check"><input type="checkbox" /> <span>Maintain Stock</span></label>
-                <p class="help">ERPNext will make a stock ledger entry for each transaction of this item. Keep unchecked for non-stock or service items.</p>
+                <div class="field">
+                  <label class="control-label" for="uom">Default Unit of Measure</label>
+                  <input class="input" id="uom" style="width: 100%" value="Nos" />
+                </div>
               </div>
-              <div>
-                <label class="control-label">Xero Sync Status</label>
-                <div class="control">Synced</div>
-              </div>
-              <label class="check"><input type="checkbox" /> <span>Is Fixed Asset</span></label>
-              <div>
-                <label class="control-label">Item Group</label>
-                <div class="control">Consumable</div>
-              </div>
-              <div></div>
-              <label class="check"><input type="checkbox" /> <span>Is Zero Rated</span></label>
-              <div>
-                <label class="control-label">South Africa VAT Category</label>
-                <div class="control"></div>
-                <p class="help">Used to support VAT201 classification and tax invoice checks.</p>
-              </div>
-              <div>
-                <label class="control-label">Default Unit of Measure</label>
-                <div class="control">Nos</div>
-              </div>
-              <h2 class="section-label">Item Attributes</h2>
-              <label class="check"><input type="checkbox" checked /> <span>Allow Sales</span></label>
-              <label class="check"><input type="checkbox" checked /> <span>Allow Purchase</span></label>
-              <label class="check"><input type="checkbox" /> <span>Allow Alternative Item</span></label>
-              <label class="check"><input type="checkbox" /> <span>Is Customer Provided Item</span></label>
             </div>
-            </div>
+          </section>
+        </main>
+        <aside class="panel" aria-label="Document details">
+          <div class="who">
+            <div class="avatar-tile" aria-hidden="true">WC</div>
+            <h2>Workout Card 10 sessions</h2>
           </div>
-          <aside class="panel" aria-label="Details">
-            <div class="who">
-              <div class="avatar-tile" aria-hidden="true">WC</div>
-              <h2>Workout Card 10 sessions</h2>
-            </div>
-            <div class="side-link">Assign <span>+</span></div>
-            <div class="side-link">Attachments <span>+</span></div>
-            <div class="side-link">Tags <span>+</span></div>
-            <div class="side-link">Share <span>+</span></div>
-            <div class="side-meta">Last Edited By You<strong>18 hours ago</strong></div>
-            <div class="side-meta">Created By Christiaan Swart<strong>3 months ago</strong></div>
-          </aside>
-        </div>
+          <div class="side-link">Assigned To <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-link">Attachments <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-link">Tags <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-link">Shared With <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-meta">Last Edited By You<strong>18 hours ago</strong></div>
+          <div class="side-meta">Created By Christiaan Swart<strong>3 months ago</strong></div>
+        </aside>
       </div>
     </div>
   </div>
+  <script src="../../assets/templates/shell.js"></script>
 </body>
 </html>

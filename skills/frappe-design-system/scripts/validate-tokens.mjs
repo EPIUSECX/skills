@@ -26,10 +26,20 @@ expect(tokens.dock['v16.52.0'].tile === '34px', 'runtime dock tile')
 expect(tokens.frappeUi.sidebarDefaultWidth === '15rem', 'frappe-ui sidebar default')
 expect(tokens.crm.dashboard.columns === 20 && tokens.crm.dashboard.rowHeight === 42, 'crm grid')
 
-for (const key of ['--spacing: 0.25rem', '--sidebar-width: 224px', '--dock-tile: 40px', '--form-sidebar-width: 277px']) {
-  expect(css.includes(key), `variables.css missing ${key}`)
+const block = (selector) => css.split(`${selector} {`)[1]?.split('\n}')[0] ?? ''
+const light = block(':root')
+for (const key of [
+  '--spacing: 0.25rem', '--text-base: 14px', '--font-weight-regular: 420', '--radius: 8px', '--radius-lg: 12px',
+  '--sidebar-width: 224px', '--form-sidebar-width: 277px', '--input-height: 28px',
+  '--ink-gray-9: #0f0f0f', '--ink-gray-6: #525252', '--surface-gray-2: #f3f3f3', '--focus-ring: rgba(124, 124, 124, 0.25)',
+  '--icon-xs: 12px', '--icon-sm: 16px', '--icon-md: 20px', '--icon-lg: 24px',
+  '--dock-tile: 40px', '--dock-radius: 12px', '--dock-tile-active: rgba(0, 0, 0, 0.12)',
+]) {
+  expect(light.includes(key), `:root missing ${key}`)
 }
-expect(css.includes('--dock-tile: 34px'), 'v16.52 dock override')
+expect(block(':root[data-dock="v16.52"]').includes('--dock-tile: 34px'), 'v16.52 dock override')
+expect(block(':root[data-theme="dark"]').includes('--desk-sidebar-bg: var(--surface-gray-1)'), 'dark sidebar surface')
+expect(css.includes(`--gray-900: ${tokens.espresso['--gray-900'].value}`) || light.includes('--ink-gray-8: #171717'), 'gray-900 / ink-gray-8')
 
 if (failures.length) {
   console.error(failures.join('\n'))

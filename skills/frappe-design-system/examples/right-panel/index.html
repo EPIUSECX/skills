@@ -2,33 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Record</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex Cohen</title>
   <link rel="stylesheet" href="../../tokens/variables.css" />
   <link rel="stylesheet" href="../../assets/templates/shell.css" />
 </head>
 <body>
+  <!-- CRM-style record: the page is the record, the 277px panel carries label/value rows (35% / 65%). -->
   <div class="shell">
     <div class="main">
       <header class="page-head">
-        <div class="page-title">Alex Cohen</div>
-        <button class="es-btn" data-variant="solid" type="button">Save</button>
-      </header>
-      <div class="content">
-        <div class="work">
-          <div class="canvas">
-            <section class="card" style="max-width:900px">
-              <h2>Employment</h2>
-              <div class="field"><div class="k">Company</div><div class="v">EPI-USE</div></div>
-              <div class="field"><div class="k">Status</div><div class="v">Active</div></div>
-            </section>
-          </div>
-          <aside class="panel" aria-label="Details">
-            <header><h2>Details</h2></header>
-            <div class="field"><div class="k">Assigned to</div><div class="v">Alex Cohen</div></div>
-            <div class="field"><div class="k">Attachments</div><div class="v">0</div></div>
-            <div class="field"><div class="k">Tags</div><div class="v"><span class="badge">People</span></div></div>
-          </aside>
+        <div>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Employee</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Alex Cohen</span></nav>
+          <span class="badge" data-theme="green">Active</span>
         </div>
+        <div class="actions"><button class="es-btn" data-variant="solid" type="button">Save</button></div>
+      </header>
+      <div class="work">
+        <main class="content">
+          <nav class="tabs" aria-label="Record sections">
+            <a href="#activity" aria-current="page">Activity</a>
+            <a href="#leave">Leave</a>
+            <a href="#claims">Claims</a>
+          </nav>
+          <section class="form-section">
+            <div class="section-head">Employment</div>
+            <div class="form-grid">
+              <div class="field"><label class="control-label" for="company">Company</label><input class="input" id="company" style="width: 100%" value="EPI-USE" /></div>
+              <div class="field"><label class="control-label" for="dept">Department</label><input class="input" id="dept" style="width: 100%" value="People" /></div>
+            </div>
+          </section>
+        </main>
+        <aside class="panel" aria-label="Details">
+          <div class="panel-head"><h2>Details</h2></div>
+          <dl class="fields">
+            <dt>Assigned to</dt><dd>Alex Cohen</dd>
+            <dt>Attachments</dt><dd>0</dd>
+            <dt>Tags</dt><dd><span class="badge">People</span></dd>
+            <dt>Email</dt><dd>alex@cohenix.com</dd>
+          </dl>
+        </aside>
       </div>
     </div>
   </div>

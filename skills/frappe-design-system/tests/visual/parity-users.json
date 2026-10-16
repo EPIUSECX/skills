@@ -1,0 +1,474 @@
+{
+  "reference": {
+    "base": "http://127.0.0.1:8000",
+    "login": true
+  },
+  "candidate": {
+    "base": "http://127.0.0.1:5180"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "out": "tests/visual/out",
+  "pages": [
+    {
+      "name": "users-list",
+      "ref": "/desk/user",
+      "cand": "/#/users",
+      "wait": 2500,
+      "pairs": [
+        {
+          "name": "root text",
+          "ref": "body",
+          "cand": "body",
+          "props": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "color"
+          ]
+        },
+        {
+          "name": "dock column",
+          "ref": ".dock",
+          "cand": ".desk-dock",
+          "props": [
+            "x",
+            "w",
+            "h",
+            "background-color"
+          ]
+        },
+        {
+          "name": "dock tile (v16.50 target vs v16.52 runtime)",
+          "ref": ".dock-item:not(.active)",
+          "cand": ".desk-dock-items .desk-dock-tile:not(.active)",
+          "props": [
+            "w",
+            "h",
+            "border-radius",
+            "color"
+          ],
+          "accept": [
+            "w",
+            "h",
+            "border-radius",
+            "color"
+          ],
+          "note": "40px/12px/ink-gray-7 is the v16.50 target; the bench runs v16.52 (34px/8px/ink-gray-5)"
+        },
+        {
+          "name": "sidebar column",
+          "ref": ".body-sidebar",
+          "cand": "[data-slot=sidebar]",
+          "props": [
+            "x",
+            "w",
+            "h",
+            "background-color"
+          ]
+        },
+        {
+          "name": "sidebar header row",
+          "ref": ".body-sidebar .sidebar-header",
+          "cand": "[data-slot=sidebar-header] > *",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "sidebar header title",
+          "ref": ".sidebar-header .sidebar-item-label",
+          "cand": "[data-slot=sidebar-header] .text-base-medium",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "sidebar row",
+          "ref": ".body-sidebar .standard-sidebar-item",
+          "cand": "[data-slot=sidebar-item]",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "border-radius"
+          ],
+          "accept": [
+            "border-radius"
+          ],
+          "note": "Desk rounds the row only on hover/active; the idle row is transparent, so 0px vs 8px is invisible"
+        },
+        {
+          "name": "sidebar row label",
+          "ref": ".body-sidebar .standard-sidebar-item .sidebar-item-label",
+          "cand": "[data-slot=sidebar-item] .truncate",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color",
+            "font-family",
+            "letter-spacing"
+          ]
+        },
+        {
+          "name": "sidebar row icon",
+          "ref": ".body-sidebar .standard-sidebar-item .sidebar-item-icon svg",
+          "cand": "[data-slot=sidebar-item] [class*=lucide-]",
+          "props": [
+            "x",
+            "w",
+            "h"
+          ]
+        },
+        {
+          "name": "sidebar active row",
+          "ref": ".body-sidebar .standard-sidebar-item.active-sidebar",
+          "cand": "[data-slot=sidebar-item][data-state=active]",
+          "props": [
+            "y",
+            "w",
+            "h",
+            "background-color",
+            "border-radius",
+            "box-shadow"
+          ]
+        },
+        {
+          "name": "page head",
+          "ref": ".page-head",
+          "cand": ".desk-page-head",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "background-color"
+          ]
+        },
+        {
+          "name": "page title (breadcrumb)",
+          "ref": ".page-head .es-breadcrumbs__label",
+          "cand": ".desk-page-head .text-lg-medium span",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "line-height"
+          ],
+          "accept": [
+            "line-height"
+          ],
+          "note": "Frappe UI Breadcrumbs uses leading-tighter; the crumb is centred in the 48px head either way"
+        },
+        {
+          "name": "primary action",
+          "ref": ".page-head .primary-action",
+          "cand": ".desk-page-head button[aria-label=\"Add User\"]",
+          "props": [
+            "y",
+            "h",
+            "font-size",
+            "font-weight",
+            "color",
+            "background-color",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "icon button",
+          "ref": ".page-head .page-actions .icon-btn",
+          "cand": ".desk-page-head button[aria-label=Reload]",
+          "props": [
+            "y",
+            "w",
+            "h",
+            "background-color",
+            "border-radius",
+            "icon"
+          ]
+        },
+        {
+          "name": "standard filter input",
+          "ref": ".standard-filter-section .form-control",
+          "cand": ".desk-list-toolbar input",
+          "props": [
+            "x",
+            "y",
+            "h",
+            "font-size",
+            "background-color",
+            "border-radius"
+          ],
+          "accept": [
+            "border-radius"
+          ],
+          "note": "Desk joins the filter input to an input group; a lone Frappe UI TextInput keeps all four corners"
+        },
+        {
+          "name": "list head",
+          "ref": ".list-row-head",
+          "cand": ".desk-list-head",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "background-color",
+            "border-radius",
+            "font-size",
+            "font-weight",
+            "color",
+            "font-family",
+            "letter-spacing"
+          ]
+        },
+        {
+          "name": "list data row",
+          "ref": ".list-row-container .list-row",
+          "cand": ".desk-list-row",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "font-size",
+            "color",
+            "border-bottom",
+            "font-family",
+            "letter-spacing"
+          ]
+        },
+        {
+          "name": "row checkbox",
+          "ref": ".list-row .list-row-checkbox",
+          "cand": ".desk-list-row input[type=checkbox]",
+          "props": [
+            "x",
+            "w",
+            "h",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "subject link",
+          "ref": ".list-row .list-subject a",
+          "cand": ".desk-list-row .desk-subject",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color",
+            "font-family",
+            "letter-spacing"
+          ]
+        },
+        {
+          "name": "status badge",
+          "ref": ".list-row .es-badge",
+          "cand": ".desk-list-row .desk-col .rounded-full",
+          "props": [
+            "h",
+            "font-size",
+            "background-color",
+            "color",
+            "border-radius",
+            "padding-left"
+          ]
+        },
+        {
+          "name": "sidebar header chevron",
+          "ref": ".body-sidebar .sidebar-header .drop-icon svg",
+          "cand": "[data-slot=sidebar-header] [class*=lucide-chevron]",
+          "props": [
+            "w",
+            "h",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dashboard",
+      "ref": "/desk/dashboard-view/Selling",
+      "cand": "/#/dashboard",
+      "wait": 3000,
+      "pairs": [
+        {
+          "name": "number card",
+          "ref": ".widget.number-widget-box",
+          "cand": ".desk-number-card",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "padding",
+            "border-radius",
+            "border-top-color",
+            "background-color",
+            "gap"
+          ],
+          "tol": 1
+        },
+        {
+          "name": "number card title",
+          "ref": ".number-widget-box .widget-title",
+          "cand": ".desk-number-title",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "number value",
+          "ref": ".number-widget-box .number",
+          "cand": ".desk-number",
+          "props": [
+            "font-size",
+            "font-weight",
+            "line-height",
+            "color"
+          ]
+        },
+        {
+          "name": "second number card",
+          "ref": ".widget.number-widget-box:nth-child(2), .number-widget-box ~ .number-widget-box",
+          "cand": ".desk-number-card:nth-child(2)",
+          "props": [
+            "x",
+            "w"
+          ]
+        },
+        {
+          "name": "chart card",
+          "ref": ".widget.dashboard-widget-box",
+          "cand": ".desk-chart-card",
+          "props": [
+            "x",
+            "w",
+            "padding",
+            "border-radius",
+            "border-top-color"
+          ]
+        },
+        {
+          "name": "chart head",
+          "ref": ".dashboard-widget-box .widget-head",
+          "cand": ".desk-chart-head",
+          "props": [
+            "padding"
+          ]
+        },
+        {
+          "name": "chart title",
+          "ref": ".dashboard-widget-box .widget-title",
+          "cand": ".desk-chart-head h2",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "users-list-dark",
+      "ref": "/desk/user",
+      "cand": "/#/users",
+      "wait": 2500,
+      "refAction": "document.documentElement.setAttribute('data-theme','dark')",
+      "candAction": "document.documentElement.setAttribute('data-theme','dark')",
+      "pairs": [
+        {
+          "name": "page surface",
+          "ref": ".page-head",
+          "cand": ".desk-page-head",
+          "props": [
+            "background-color",
+            "border-bottom-color"
+          ]
+        },
+        {
+          "name": "sidebar surface",
+          "ref": ".body-sidebar",
+          "cand": "[data-slot=sidebar]",
+          "props": [
+            "background-color"
+          ]
+        },
+        {
+          "name": "dock surface",
+          "ref": ".dock",
+          "cand": ".desk-dock",
+          "props": [
+            "background-color"
+          ]
+        },
+        {
+          "name": "sidebar row label",
+          "ref": ".body-sidebar .standard-sidebar-item .sidebar-item-label",
+          "cand": "[data-slot=sidebar-item] .truncate",
+          "props": [
+            "color"
+          ]
+        },
+        {
+          "name": "list head",
+          "ref": ".list-row-head",
+          "cand": ".desk-list-head",
+          "props": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "name": "subject link",
+          "ref": ".list-row .list-subject a",
+          "cand": ".desk-list-row .desk-subject",
+          "props": [
+            "color"
+          ]
+        },
+        {
+          "name": "list data row",
+          "ref": ".list-row-container .list-row",
+          "cand": ".desk-list-row",
+          "props": [
+            "color",
+            "border-bottom-color"
+          ]
+        },
+        {
+          "name": "primary action",
+          "ref": ".page-head .primary-action",
+          "cand": ".desk-page-head button[aria-label=\"Add User\"]",
+          "props": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "name": "status badge",
+          "ref": ".list-row .es-badge",
+          "cand": ".desk-list-row .desk-col .rounded-full",
+          "props": [
+            "background-color",
+            "color"
+          ]
+        }
+      ]
+    }
+  ]
+}
