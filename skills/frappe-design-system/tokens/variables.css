@@ -1,8 +1,8 @@
-/* Espresso subset for standalone pages.
- * Light values are copied from Frappe v16.52.0 (4515014), frappe/public/css/espresso/*.css
- * and the Desk layout partials. They are not a new token system.
- * Dark values below were computed on the same bench after setting data-theme="dark".
- * See tokens/tokens.json for the full light extraction.
+/* Espresso subset for framework-free pages (Mode B without Frappe UI, or static mock-ups).
+ * Light and dark values are the computed custom properties of Frappe v16.52.0 (4515014) on
+ * ess.localhost, read with data-theme set on <html>. Espresso CSS is identical in v16.50.0
+ * (f20f92d). Only the dock differs between the tags; see the two dock profiles below.
+ * tokens/tokens.json holds the full light extraction.
  */
 
 @font-face {
@@ -30,46 +30,41 @@
   --text-2xl: 18px;
   --text-3xl: 20px;
 
-  --gray-50: #f8f8f8;
-  --gray-100: #f3f3f3;
-  --gray-200: #ededed;
-  --gray-300: #e2e2e2;
-  --gray-400: #c7c7c7;
-  --gray-500: #999999;
-  --gray-600: #7c7c7c;
-  --gray-700: #525252;
-  --gray-800: #383838;
-  --gray-900: #171717;
-  --white: #ffffff;
+  --surface-base: #ffffff;
+  --surface-gray-1: #f8f8f8;
+  --surface-gray-2: #f3f3f3;
+  --surface-gray-3: #ededed;
+  --surface-gray-4: #e2e2e2;
+  --surface-gray-7: #7c7c7c;
+  --surface-gray-9: #383838;
+  --surface-gray-10: #171717;
+  --surface-sidebar: #f8f8f8;
+  --surface-elevation-3: #ffffff;
+  --surface-green-2: #e4faeb;
+  --surface-amber-2: #fff4d3;
+  --surface-red-2: #ffe7e7;
+  --surface-blue-2: #e6f4ff;
 
-  --blue-500: #0d8ef8;
-  --green-600: #268c5c;
-  --green-50: #f0faf3;
-  --red-500: #e03434;
-  --red-50: #fff5f5;
-  --amber-500: #df9311;
-  --amber-50: #fdf8ed;
-
-  --surface-base: var(--white);
-  --surface-gray-1: var(--gray-50);
-  --surface-gray-2: var(--gray-100);
-  --surface-gray-3: var(--gray-200);
-  --surface-gray-7: var(--gray-600);
-  --surface-gray-10: var(--gray-900);
-  --surface-sidebar: var(--gray-50);
-  --ink-base: var(--white);
-  --ink-gray-5: var(--gray-600);
-  --ink-gray-6: var(--gray-700);
-  --ink-gray-7: var(--gray-800);
-  --ink-gray-8: var(--gray-900);
+  --ink-base: #ffffff;
+  --ink-gray-4: #999999;
+  --ink-gray-5: #7c7c7c;
+  --ink-gray-6: #525252;
+  --ink-gray-7: #383838;
+  --ink-gray-8: #171717;
   --ink-gray-9: #0f0f0f;
-  --outline-gray-1: var(--gray-200);
-  --outline-gray-2: var(--gray-300);
-  --outline-gray-3: var(--gray-400);
-  --ink-blue-link: var(--blue-500);
-  --ink-green-7: var(--green-600);
-  --ink-red-6: var(--red-500);
-  --ink-amber-6: var(--amber-500);
+  --ink-green-7: #268c5c;
+  --ink-green-8: #14804d;
+  --ink-amber-8: #bb6f0c;
+  --ink-red-6: #e03434;
+  --ink-red-7: #ce2c2c;
+  --ink-red-8: #b41d1d;
+  --ink-blue-8: #0375d3;
+  --ink-blue-link: #0d8ef8;
+
+  --outline-gray-1: #ededed;
+  --outline-gray-2: #e2e2e2;
+  --outline-gray-3: #c7c7c7;
+  --outline-gray-4: #999999;
 
   --radius-3: 6px;
   --radius-4: 8px;
@@ -79,9 +74,15 @@
   --radius-full: 9999px;
 
   --shadow-sm: inset 0px 0.25px 1.5px 0px #ffffff29, 0px 0px 1px 0px #00000033, 0px 1px 3px 0px #00000024;
+  --shadow-2xl: inset 0px 0.25px 2px 0px #ffffff29, 0px 0px 1.5px 0px #00000040, 0px 0px 10px 2px #00000008, 0px 44px 52px -10px #0000001a;
   --focus-outline-default: 2px solid #c9c9c9e5;
+  /* Desk inputs: Bootstrap's focus colour (Desk $primary #7c7c7c at 25%), a 2px ring. Measured. */
+  --focus-ring: rgba(124, 124, 124, 0.25);
 
-  /* Desk layout. Same in v16.50.0 and v16.52.0 except the dock tile. */
+  /* desk/sidebar.scss: the sidebar and the pinned dock share this surface. */
+  --desk-sidebar-bg: var(--surface-sidebar);
+
+  /* Desk layout. Same in v16.50.0 and v16.52.0. */
   --sidebar-width: 224px;
   --sidebar-collapsed-width: 48px;
   --dock-width: 56px;
@@ -92,35 +93,85 @@
   --page-max-width: 900px;
   --input-height: 28px;
   --list-row-height: 30px;
+  --icon-xs: 12px;
   --icon-sm: 16px;
   --icon-md: 20px;
-  --icon-rail: 22px;
+  --icon-lg: 24px;
 
-  /* Default the page to the requested design target. Switch to v16.52 on the root. */
+  /* Dock, v16.50.0 (the design target). Hover changes ink only; active is a translucent fill. */
   --dock-tile: 40px;
   --dock-gap: 6px;
-  --dock-pad: 8px;
+  --dock-pad: 4px 8px 8px;
   --dock-radius: 12px;
+  /* Lucide glyphs draw at md (20px); *-duotone glyphs at lg (24px). dock.js at f20f92d. */
+  --dock-icon: var(--icon-md);
+  --dock-ink: var(--ink-gray-7);
+  --dock-ink-strong: var(--ink-gray-9);
+  --dock-ink-hover: var(--ink-gray-9);
+  --dock-tile-hover-fill: transparent;
+  --dock-tile-active: rgba(0, 0, 0, 0.12);
+  --dock-tile-active-shadow: none;
+  --dock-rule: rgba(0, 0, 0, 0.12);
 }
 
+/* Dock, v16.52.0 (what the bench runs). Measured: .dock padding 8px 11px 12px, 34px tiles,
+   22px .icon-rail glyphs, hover fill --surface-gray-2, active is a raised white tile. */
 :root[data-dock="v16.52"] {
   --dock-tile: 34px;
   --dock-gap: 4px;
-  --dock-pad: 8px;
+  --dock-pad: 8px 11px 12px;
   --dock-radius: 8px;
+  --dock-icon: 22px;
+  --dock-ink: var(--ink-gray-5);
+  --dock-ink-strong: var(--ink-gray-8);
+  --dock-ink-hover: var(--ink-gray-7);
+  --dock-tile-hover-fill: var(--surface-gray-2);
+  --dock-tile-active: var(--surface-elevation-3);
+  --dock-tile-active-shadow: var(--shadow-sm);
+  --dock-rule: var(--outline-gray-2);
 }
 
-/* Computed on ess.localhost with data-theme="dark". Page surface painted #171717. */
+/* Computed on ess.localhost after setting data-theme="dark" and letting transitions finish. */
 :root[data-theme="dark"] {
   --surface-base: #171717;
-  --surface-sidebar: #ffffff00;
   --surface-gray-1: #1f1f1f;
-  --surface-gray-2: #242424;
-  --ink-gray-8: #d9d9d9;
-  --ink-gray-5: #7a7a7a;
+  --surface-gray-2: #292929;
+  --surface-gray-3: #383838;
+  --surface-gray-4: #424242;
+  --surface-gray-9: #d9d9d9;
+  --surface-gray-10: #f8f8f8;
+  --surface-sidebar: #ffffff00;
+  --surface-elevation-3: #383838;
+  --surface-green-2: #0e3521;
+  --surface-amber-2: #452608;
+  --surface-red-2: #592222;
+  --surface-blue-2: #0a2e5c;
+
   --ink-base: #171717;
+  --ink-gray-4: #7a7a7a;
+  --ink-gray-5: #7a7a7a;
+  --ink-gray-6: #999999;
+  --ink-gray-7: #afafaf;
+  --ink-gray-8: #d9d9d9;
+  --ink-gray-9: #f8f8f8;
+  --ink-green-7: #359768;
+  --ink-green-8: #7dc5a2;
+  --ink-amber-8: #e9a144;
+  --ink-red-7: #eb4c4c;
+  --ink-red-8: #ff7575;
+  --ink-blue-8: #76bef9;
+
   --outline-gray-1: #242424;
-  --gray-900: #1f1f1f;
-  --desk-sidebar-bg: #1f1f1f;
+  --outline-gray-2: #383838;
+  --outline-gray-3: #424242;
+  --outline-gray-4: #575757;
+
   --focus-outline-default: 3px solid #464646cc;
+  --desk-sidebar-bg: var(--surface-gray-1);
+  --dock-tile-active: rgba(255, 255, 255, 0.22);
+  --dock-rule: rgba(255, 255, 255, 0.18);
+}
+:root[data-theme="dark"][data-dock="v16.52"] {
+  --dock-tile-active: var(--surface-elevation-3);
+  --dock-rule: var(--outline-gray-2);
 }

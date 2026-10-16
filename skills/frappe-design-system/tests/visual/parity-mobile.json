@@ -1,0 +1,47 @@
+{
+  "reference": { "base": "http://127.0.0.1:8000", "login": true },
+  "candidate": { "base": "http://127.0.0.1:5190" },
+  "viewport": { "width": 390, "height": 844, "isMobile": true, "hasTouch": true },
+  "out": "tests/visual/out/mobile",
+  "pages": [
+    {
+      "name": "detail-view-390",
+      "ref": "/desk/user",
+      "cand": "/examples/detail-view/index.html",
+      "wait": 2500,
+      "pairs": [
+        { "name": "dock hidden", "ref": ".dock", "cand": ".dock", "props": ["display", "w"] },
+        { "name": "menu toggle", "ref": ".page-head .sidebar-toggle-btn", "cand": ".page-head .nav-toggle", "props": ["x", "y", "w", "h"] },
+        { "name": "page head", "ref": ".page-head", "cand": ".page-head", "props": ["x", "w", "h"] },
+        { "name": "page title", "ref": ".page-head .es-breadcrumbs__item:last-child", "cand": ".crumbs [aria-current]", "props": ["x", "font-size"] },
+        { "name": "list stays in viewport", "ref": ".result-container", "cand": ".list", "props": ["x", "w"] },
+        { "name": "row checkbox (15px below 576px)", "ref": ".list-row .list-row-checkbox", "cand": ".list-row .checkbox", "props": ["w", "h"] },
+        { "name": "list row", "ref": ".list-row-container .list-row", "cand": ".list-row", "props": ["h"] },
+        { "name": "row meta line", "ref": ".list-row .mobile-layout", "cand": ".list-row .row-meta", "props": ["font-size", "font-weight", "color", "h"] }
+      ]
+    },
+    {
+      "name": "detail-view-390-drawer",
+      "ref": "/desk/user",
+      "cand": "/examples/detail-view/index.html",
+      "wait": 2500,
+      "refAction": "document.querySelector('.page-head .sidebar-toggle-btn').click()",
+      "candAction": "document.querySelector('.page-head .nav-toggle').click()",
+      "pairs": [
+        { "name": "drawer", "ref": ".body-sidebar", "cand": ".sidebar", "props": ["x", "y", "w", "background-color"] },
+        { "name": "drawer row", "ref": ".body-sidebar .standard-sidebar-item", "cand": ".nav-item", "props": ["x", "w", "h"] }
+      ]
+    },
+    {
+      "name": "record-form-390",
+      "ref": "/desk/user/Administrator",
+      "cand": "/examples/record-form/index.html",
+      "wait": 3000,
+      "pairs": [
+        { "name": "tab strip", "ref": ".form-tabs-list", "cand": ".tabs", "props": ["x", "w"] },
+        { "name": "text input", "ref": ".frappe-control input.form-control", "cand": ".field input.input", "props": ["x", "w", "h"] },
+        { "name": "check box (touch size)", "ref": ".frappe-control input[type=checkbox]:checked", "cand": ".check .checkbox:checked", "props": ["w", "h"] }
+      ]
+    }
+  ]
+}
