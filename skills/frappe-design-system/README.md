@@ -14,6 +14,26 @@ npx skills add EPIUSECX/skills --skill frappe-design-system
 
 The skill name is the `name` field in `SKILL.md`.
 
+## Import into Claude or Codex
+
+`skills/frappe-design-system.zip` (one directory above this folder) is the same skill packaged for upload. The archive’s top level is the `frappe-design-system/` directory, which is the shape Claude.ai expects.
+
+Claude.ai: Settings → Capabilities → Skills → Upload skill, and choose that zip.
+
+Claude Code:
+
+```bash
+unzip frappe-design-system.zip -d ~/.claude/skills
+```
+
+Codex, for every project on this machine:
+
+```bash
+unzip frappe-design-system.zip -d ~/.codex/skills
+```
+
+For one repository, unzip into `.agents/skills` instead of `~/.codex/skills`.
+
 ## Check the tokens
 
 ```bash
