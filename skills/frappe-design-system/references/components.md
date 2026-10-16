@@ -13,20 +13,20 @@ Kinds:
 | ModuleDock | Native `.dock`. App `DockRail` in ESS and Cargo | See navigation.md for 40px vs 34px | 57px pinned |
 | WorkspaceSidebar | Native `.body-sidebar`. Frappe UI `Sidebar` | Set `width="224px"` | 224 / 48 |
 | PageHeader | Native `.page-head`. Frappe UI `PageHeader` | One per page | 48px, measured border box 49px |
-| Breadcrumbs | Native header. CRM `ViewBreadcrumbs` | In the header, not under it | 13px ink-gray-5 |
+| Breadcrumbs | Native header. CRM `ViewBreadcrumbs` | In the header, not under it | 16px / 500. Parent ink-gray-5, current ink-gray-9 |
 | PrimaryActions | `.es-button[data-variant=solid]` or Frappe UI `Button variant="solid"` | Gray-900, white text. One per header | 28px sm |
 | SecondaryActions | `data-variant="subtle"` (the default) or `outline` | Subtle is the Desk default | 28px |
 | SearchInput | Frappe UI `TextInput` or `.search` | Height 28px, radius 8px | 28px |
 | FilterBar | Desk list filters. Frappe UI `Dropdown` / CRM `QuickFilterField` | Sit in the header row, 8px gap | |
 | DataTable | Desk list view. Frappe UI list components | Row token 30px | see tables.md |
 | StatusBadge | `.es-badge` or Frappe UI `Badge` | Pill, height 20px, 12px type | |
-| MetricCard | App, using `--number-card-padding` | No resting shadow | padding 8px 8px 8px 12px |
+| MetricCard | Desk `.number-widget-box` | No resting shadow | padding 12px 16px, radius 12px, value 17px / 600 |
 | DashboardCard | CRM grid item | 20 columns, 42px rows, padding 8px | dashboards.md |
 | FormSection | Desk form layout. CRM `CollapsibleSection` | Header 32px (`h-8`) in CRM | |
-| FormField | Native control or Frappe UI `FormControl` | Label 13px, control 28px | forms.md |
+| FormField | Native control or Frappe UI `FormControl` | Label 14px / 420 ink-gray-6, control 28px, no border | forms.md |
 | Tabs | `.es` tab styles, Frappe UI `Tabs` / `TabButtons` | Desk form tabs sit under the header | |
-| DropdownMenu | Frappe UI `Dropdown`. Padding `--dropdown-padding: 4px 8px` | `--shadow-md` | |
-| ModalDialog | Frappe UI `Dialog`. Desk modal uses `--modal-shadow: var(--shadow-md)` | Do not invent a width | |
+| DropdownMenu | Frappe UI `Dropdown` | radius 12px, padding 6px, item 28px, `--shadow-2xl`. Not `--dropdown-padding` and not `--shadow-md` | |
+| ModalDialog | Frappe UI `Dialog`. Desk `$modal-md` is 575px | Measured Rename dialog: 575×221, content radius 12px, shadow `0 5px 10px rgba(0,0,0,0.1)` | |
 | ContextDrawer | Desk `.side-panel` | `clamp(380px, 46vw, 780px)`, shadow lg, 200ms | right-panels.md |
 | RightDetailPanel | Desk `.form-sidebar` or CRM `SidePanelLayout` | 277px, or 35/65 fields | right-panels.md |
 | EmptyState | Frappe UI empty pattern. ESS `EmptyState.vue` | Centered, no illustration larger than 48px | |

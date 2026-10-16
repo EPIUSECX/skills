@@ -49,6 +49,25 @@ Use the pale surface plus a darker ink. Do not invent a green.
 
 `$danger` in the SCSS bridge is `#e03636`. The Espresso `--red-500` is `#e03434`. New UI uses `--red-500`.
 
+## Dark, measured
+
+Set `data-theme="dark"` on the document element of the User form. Computed custom properties (`references/visual-audit/dark.json`):
+
+| Token | Computed |
+| --- | --- |
+| `--surface-base` | `#171717` |
+| `--ink-gray-8` | `#d9d9d9` |
+| `--ink-gray-5` | `#7a7a7a` |
+| `--outline-gray-1` | `#242424` |
+| `--gray-900` | `#1f1f1f` |
+| `--desk-sidebar-bg` | `#1f1f1f` |
+| `--surface-sidebar` | transparent (`#ffffff00`) |
+| `--focus-outline-default` | `3px solid #464646cc` |
+
+`.page-container` painted `rgb(23, 23, 23)`. A pixel sample of `assets/screenshots/form-dark-1440x900.png` at (600, 200) is the same `#171717`. In that same call, `.body-sidebar`'s used background was still `rgb(248, 248, 248)`. The variable had changed. The sidebar element's used value had not. Do not describe the sidebar as repainted from this capture.
+
+`tokens/variables.css` repeats these computed dark values under `:root[data-theme="dark"]`.
+
 ## Focus
 
 Light: `--focus-outline-default: 2px solid #c9c9c9e5`. Also red, green, amber, blue, and violet rings in `effects.css`. Dark rings are 3px and live under `[data-theme="dark"]`.
@@ -57,9 +76,9 @@ Light: `--focus-outline-default: 2px solid #c9c9c9e5`. Also red, green, amber, b
 
 Resting surfaces have no shadow. Elevations in `effects.css` are for floating layers:
 
-- `--shadow-sm` — active dock tile, small raised control
-- `--shadow-md` — modal (`--modal-shadow`)
+- `--shadow-sm` — v16.52 active dock tile, active sidebar row
+- Dialog — `0 5px 10px rgba(0,0,0,0.1)` (`$modal-content-box-shadow-sm-up`). Not `--shadow-md`
 - `--shadow-lg` — `.side-panel`
-- `--shadow-2xl` — floating dock
+- `--shadow-2xl` — floating dock and `.dropdown-menu`
 
 A dashboard card does not get `--shadow-md`.

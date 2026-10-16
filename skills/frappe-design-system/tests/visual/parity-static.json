@@ -1,0 +1,727 @@
+{
+  "reference": {
+    "base": "http://127.0.0.1:8000",
+    "login": true
+  },
+  "candidate": {
+    "base": "http://127.0.0.1:5190"
+  },
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "out": "tests/visual/out/static",
+  "pages": [
+    {
+      "name": "detail-view",
+      "ref": "/desk/user",
+      "cand": "/examples/detail-view/index.html",
+      "wait": 2500,
+      "pairs": [
+        {
+          "name": "root text",
+          "ref": "body",
+          "cand": "body",
+          "props": [
+            "font-family",
+            "font-size",
+            "font-weight",
+            "letter-spacing",
+            "color"
+          ]
+        },
+        {
+          "name": "dock column",
+          "ref": ".dock",
+          "cand": ".dock",
+          "props": [
+            "x",
+            "w",
+            "h",
+            "background-color"
+          ]
+        },
+        {
+          "name": "dock tile (v16.50 target vs v16.52 runtime)",
+          "ref": ".dock-item:not(.active)",
+          "cand": ".dock-items .dock-tile:not([aria-current])",
+          "props": [
+            "w",
+            "h",
+            "border-radius",
+            "color"
+          ],
+          "accept": [
+            "w",
+            "h",
+            "border-radius",
+            "color"
+          ],
+          "note": "40px/12px/ink-gray-7 is the v16.50 target; the bench runs v16.52 (34px/8px/ink-gray-5)"
+        },
+        {
+          "name": "sidebar column",
+          "ref": ".body-sidebar",
+          "cand": ".sidebar",
+          "props": [
+            "x",
+            "w",
+            "h",
+            "background-color"
+          ]
+        },
+        {
+          "name": "sidebar header row",
+          "ref": ".body-sidebar .sidebar-header",
+          "cand": ".sidebar-header",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ]
+        },
+        {
+          "name": "sidebar header title",
+          "ref": ".sidebar-header .sidebar-item-label",
+          "cand": ".sidebar-header .title",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "sidebar header chevron",
+          "ref": ".body-sidebar .sidebar-header .drop-icon svg",
+          "cand": ".sidebar-header .icon",
+          "props": [
+            "w",
+            "h",
+            "color"
+          ]
+        },
+        {
+          "name": "sidebar row",
+          "ref": ".body-sidebar .standard-sidebar-item",
+          "cand": ".nav-item",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h"
+          ]
+        },
+        {
+          "name": "sidebar row label",
+          "ref": ".body-sidebar .standard-sidebar-item .sidebar-item-label",
+          "cand": ".nav-item .label",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color",
+            "font-family",
+            "letter-spacing"
+          ]
+        },
+        {
+          "name": "sidebar row icon",
+          "ref": ".body-sidebar .standard-sidebar-item .sidebar-item-icon svg",
+          "cand": ".nav-item .icon",
+          "props": [
+            "x",
+            "w",
+            "h"
+          ]
+        },
+        {
+          "name": "sidebar active row",
+          "ref": ".body-sidebar .standard-sidebar-item.active-sidebar",
+          "cand": ".nav-item[aria-current]",
+          "props": [
+            "y",
+            "w",
+            "h",
+            "background-color",
+            "border-radius",
+            "box-shadow"
+          ]
+        },
+        {
+          "name": "page head",
+          "ref": ".page-head",
+          "cand": ".page-head",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "h",
+            "background-color",
+            "border-bottom"
+          ]
+        },
+        {
+          "name": "page title (breadcrumb)",
+          "ref": ".page-head .es-breadcrumbs__item:last-child",
+          "cand": ".crumbs [aria-current]",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "line-height",
+            "color"
+          ],
+          "note": "Desk pads the crumb item and nests the label; compare the padded box on both sides"
+        },
+        {
+          "name": "primary action",
+          "ref": ".page-head .primary-action",
+          "cand": ".page-head [data-variant=solid]",
+          "props": [
+            "y",
+            "h",
+            "font-size",
+            "font-weight",
+            "color",
+            "background-color",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "icon button",
+          "ref": ".page-head .page-actions .icon-btn",
+          "cand": ".page-head [data-icon-only]",
+          "props": [
+            "y",
+            "w",
+            "h",
+            "background-color",
+            "border-radius",
+            "icon"
+          ]
+        },
+        {
+          "name": "standard filter input",
+          "ref": ".standard-filter-section .form-control",
+          "cand": ".list-toolbar .search",
+          "props": [
+            "x",
+            "y",
+            "h",
+            "font-size",
+            "background-color",
+            "border-radius"
+          ],
+          "accept": [
+            "border-radius"
+          ],
+          "note": "Desk joins the filter input to an input group; a lone input keeps all four corners"
+        },
+        {
+          "name": "list head",
+          "ref": ".list-row-head",
+          "cand": ".list-head",
+          "props": [
+            "x",
+            "y",
+            "h",
+            "background-color",
+            "border-radius",
+            "font-size",
+            "font-weight",
+            "color"
+          ],
+          "note": "Width is not compared: the example keeps the 277px detail panel open"
+        },
+        {
+          "name": "list data row",
+          "ref": ".list-row-container .list-row",
+          "cand": ".list-row",
+          "props": [
+            "x",
+            "y",
+            "h",
+            "font-size",
+            "color",
+            "border-bottom"
+          ]
+        },
+        {
+          "name": "row checkbox",
+          "ref": ".list-row .list-row-checkbox",
+          "cand": ".list-row .checkbox",
+          "props": [
+            "x",
+            "w",
+            "h",
+            "border-radius",
+            "border-top-color"
+          ]
+        },
+        {
+          "name": "subject link",
+          "ref": ".list-row .list-subject a",
+          "cand": ".list-row .subject",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "status badge",
+          "ref": ".list-row .es-badge",
+          "cand": ".list-row .badge",
+          "props": [
+            "h",
+            "font-size",
+            "background-color",
+            "color",
+            "border-radius",
+            "padding-left"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "dashboard",
+      "ref": "/desk/dashboard-view/Selling",
+      "cand": "/examples/dashboard/index.html",
+      "wait": 3000,
+      "pairs": [
+        {
+          "name": "number card",
+          "ref": ".widget.number-widget-box",
+          "cand": ".number-card",
+          "props": [
+            "x",
+            "y",
+            "w",
+            "padding",
+            "border-radius",
+            "border-top-color",
+            "background-color",
+            "gap"
+          ]
+        },
+        {
+          "name": "number card title",
+          "ref": ".number-widget-box .widget-title",
+          "cand": ".number-card .label",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "number value",
+          "ref": ".number-widget-box .number",
+          "cand": ".number-card .value",
+          "props": [
+            "font-size",
+            "font-weight",
+            "line-height",
+            "color"
+          ]
+        },
+        {
+          "name": "second number card",
+          "ref": ".widget.number-widget-box:nth-child(2), .number-widget-box ~ .number-widget-box",
+          "cand": ".number-card:nth-child(2)",
+          "props": [
+            "x",
+            "w"
+          ]
+        },
+        {
+          "name": "chart card",
+          "ref": ".widget.dashboard-widget-box",
+          "cand": ".chart-card",
+          "props": [
+            "x",
+            "w",
+            "padding",
+            "border-radius",
+            "border-top-color"
+          ]
+        },
+        {
+          "name": "chart head",
+          "ref": ".dashboard-widget-box .widget-head",
+          "cand": ".chart-card .head",
+          "props": [
+            "padding"
+          ]
+        },
+        {
+          "name": "chart title",
+          "ref": ".dashboard-widget-box .widget-title",
+          "cand": ".chart-card h2",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "record-form",
+      "ref": "/desk/user/Administrator",
+      "cand": "/examples/record-form/index.html",
+      "wait": 3000,
+      "pairs": [
+        {
+          "name": "tab strip",
+          "ref": ".form-tabs-list",
+          "cand": ".tabs",
+          "props": [
+            "x",
+            "y",
+            "h",
+            "border-bottom"
+          ]
+        },
+        {
+          "name": "first tab",
+          "ref": ".form-tabs-list .nav-link",
+          "cand": ".tabs a",
+          "props": [
+            "x",
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "active tab",
+          "ref": ".form-tabs-list .nav-link.active",
+          "cand": ".tabs a[aria-current]",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color",
+            "border-bottom"
+          ]
+        },
+        {
+          "name": "section head",
+          "ref": ".form-section .section-head",
+          "cand": ".section-head",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color",
+            "padding"
+          ]
+        },
+        {
+          "name": "field label",
+          "ref": ".frappe-control .control-label",
+          "cand": ".control-label",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color",
+            "margin-bottom"
+          ]
+        },
+        {
+          "name": "text input",
+          "ref": ".frappe-control input.form-control",
+          "cand": ".field input.input",
+          "props": [
+            "h",
+            "font-size",
+            "background-color",
+            "border-radius",
+            "padding",
+            "border-top-width"
+          ]
+        },
+        {
+          "name": "check box",
+          "ref": ".frappe-control input[type=checkbox]:checked",
+          "cand": ".check .checkbox:checked",
+          "props": [
+            "w",
+            "h",
+            "border-radius",
+            "border-top-color",
+            "background-color"
+          ],
+          "accept": [
+            "border-top-color"
+          ],
+          "note": "Desk sets border: none on :checked, so its black is the unpainted default; the example border equals the #171717 fill"
+        },
+        {
+          "name": "form sidebar",
+          "ref": ".form-sidebar",
+          "cand": ".panel",
+          "props": [
+            "w",
+            "font-size"
+          ]
+        },
+        {
+          "name": "page head",
+          "ref": ".page-head",
+          "cand": ".page-head",
+          "props": [
+            "y",
+            "h",
+            "border-bottom"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "modal",
+      "ref": "/desk/user",
+      "cand": "/examples/modal/index.html",
+      "wait": 2500,
+      "refAction": "new frappe.ui.Dialog({ title: 'New Thing', fields: [{ fieldtype: 'Data', label: 'Name', fieldname: 'name', reqd: 1 }], primary_action_label: 'Save', primary_action() {} }).show()",
+      "pairs": [
+        {
+          "name": "dialog box",
+          "ref": ".modal.show .modal-content",
+          "cand": ".modal",
+          "props": [
+            "w",
+            "border-radius",
+            "border-top-color",
+            "box-shadow",
+            "background-color"
+          ]
+        },
+        {
+          "name": "dialog header",
+          "ref": ".modal.show .modal-header",
+          "cand": ".modal-header",
+          "props": [
+            "padding"
+          ]
+        },
+        {
+          "name": "dialog title",
+          "ref": ".modal.show .modal-title",
+          "cand": ".modal-title",
+          "props": [
+            "font-size",
+            "font-weight",
+            "color"
+          ]
+        },
+        {
+          "name": "dialog body",
+          "ref": ".modal.show .modal-body",
+          "cand": ".modal-body",
+          "props": [
+            "padding"
+          ]
+        },
+        {
+          "name": "dialog footer",
+          "ref": ".modal.show .modal-footer",
+          "cand": ".modal-footer",
+          "props": [
+            "padding"
+          ]
+        },
+        {
+          "name": "dialog input",
+          "ref": ".modal.show .form-control",
+          "cand": ".modal .input",
+          "props": [
+            "h",
+            "font-size",
+            "font-weight",
+            "background-color",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "dialog primary",
+          "ref": ".modal.show .modal-footer .btn-modal-primary",
+          "cand": ".modal-footer [data-variant=solid]",
+          "props": [
+            "h",
+            "font-size",
+            "background-color",
+            "color",
+            "border-radius"
+          ]
+        },
+        {
+          "name": "backdrop",
+          "ref": ".modal-backdrop",
+          "cand": ".modal-backdrop",
+          "props": [
+            "background-color",
+            "opacity"
+          ],
+          "accept": [
+            "background-color",
+            "opacity"
+          ],
+          "note": "Desk: #383838 at element opacity 0.8. The example nests the dialog in the backdrop, so it uses rgba(56,56,56,.8); same composite, checked by the pixel diff"
+        },
+        {
+          "name": "dialog top",
+          "ref": ".modal.show .modal-dialog",
+          "cand": ".modal",
+          "props": [
+            "x",
+            "y"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "detail-view-dark",
+      "ref": "/desk/user",
+      "cand": "/examples/detail-view/index.html",
+      "wait": 2500,
+      "refAction": "document.documentElement.setAttribute('data-theme','dark')",
+      "candAction": "document.documentElement.setAttribute('data-theme','dark')",
+      "pairs": [
+        {
+          "name": "page surface",
+          "ref": ".page-head",
+          "cand": ".page-head",
+          "props": [
+            "background-color",
+            "border-bottom-color"
+          ]
+        },
+        {
+          "name": "sidebar surface",
+          "ref": ".body-sidebar",
+          "cand": ".sidebar",
+          "props": [
+            "background-color"
+          ]
+        },
+        {
+          "name": "dock surface",
+          "ref": ".dock",
+          "cand": ".dock",
+          "props": [
+            "background-color"
+          ]
+        },
+        {
+          "name": "sidebar row label",
+          "ref": ".body-sidebar .standard-sidebar-item .sidebar-item-label",
+          "cand": ".nav-item .label",
+          "props": [
+            "color"
+          ]
+        },
+        {
+          "name": "list head",
+          "ref": ".list-row-head",
+          "cand": ".list-head",
+          "props": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "name": "subject link",
+          "ref": ".list-row .list-subject a",
+          "cand": ".list-row .subject",
+          "props": [
+            "color"
+          ]
+        },
+        {
+          "name": "list data row",
+          "ref": ".list-row-container .list-row",
+          "cand": ".list-row",
+          "props": [
+            "color",
+            "border-bottom-color"
+          ]
+        },
+        {
+          "name": "primary action",
+          "ref": ".page-head .primary-action",
+          "cand": ".page-head [data-variant=solid]",
+          "props": [
+            "background-color",
+            "color"
+          ]
+        },
+        {
+          "name": "status badge",
+          "ref": ".list-row .es-badge",
+          "cand": ".list-row .badge",
+          "props": [
+            "background-color",
+            "color"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "detail-view-dock-v16.52",
+      "ref": "/desk/user",
+      "cand": "/examples/detail-view/index.html",
+      "wait": 2500,
+      "candAction": "document.documentElement.setAttribute('data-dock','v16.52')",
+      "pairs": [
+        {
+          "name": "dock column",
+          "ref": ".dock",
+          "cand": ".dock",
+          "props": [
+            "x",
+            "w",
+            "padding-top",
+            "padding-left"
+          ]
+        },
+        {
+          "name": "dock tile",
+          "ref": ".dock-item:not(.active)",
+          "cand": ".dock-items .dock-tile:not([aria-current])",
+          "props": [
+            "w",
+            "h",
+            "border-radius",
+            "color",
+            "background-color"
+          ]
+        },
+        {
+          "name": "dock active tile",
+          "ref": ".dock-item.active",
+          "cand": ".dock-items .dock-tile[aria-current]",
+          "props": [
+            "w",
+            "h",
+            "border-radius",
+            "color",
+            "background-color",
+            "box-shadow"
+          ]
+        },
+        {
+          "name": "dock icon",
+          "ref": ".dock-item:not(.active) svg",
+          "cand": ".dock-items .dock-tile:not([aria-current]) .icon",
+          "props": [
+            "w",
+            "h"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,1 +1,4 @@
 node_modules/
+examples/standalone-vue/node_modules
+examples/standalone-vue/dist
+tests/visual/out

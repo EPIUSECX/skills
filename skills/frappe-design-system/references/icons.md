@@ -16,7 +16,7 @@ Stroke, from `common/icons.scss`:
 
 ## Duotone dock glyphs
 
-Rail icons are `*-duotone` symbols from the app sprite registered in `app_include_icons`. ESS uses `ModuleIcon` with names like `icon-bell-duotone` at `size-6` (24px) inside a 40px tile. The Desk `.icon-rail` size is 22px. Inside a v16.50 40px tile, 24px is what ESS ships. Inside a v16.52 34px tile, use 22px so the glyph does not fill the cell. The dock SCSS comment for v16.52 says the glyph is 22px.
+Rail icons are `*-duotone` symbols from the app sprite registered in `app_include_icons`. ESS uses `ModuleIcon` with names like `icon-bell-duotone` at `size-6` (24px) inside a 40px tile, which matches v16.50 (`--icon-lg`). v16.52 adds `.icon-rail` at 22px for the 34px tile. Do not put a 22px glyph in a v16.50 dock.
 
 ## Sizes
 
@@ -24,8 +24,9 @@ Rail icons are `*-duotone` symbols from the app sprite registered in `app_includ
 | --- | --- | --- |
 | `.icon-xs` | 12 | Inline meta |
 | `.icon-sm` / CRM `size-4` | 16 | Sidebar rows, field prefixes |
-| `.icon` / `.icon-md` | 20 | Default |
-| `.icon-rail` | 22 | Dock glyph on v16.52 |
+| `.icon` / `.icon-md` | 20 | Default. v16.50 dock Lucide glyph |
+| `.icon-lg` | 24 | v16.50 dock duotone glyph |
+| `.icon-rail` | 22 | Dock glyph on v16.52 only |
 
 ## Alignment
 

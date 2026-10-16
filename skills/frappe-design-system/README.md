@@ -26,7 +26,7 @@ With Chrome and `puppeteer-core`:
 
 ```bash
 NODE_PATH=/path/to/node_modules node tests/visual/geometry.test.mjs
-NODE_PATH=/path/to/node_modules node scripts/compare-screenshots.mjs
+NODE_PATH=/path/to/node_modules node scripts/compare-pages.mjs tests/visual/parity-static.json
 ```
 
 `scripts/audit-ui.mjs` logs into a running Desk and rewrites `references/visual-audit/`. It needs `FRAPPE_USER` and `FRAPPE_PASSWORD` when the site password is not the local default.

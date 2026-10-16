@@ -7,10 +7,11 @@ The User list at 1440×900 (`assets/screenshots/list-user-1440x900.png`):
 - Header row: breadcrumbs, title, filter icon, sort icon, `+`
 - Columns: ID, Full Name, Enabled, User Type
 - Enabled is a dot, not a word
-- Rows are compact. Token `--list-row-height: 30px`. Cell padding token `--grid-padding: 10px 8px`
-- Measured `.list-row` box: x=303, y=133, width=1105, height=41. The 41px is measured, not the token. New tables use 30px.
+- `--list-row-height: 30px` styles `.list-row-head` only. A data `.list-row` does not use it.
+- Measured data row at 1440, 1280, and 1920: border box 41px. The children are 40px (`.level-left` padding `5px 0`, `.level-right` padding `9px 10px`, line-height 21px) plus a 1px bottom border. Trace: `references/visual-audit/list-row-trace.json`.
+- At 390×844 the same row measured 67px tall. `--grid-padding: 10px 8px` is the grid form, not this list.
 
-Type: 14px, weight 420. Header labels are quieter (`--ink-gray-5`, 13px in the example tables).
+Type: 14px. The row is weight 420. The subject link is weight 600 and `--ink-gray-8`. Header labels are 14px, weight 400, `--ink-gray-6`. Below 576px the row is 67px and grows a 14px meta line (`list.scss`).
 
 ## Selection and sort
 
@@ -18,7 +19,7 @@ A selected row uses `--surface-gray-2`. Sort is a header action, not a separate 
 
 ## Density
 
-Do not raise the row to 48px to "make it easier to tap" on desktop. Below 768px, the list can stack or the row can grow to 44px. That exception is only for touch widths.
+A recreated Desk list uses a 30px header and a 41px data row. Do not squash the data row to 30px, and do not grow it to 48px on desktop. At 390px the running list measured 67px. That is observed, not a new token.
 
 ## Mode B
 

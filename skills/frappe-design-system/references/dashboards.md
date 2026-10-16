@@ -18,20 +18,22 @@ ESS copies this grid in `frontend/src/style.css` (`.dash-grid`). That part match
 
 ## Metric card
 
-Padding `--number-card-padding: 8px 8px 8px 12px`.
+Measured on `/desk/dashboard-view/Selling`. This is not the Espresso `--number-card-padding` token (`8px 8px 8px 12px`), which the running card does not use.
 
+- Padding `12px 16px`
 - Label: 13px `--ink-gray-5`
-- Value: 20px weight 500
-- Hint: 12px `--ink-gray-5`
+- Value: 17px, weight 600, line-height 1.35
+- Gap inside the card: 6px
 - Border: 1px `--outline-gray-1`
-- Radius: 8px
-- No shadow
+- Radius: 12px
+- No resting shadow
+- Cards in one group: 15px apart. The next `.widget-group` starts 40px below
 
-Four metrics in one row, 8px gap. On a 768px window, two columns. On a 390px window, one column.
+Three cards across at 1440. One column below 768px. A chart card is padding 7px, radius 12px, title 14px / 500.
 
 ## Workspace cards
 
-Desk workspace cards (links, charts, shortcuts) use the same border and radius. A chart sits in a card with 12px padding, not in a hero panel.
+The Accounting workspace onboarding widget measured 864×589, padding `16px 12px`, radius 12px. That padding belongs to the onboarding widget. Number cards stay at `12px 16px`. Chart cards stay at 7px.
 
 ## Mistakes
 

@@ -10,7 +10,7 @@ Source: `desk/css_variables.scss`.
 | `--xl-width` | 1200 |
 | `--lg-width` | 992 |
 | `--md-width` | 768 |
-| `--sm-width` | 567 |
+| `--sm-width` | 567 (the custom property). `$grid-breakpoints.sm` is 576, and `list.scss` uses that 576px query |
 | `--xs-width` | 0 |
 
 The sidebar becomes a drawer below `md` (768). The side panel becomes `100vw` below `md`. `.page-title .sidebar-toggle-btn` is hidden from 992px up (`page.scss`).
@@ -30,7 +30,16 @@ The sidebar becomes a drawer below `md` (768). The side panel becomes `100vw` be
 | 1440×900 | User list | Dock 57, sidebar 224, head 49. `list-user-1440x900.png` |
 | 1440×900 | User form | Form sidebar 277. `form-user-1440x900.png` |
 
-The list and the form were not re-captured at 1280, 1920, or 390. Do not invent those measurements. The shell tokens do not change with the viewport. The content width does.
+List and form were measured at the other widths. Shell tokens do not change. Content width does.
+
+| Viewport | Dock | Sidebar | Page head | Notes |
+| --- | --- | --- | --- | --- |
+| 1280×800 list | 57 at x=0 | 224 at x=57 | 49, width 989 | data row 41px, x=303 |
+| 1920×1080 list | 57 | 224 at x=57 | 49, width 1629 | data row 41px, width 1585 |
+| 390×844 list | hidden | hidden until the 20px menu button opens a 224px drawer at x=0 | 49, width 390 | data row 67px. The visible list container is 360px; the inner result is wider and clipped |
+| 390×844 form | hidden | same drawer | 49, width 390 | form sidebar is out of the layout. Fields stack to one column. Checkbox 18px |
+
+Files: `references/visual-audit/list-1280x800.json`, `list-1920x1080.json`, `list-390x844.json`, `form-1280x800.json`, `form-1920x1080.json`, `form-390x844.json`.
 
 ## Rules
 

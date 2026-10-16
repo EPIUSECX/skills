@@ -1,0 +1,25 @@
+{
+  "url": "http://127.0.0.1:8000/desk/users/user/Administrator#user_details_tab",
+  "vw": 1920,
+  "sidebar": {
+    "w": 224,
+    "h": 1080,
+    "x": 57
+  },
+  "dock": {
+    "w": 57,
+    "h": 1080,
+    "x": 0
+  },
+  "head": {
+    "w": 1629,
+    "h": 49,
+    "x": 281
+  },
+  "formSidebar": {
+    "w": 277,
+    "h": 482,
+    "x": 1633
+  },
+  "listRow": null
+}

@@ -2,80 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Workforce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard</title>
   <link rel="stylesheet" href="../../tokens/variables.css" />
   <link rel="stylesheet" href="../../assets/templates/shell.css" />
   <style>
-    .board {
-      display: grid;
-      grid-template-columns: repeat(20, minmax(0, 1fr));
-      grid-auto-rows: 42px;
-      gap: 0;
-      margin-top: 8px;
-    }
-    .board .card { grid-column: span 10; grid-row: span 6; margin: 0; min-height: 0; overflow: hidden; }
-    .bars { display: flex; align-items: flex-end; gap: 8px; height: 160px; }
-    .bars span { flex: 1; background: var(--surface-gray-3); border-radius: 4px 4px 0 0; }
+    .bars { display: flex; align-items: flex-end; gap: 12px; height: 100%; min-height: 180px; padding: 8px; }
+    .bars span { flex: 1; border-radius: 4px 4px 0 0; background: var(--surface-blue-2); }
+    .menu-wrap { position: relative; }
+    .menu-wrap .menu { position: absolute; right: 0; top: 32px; z-index: 20; }
   </style>
 </head>
 <body>
   <div class="shell">
+    <div class="nav-scrim" data-nav-toggle></div>
     <aside class="dock" aria-label="Apps">
-      <button class="dock-tile" type="button" aria-current="page" aria-label="Workforce">
-        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>
-      </button>
-      <div class="dock-rule"></div>
-      <button class="dock-tile" type="button" aria-label="People">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 19c1.5-3 4-4.5 7-4.5S17.5 16 19 19"/></svg>
-      </button>
+      <div class="dock-logo"><button class="dock-tile" type="button" aria-label="App menu"><span class="dock-mark">C</span></button></div>
+      <div class="dock-rule" aria-hidden="true"></div>
+      <div class="dock-items">
+        <a class="dock-tile" href="../detail-view/index.html" aria-label="People"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#users" /></svg></a>
+        <a class="dock-tile" href="#" aria-current="page" aria-label="Selling"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#store" /></svg></a>
+      </div>
+      <div class="dock-user"><button class="dock-tile" type="button" aria-label="Account"><span class="dock-avatar">AC</span></button></div>
     </aside>
-    <aside class="sidebar" aria-label="Workforce">
-      <h1>Workforce</h1>
-      <a class="nav-item" aria-current="page" href="#overview">Overview</a>
-      <a class="nav-item" href="#people">People</a>
-      <a class="nav-item" href="#leave">Leave</a>
-    </aside>
+    <nav class="sidebar" id="sidebar" aria-label="Selling">
+      <div class="sidebar-header" role="button" tabindex="0" aria-haspopup="menu">
+        <span class="title">Selling</span>
+        <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-down" /></svg>
+      </div>
+      <div class="sidebar-group">
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#search" /></svg><span class="label">Search</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#bell" /></svg><span class="label">Notification</span></a>
+      </div>
+      <div class="sidebar-group">
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#house" /></svg><span class="label">Home</span></a>
+        <a class="nav-item" href="#" aria-current="page"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#layout-grid" /></svg><span class="label">Dashboard</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#user" /></svg><span class="label">Customer</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#file-text" /></svg><span class="label">Sales Order</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#scroll-text" /></svg><span class="label">Reports</span><svg class="icon chevron"><use href="../../assets/icons/lucide-sprite.svg#chevron-right" /></svg></a>
+      </div>
+    </nav>
     <div class="main">
       <header class="page-head">
         <div>
-          <div class="crumbs">Workforce</div>
-          <div class="page-title">Overview</div>
+          <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#menu" /></svg></button>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Dashboard</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Selling</span></nav>
         </div>
-        <div class="actions">
-          <button class="es-btn" type="button">Refresh</button>
-          <button class="es-btn" data-variant="solid" type="button">New</button>
+        <div class="actions menu-wrap">
+          <button class="es-btn" data-icon-only type="button" id="menu-btn" aria-label="Menu" aria-haspopup="menu" aria-expanded="false"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#ellipsis" /></svg></button>
+          <div class="menu" role="menu" id="menu" hidden>
+            <div class="menu-item" role="menuitem" tabindex="-1"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#refresh-cw" /></svg>Refresh</div>
+            <div class="menu-item" role="menuitem" tabindex="-1"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#copy" /></svg>Duplicate</div>
+          </div>
         </div>
       </header>
-      <div class="content">
-        <div class="canvas">
-          <div class="grid-4">
-            <article class="metric"><div class="label">Headcount</div><div class="value">128</div><div class="hint">4 this month</div></article>
-            <article class="metric"><div class="label">On leave</div><div class="value">6</div><div class="hint">Today</div></article>
-            <article class="metric"><div class="label">Open requests</div><div class="value">11</div><div class="hint">3 waiting on you</div></article>
-            <article class="metric"><div class="label">Attendance</div><div class="value">96%</div><div class="hint">Last 7 days</div></article>
-          </div>
-          <div class="board">
-            <section class="card">
-              <h2>Attendance</h2>
-              <div class="bars" aria-hidden="true">
-                <span style="height:40%"></span><span style="height:70%"></span><span style="height:55%"></span>
-                <span style="height:80%"></span><span style="height:62%"></span><span style="height:48%"></span><span style="height:30%"></span>
-              </div>
-            </section>
-            <section class="card">
-              <h2>Requests</h2>
-              <table class="data">
-                <thead><tr><th>Person</th><th>Type</th><th>Status</th></tr></thead>
-                <tbody>
-                  <tr><td>Alex Cohen</td><td>Leave</td><td><span class="badge" data-theme="amber">Pending</span></td></tr>
-                  <tr><td>Sam Naidoo</td><td>Expense</td><td><span class="badge" data-theme="green">Approved</span></td></tr>
-                </tbody>
-              </table>
-            </section>
-          </div>
+      <main class="content canvas">
+        <div class="widget-group" aria-label="Key figures">
+          <a class="number-card" href="#"><span class="label">Annual Sales</span><span class="value">R 1 240 500.00</span><span class="stat up"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#arrow-up" /></svg>12.4%</span></a>
+          <a class="number-card" href="#"><span class="label">Sales Orders to Deliver</span><span class="value">18</span></a>
+          <a class="number-card" href="#"><span class="label">Sales Orders to Bill</span><span class="value">7</span><span class="stat down"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#arrow-down" /></svg>3.1%</span></a>
+          <a class="number-card" href="#"><span class="label">Active Customers</span><span class="value">212</span></a>
         </div>
-      </div>
+        <div class="widget-group full">
+          <section class="chart-card" aria-label="Sales Order Trends">
+            <div class="head">
+              <h2>Sales Order Trends</h2>
+              <button class="es-btn" data-icon-only type="button" aria-label="Filter chart"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#funnel" /></svg></button>
+            </div>
+            <div class="body"><div class="bars" role="img" aria-label="Monthly sales orders"><span style="height:42%"></span><span style="height:58%"></span><span style="height:35%"></span><span style="height:71%"></span><span style="height:64%"></span><span style="height:80%"></span><span style="height:52%"></span><span style="height:90%"></span><span style="height:76%"></span><span style="height:61%"></span><span style="height:68%"></span><span style="height:84%"></span></div></div>
+          </section>
+        </div>
+        <div class="widget-group half">
+          <section class="chart-card" aria-label="Top Customers">
+            <div class="head"><h2>Top Customers</h2><button class="es-btn" data-icon-only type="button" aria-label="Filter chart"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#funnel" /></svg></button></div>
+            <div class="body">
+              <div class="list-head" role="row"><span class="col-subject">Customer</span><span class="col-end">Orders</span></div>
+              <div class="list-row" role="row"><span class="col-subject subject">Acme Holdings</span><span class="col-end">42</span></div>
+              <div class="list-row" role="row"><span class="col-subject subject">Blue Crane</span><span class="col-end">31</span></div>
+            </div>
+          </section>
+          <section class="chart-card" aria-label="Sales Order Analysis">
+            <div class="head"><h2>Sales Order Analysis</h2><span class="badge" data-theme="amber">7 to bill</span></div>
+            <div class="body"><div class="bars" role="img" aria-label="Orders by status"><span style="height:70%"></span><span style="height:45%"></span><span style="height:25%"></span></div></div>
+          </section>
+        </div>
+      </main>
     </div>
   </div>
+  <script>
+    const btn = document.getElementById('menu-btn')
+    const menu = document.getElementById('menu')
+    const toggle = (open) => { menu.hidden = !open; btn.setAttribute('aria-expanded', String(open)); if (open) menu.querySelector('.menu-item').focus() }
+    btn.addEventListener('click', () => toggle(menu.hidden))
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !menu.hidden) { toggle(false); btn.focus() } })
+    document.addEventListener('click', (e) => { if (!e.target.closest('.menu-wrap')) toggle(false) })
+  </script>
+  <script src="../../assets/templates/shell.js"></script>
 </body>
 </html>

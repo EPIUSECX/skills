@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>New Thing</title>
+  <link rel="stylesheet" href="../../tokens/variables.css" />
+  <link rel="stylesheet" href="../../assets/templates/shell.css" />
+</head>
+<body>
+  <div class="modal-backdrop">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+      <header class="modal-header">
+        <h2 id="dialog-title" class="modal-title">New Thing</h2>
+        <button class="es-btn" data-variant="ghost" data-icon-only type="button" aria-label="Close"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#x" /></svg></button>
+      </header>
+      <div class="modal-body">
+        <div class="field">
+          <label class="control-label reqd" for="name">Name</label>
+          <input class="input bold" id="name" style="width: 100%" required autofocus />
+        </div>
+        <div class="field" style="margin-bottom: 0">
+          <label class="control-label" for="type">Type</label>
+          <select class="input" id="type" style="width: 100%"><option>A</option><option>B</option></select>
+        </div>
+      </div>
+      <footer class="modal-footer">
+        <button class="es-btn" data-variant="solid" type="button">Save</button>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

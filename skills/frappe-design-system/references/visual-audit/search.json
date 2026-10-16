@@ -1,0 +1,39 @@
+{
+  "search": {
+    "opened": true
+  },
+  "searchBox": {
+    "url": "http://127.0.0.1:8000/desk/users/user?enabled=1",
+    "dialog": {
+      "w": 575,
+      "h": 142,
+      "x": 433,
+      "y": 28,
+      "pad": "0px",
+      "radius": "0px",
+      "shadow": "none",
+      "fs": "14px"
+    },
+    "input": {
+      "w": 529,
+      "h": 28,
+      "x": 470,
+      "y": 37,
+      "pad": "6px 8px",
+      "radius": "8px",
+      "shadow": "none",
+      "fs": "14px"
+    },
+    "footer": {
+      "w": 573,
+      "h": 40,
+      "x": 434,
+      "y": 129,
+      "pad": "10px",
+      "radius": "0px 0px 11px 11px",
+      "shadow": "none",
+      "fs": "14px"
+    },
+    "title": "Search"
+  }
+}

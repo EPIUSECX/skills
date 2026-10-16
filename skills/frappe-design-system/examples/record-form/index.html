@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Workout Card 10 sessions</title>
+  <link rel="stylesheet" href="../../tokens/variables.css" />
+  <link rel="stylesheet" href="../../assets/templates/shell.css" />
+  <style>
+    .panel .who { padding: 15px 15px 8px; }
+    .panel .who h2 { margin: 8px 0 0; font-size: var(--text-base); font-weight: var(--font-weight-medium); color: var(--ink-gray-8); }
+    .side-meta strong { display: block; font-weight: var(--font-weight-regular); color: var(--ink-gray-6); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="nav-scrim" data-nav-toggle></div>
+    <aside class="dock" aria-label="Apps">
+      <div class="dock-logo"><button class="dock-tile" type="button" aria-label="App menu"><span class="dock-mark">E</span></button></div>
+      <div class="dock-rule" aria-hidden="true"></div>
+      <div class="dock-items">
+        <a class="dock-tile" href="#" aria-current="page" aria-label="Stock"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#layout-grid" /></svg></a>
+        <a class="dock-tile" href="../dashboard/index.html" aria-label="Selling"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#store" /></svg></a>
+      </div>
+      <div class="dock-user"><button class="dock-tile" type="button" aria-label="Account"><span class="dock-avatar">CS</span></button></div>
+    </aside>
+    <nav class="sidebar" id="sidebar" aria-label="Stock">
+      <div class="sidebar-header" role="button" tabindex="0" aria-haspopup="menu">
+        <span class="title">Stock</span>
+        <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-down" /></svg>
+      </div>
+      <div class="sidebar-group">
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#search" /></svg><span class="label">Search</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#bell" /></svg><span class="label">Notification</span></a>
+      </div>
+      <div class="sidebar-group">
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#house" /></svg><span class="label">Home</span></a>
+        <a class="nav-item" href="#" aria-current="page"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#file-text" /></svg><span class="label">Item</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#store" /></svg><span class="label">Warehouse</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#scroll-text" /></svg><span class="label">Stock Entry</span></a>
+        <a class="nav-item" href="#"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#id-card" /></svg><span class="label">Reports</span><svg class="icon chevron"><use href="../../assets/icons/lucide-sprite.svg#chevron-right" /></svg></a>
+      </div>
+    </nav>
+    <div class="main">
+      <header class="page-head">
+        <div>
+          <button class="nav-toggle" type="button" data-nav-toggle aria-label="Toggle sidebar" aria-controls="sidebar" aria-expanded="false"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#menu" /></svg></button>
+          <nav class="crumbs" aria-label="Breadcrumb"><a href="#">Item</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Workout Card 10 sessions</span></nav>
+          <span class="badge" data-theme="green">Enabled</span>
+        </div>
+        <div class="actions">
+          <button class="es-btn" type="button">Duplicate</button>
+          <button class="es-btn" data-icon-only type="button" aria-label="Previous document" title="Previous"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-left" /></svg></button>
+          <button class="es-btn" data-icon-only type="button" aria-label="Next document" title="Next"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#chevron-right" /></svg></button>
+          <button class="es-btn" data-icon-only type="button" aria-label="Menu" title="Menu"><svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#ellipsis" /></svg></button>
+          <button class="es-btn" data-variant="solid" type="button">Save</button>
+        </div>
+      </header>
+      <div class="work">
+        <main class="content">
+          <nav class="tabs" aria-label="Form sections">
+            <a href="#details" aria-current="page">Details</a>
+            <a href="#accounting">Accounting</a>
+            <a href="#uom">UOM</a>
+            <a href="#tax">Tax</a>
+            <a href="#purchasing">Purchasing</a>
+            <a href="#sales">Sales</a>
+            <a href="#connections">Connections</a>
+          </nav>
+          <section class="form-section">
+            <div class="form-grid" style="padding-top: 15px">
+              <div>
+                <div class="field">
+                  <label class="control-label reqd" for="item-name">Item Name</label>
+                  <input class="input bold" id="item-name" style="width: 100%" value="Workout Card 10 sessions" required />
+                </div>
+                <div class="field">
+                  <label class="control-label" for="item-group">Item Group</label>
+                  <input class="input" id="item-group" style="width: 100%" value="Consumable" />
+                </div>
+                <div class="field">
+                  <label class="control-label" for="xero">Xero Sync Status</label>
+                  <div class="control read-only" id="xero">Synced</div>
+                </div>
+              </div>
+              <div>
+                <label class="check"><input class="checkbox" type="checkbox" /> <span>Disabled</span></label>
+                <label class="check"><input class="checkbox" type="checkbox" checked /> <span>Maintain Stock</span></label>
+                <p class="help">ERPNext makes a stock ledger entry for each transaction of this item.</p>
+                <label class="check"><input class="checkbox" type="checkbox" /> <span>Is Fixed Asset</span></label>
+              </div>
+            </div>
+          </section>
+          <section class="form-section">
+            <div class="section-head">Item Attributes</div>
+            <div class="form-grid">
+              <div>
+                <label class="check"><input class="checkbox" type="checkbox" checked /> <span>Allow Sales</span></label>
+                <label class="check"><input class="checkbox" type="checkbox" checked /> <span>Allow Purchase</span></label>
+              </div>
+              <div>
+                <div class="field">
+                  <label class="control-label" for="uom">Default Unit of Measure</label>
+                  <input class="input" id="uom" style="width: 100%" value="Nos" />
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+        <aside class="panel" aria-label="Document details">
+          <div class="who">
+            <div class="avatar-tile" aria-hidden="true">WC</div>
+            <h2>Workout Card 10 sessions</h2>
+          </div>
+          <div class="side-link">Assigned To <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-link">Attachments <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-link">Tags <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-link">Shared With <svg class="icon"><use href="../../assets/icons/lucide-sprite.svg#plus" /></svg></div>
+          <div class="side-meta">Last Edited By You<strong>18 hours ago</strong></div>
+          <div class="side-meta">Created By Christiaan Swart<strong>3 months ago</strong></div>
+        </aside>
+      </div>
+    </div>
+  </div>
+  <script src="../../assets/templates/shell.js"></script>
+</body>
+</html>

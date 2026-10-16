@@ -14,6 +14,18 @@ JSON files are `getBoundingClientRect` and `getComputedStyle` dumps from Chrome 
 | `search-1440x900` | 1440×900 | Ctrl+K did not open search. Still the list |
 | `form-user-1440x900.png` | 1440×900 | User form. Sidebar of the form measured 277px in a later pass |
 
-`comparison.json` is written by `scripts/compare-screenshots.mjs` after the example geometry test.
+Later captures, from the gap pass:
+
+| File | What it is |
+| --- | --- |
+| `list-row-trace.json` | Why a data row is 41px and the header token is 30px |
+| `search.json` / `modal.json` | Awesome bar and a Rename dialog, both 575px wide |
+| `form-anatomy.json` | Tabs, columns, and the 277px sidebar on the User form |
+| `dark.json` | Custom properties after `data-theme="dark"` |
+| `workspace.json` | Accounting onboarding widget padding |
+| `list-1280x800.json`, `list-1920x1080.json`, `list-390x844.json` | List shell at the other viewports |
+| `form-1280x800.json`, `form-1920x1080.json`, `form-390x844.json` | Form shell at the other viewports |
+
+Live parity is `node scripts/compare-pages.mjs` with `tests/visual/parity-static.json`, `parity-users.json`, and `parity-mobile.json`. Those runs write `tests/visual/out/` (gitignored). `comparison.json` is an older geometry dump and is not the current check.
 
 A zero width on `.dock` or `.body-sidebar` on the Apps screen means the element is in the DOM and not in the layout. It does not mean the token is 0. The token dump on the same file still says `--sidebar-width: 224px`.

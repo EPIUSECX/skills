@@ -1,0 +1,25 @@
+{
+  "url": "http://127.0.0.1:8000/desk/users/user?enabled=1",
+  "vw": 390,
+  "sidebar": {
+    "w": 224,
+    "h": 844,
+    "x": 0
+  },
+  "dock": {
+    "w": 0,
+    "h": 0,
+    "x": 0
+  },
+  "head": {
+    "w": 390,
+    "h": 49,
+    "x": 0
+  },
+  "formSidebar": null,
+  "listRow": {
+    "w": 398,
+    "h": 67,
+    "x": 23
+  }
+}
