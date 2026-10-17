@@ -42,14 +42,19 @@ node scripts/check-design-consistency.mjs
 node tests/components/tokens.test.mjs
 ```
 
+`node tests/components/tokens.test.mjs` also runs the report, credential, and evidence tests. Those do not open a browser.
+
 With Chrome and `puppeteer-core`:
 
 ```bash
 NODE_PATH=/path/to/node_modules node tests/visual/geometry.test.mjs
-NODE_PATH=/path/to/node_modules node scripts/compare-pages.mjs tests/visual/parity-static.json
+FRAPPE_USER=... FRAPPE_PASSWORD=... NODE_PATH=/path/to/node_modules node scripts/compare-pages.mjs tests/visual/parity-static.json
+FRAPPE_USER=... FRAPPE_PASSWORD=... node scripts/verify-ui.mjs tests/visual/app-routes.example.json
 ```
 
-`scripts/audit-ui.mjs` logs into a running Desk and rewrites `references/visual-audit/`. It needs `FRAPPE_USER` and `FRAPPE_PASSWORD` when the site password is not the local default.
+`scripts/audit-ui.mjs` and `scripts/verify-ui.mjs` log into a running Desk. Both require `FRAPPE_USER` and `FRAPPE_PASSWORD`. There is no default password. If the browser does not start, `verify-ui.mjs` writes `"visual": false` and exits 2. That is not a pass.
+
+`node scripts/check-evidence.mjs .cursor/frappe-design-qa.json` fails when those screenshots are missing or older than the UI. See `cursor/README.md`.
 
 ## Layout
 

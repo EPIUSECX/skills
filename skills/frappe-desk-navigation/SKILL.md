@@ -18,6 +18,8 @@ Frappe v16.50 navigates by module. An app that ships only the old `workspace_sid
 
 The desk still changes between v16 minor releases. Before you edit, confirm the model on the bench (step 1) and compare with the ERPNext checkout on the same bench.
 
+How the Dock and Sidebar are drawn (tile size, type, spacing) belongs to the `frappe-design-system` skill. Follow its render loop. This skill does not replace that check.
+
 ## The model
 
 ```

@@ -1,0 +1,19 @@
+{
+  "base": "http://127.0.0.1:8000",
+  "login": true,
+  "out": "qa/visual",
+  "pages": [
+    {
+      "name": "projects",
+      "path": "/desk/my-app/my-project",
+      "checks": [
+        {
+          "name": "page head",
+          "selector": ".page-head",
+          "expect": { "h": 49 },
+          "tol": 1
+        }
+      ]
+    }
+  ]
+}

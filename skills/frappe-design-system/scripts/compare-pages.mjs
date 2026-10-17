@@ -10,12 +10,14 @@
  * Spec: { reference: { base, login }, candidate: { base }, viewport, out,
  *         pages: [{ name, ref, cand, wait?, pairs: [{ name, ref, cand, props?, tol? }] }] }
  * `ref` / `cand` in a pair are CSS selectors. `props` defaults to DEFAULT_PROPS.
- * Env: FRAPPE_USER, FRAPPE_PASSWORD (default Administrator / admin).
+ * Env: FRAPPE_USER and FRAPPE_PASSWORD when the reference logs in. No default password.
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { launch } from './browser.mjs'
+import { resolveCredentials } from './credentials.mjs'
+import { comparePair } from './report.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const specPath = path.resolve(process.cwd(), process.argv[2] || 'tests/visual/parity-users.json')
@@ -33,11 +35,12 @@ await refPage.setViewport(viewport)
 await candPage.setViewport(viewport)
 
 if (spec.reference.login) {
+  const credentials = resolveCredentials(spec.reference.login)
   await refPage.bringToFront()
   await refPage.goto(`${spec.reference.base}/login`, { waitUntil: 'domcontentloaded' })
   await refPage.waitForSelector('#login_email')
-  await refPage.type('#login_email', process.env.FRAPPE_USER || 'Administrator')
-  await refPage.type('#login_password', process.env.FRAPPE_PASSWORD || 'admin')
+  await refPage.type('#login_email', credentials.user)
+  await refPage.type('#login_password', credentials.password)
   await Promise.all([
     refPage.waitForNavigation({ waitUntil: 'domcontentloaded' }).catch(() => {}),
     refPage.click('form.form-login button[type="submit"]'),
@@ -133,24 +136,21 @@ for (const pg of spec.pages) {
   const rows = []
   for (const [i, pair] of pg.pairs.entries()) {
     const props = pair.props || DEFAULT_PROPS
-    const a = ref.values[i]
-    const b = cand.values[i]
-    const tol = pair.tol ?? 1
-    const deltas = []
-    if (!a || !b) {
-      deltas.push({ prop: 'element', ref: a ? 'found' : 'missing', cand: b ? 'found' : 'missing' })
-    } else {
-      for (const p of props) {
-        const av = a[p], bv = b[p]
-        const num = typeof av === 'number' && typeof bv === 'number'
-        const ok = num ? Math.abs(av - bv) <= tol : av === bv
-        if (!ok) deltas.push({ prop: p, ref: av, cand: bv })
-      }
-    }
-    const accepted = pair.accept || []
-    const blocking = deltas.filter((d) => !accepted.includes(d.prop))
-    if (blocking.length) failures++
-    rows.push({ name: pair.name, ok: !blocking.length, deltas, accepted: deltas.filter((d) => accepted.includes(d.prop)), note: pair.note })
+    const compared = comparePair({
+      ref: ref.values[i],
+      cand: cand.values[i],
+      props,
+      tol: pair.tol ?? 1,
+      accept: pair.accept || [],
+    })
+    if (!compared.ok) failures++
+    rows.push({
+      name: pair.name,
+      ok: compared.ok,
+      deltas: compared.deltas,
+      accepted: compared.deltas.filter((d) => (pair.accept || []).includes(d.prop)),
+      note: pair.note,
+    })
   }
   fs.writeFileSync(path.join(out, `${pg.name}-reference.png`), Buffer.from(shotA, 'base64'))
   fs.writeFileSync(path.join(out, `${pg.name}-candidate.png`), Buffer.from(shotB, 'base64'))

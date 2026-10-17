@@ -8,7 +8,7 @@ A collection of agent skills for building [Frappe Framework](https://frappeframe
 | ----- | -------------- |
 | `frappe-app-dev` | Full-stack Frappe: DocTypes and their design (naming, layout, list view, permissions), controllers, APIs, database/ORM, hooks, permissions, jobs, realtime, caching, testing, app setup, frontend (Desk/Vue/portal), and the bench CLI + site management |
 | `frappe-desk-navigation` | Frappe v16.50 desk navigation for custom apps: Apps-screen tile, rail (Dock), module Sidebars, duotone icons, and logo. Includes an audit script, sidebar tools, and a repair patch for sites that the v16 migration left with one `(Custom)` rail entry |
-| `frappe-design-system` | Visual and behavioural parity with Frappe Desk: Espresso tokens, shell geometry, Frappe UI settings, dashboards, and right-hand panels. Records the v16.50 dock (40px tiles) against the v16.52 dock (34px tiles). Includes measurement scripts and reference pages. `skills/frappe-design-system.zip` is the same folder packaged for Claude and Codex |
+| `frappe-design-system` | Visual and behavioural parity with Frappe Desk. Required for new and existing Desk pages, Workspaces, Vue and Frappe UI, CSS, navigation chrome, and responsive layout. Espresso tokens, the v16.50 dock (40px tiles) and the v16.52 dock (34px tiles), measurement scripts, and a render-and-compare loop. A static CSS check is not verification. `skills/frappe-design-system.zip` is the same folder packaged for Claude and Codex |
 | `frappe-code-review` | Review checklist for Frappe applications: correctness, security, performance, concurrency, readability, API design, and testing |
 | `code-style` | General code style rules |
 | `technical-writing` | Write documentation, READMEs, commits, pull requests, and release notes in Simplified Technical English |
@@ -19,29 +19,33 @@ A collection of agent skills for building [Frappe Framework](https://frappeframe
 
 ## Install
 
-Install all skills from the repo:
+Install all skills from this repo:
 
 ```bash
-npx skills add frappe/skills
+npx skills add EPIUSECX/skills
 ```
 
 Install a single skill:
 
 ```bash
-npx skills add frappe/skills --skill frappe-app-dev
+npx skills add EPIUSECX/skills --skill frappe-design-system
 ```
 
 Install several at once:
 
 ```bash
-npx skills add frappe/skills \
-  --skill frappe-app-dev --skill code-style --skill ui-design
+npx skills add EPIUSECX/skills \
+  --skill frappe-app-dev --skill frappe-design-system --skill frappe-desk-navigation
 ```
+
+`frappe/skills` is the upstream Frappe collection. This repository is `EPIUSECX/skills`. Install from here when you want the design-system visual checks and the other skills in this tree.
 
 Skills are matched by the `name` field in each `SKILL.md` frontmatter, and live under `skills/<name>/`.
 
 ## Usage
 
-Most skills activate automatically when you ask your agent about a matching task. Examples: create a DocType, build a Vue SPA, or run `bench migrate` (`frappe-app-dev`), review a diff (`frappe-code-review`), write a commit message (`technical-writing`), or lay out a page (`ui-design`).
+Most skills activate automatically when you ask your agent about a matching task. Examples: create a DocType, build a Vue SPA, or run `bench migrate` (`frappe-app-dev`), review a diff (`frappe-code-review`), write a commit message (`technical-writing`), or change a Desk page, a stylesheet, or a Vue screen (`frappe-design-system`).
+
+For a Frappe screen, also copy `skills/frappe-design-system/cursor/` into the app repo. The rule is always applied. The stop hook rejects a finish when `.cursor/frappe-design-qa.json` lists screenshots that are missing or older than the UI. See `skills/frappe-design-system/cursor/README.md`.
 
 Some skills only run when you call them. Run `/draft-security-advisory`, `/deep-app-audit`, or `/ship-it` to start them.
