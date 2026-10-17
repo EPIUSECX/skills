@@ -58,6 +58,17 @@ Retiring (read only when Desktop Settings is not "Apps"):
 - Use only icons from the sprites in `app_include_icons`. Frappe also ships a full `public/icons/lucide.svg`, but Desk does not load it, so an icon found only there (`fingerprint`, `book-marked`) is blank.
 - Run the audit until it reports 0 FAIL.
 
+## One module per section (Cojira)
+
+- An app with several areas (work, sales, delivery, documents, management, setup) gets one `Module Def`, one `Sidebar` and one Dock row per area, not one long sidebar with section headers. Add the modules to `modules.txt`, put each doctype, page and workspace in its module, and sidebar rows that group by task, not by data type.
+- Delete the old single sidebar in a patch (`frappe.delete_doc("Sidebar", ..., force=1)`). Set workspace modules without bumping `modified`.
+- **Rail icons go blank when you edit the sprite.** Frappe fetches the `app_include_icons` file with a site-wide cache key, so browsers keep the old copy. Rename the sprite (`module-icons.v2.svg`), update `hooks.py`, and force one fetch in the browser.
+- **Tile routes to the workspace, not the SPA.** `add_to_apps_screen` `route` is `/desk/<app>`; keep the SPA reachable from a sidebar URL row ("Classic ...").
+- A report that lists records you edit (people, rates) belongs in the sidebar as the DocType list. Remove the report with a patch.
+- Saving a Workspace in a script needs `ws.type = "Workspace"`. A header content block forces a new row, so put one before the charts or the charts stretch the number cards.
+- A Dashboard Chart on a workspace is `chart_type: Group By`, `is_standard: 1`, with `module` set so it exports. A full-height Desk Page (board) needs `:has(.board)` rules, and `.dashboard .widget-group` grid rules need higher-specificity overrides for `.full`.
+- After you change navigation, open every sidebar row once. An icon that is not in the sprite (`file-signature`) draws nothing.
+
 ## Flow
 
 1. Confirm the model. These must exist: `apps/frappe/frappe/desk/doctype/dock`, `apps/frappe/frappe/desk/doctype/sidebar`, and the `bench convert-sidebar-fixtures` command. If they do not exist, stop. The bench is older than v16.50, so keep the old fixtures.

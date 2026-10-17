@@ -170,6 +170,27 @@ Users act on a document from its form. Do not make them open a list or call an A
 - Use `frm.set_query` to filter each `Link` field to valid values, such as enabled items or the same company.
 - Use `frm.dashboard.add_indicator` or `frm.set_intro` to show the state and the next step.
 
+## 9. Audit every DocType of an app
+
+When you polish or migrate an app, do not fix only the form on screen. Audit all of its DocTypes.
+
+1. Run `python3 scripts/audit_doctype_layout.py <app_dir>`. Fix each FAIL and judge each WARN.
+2. Relay out a form in a script that rebuilds `fields` and `field_order` from an ordered spec (`tab:`, `sec:`, `col`, field names). Assert that every non-layout field is placed, so none is lost. Keep the field dicts.
+3. Set the list and filter flags in the same spec: `in_list_view` on 3 to 6 fields, `in_standard_filter` on status, party, owner and type.
+4. Add `links` (connections) on the parent for every DocType that links to it, with a `group`. Check the Connections panel on the form.
+5. Put archive and system fields in one collapsible last section with `depends_on` so live records do not show it.
+6. Hide internal ordering fields (`board_order`) instead of leaving them read-only on the form.
+7. Run `bench migrate`, clear the cache, and open each changed form. Do not trust the JSON.
+
+Patterns that were missed before:
+
+- **A list of people is a DocType, not a report.** Show people, rates and roles as a DocType with a list view, so filters, bulk actions and the form come free. Put the secret fields (rates) at `permlevel: 1`. A report is read-only and has no form.
+- **Several people on one record.** A single `Link` to User cannot hold a team. Use Frappe's assignment (`_assign`, ToDo) for the whole set and keep the Link as the lead. Sync both ways with ToDo `after_insert`, `on_update` and `on_trash` hooks, assign the lead on save, and backfill existing rows with a patch. Label the field "Lead ...", and point to Assign in its description.
+- **Renamed DocTypes.** Rename with `frappe.rename_doc("DocType", old, new)` in a `pre_model_sync` patch so the rows stay. Rename the folder, files and class, then update `hooks.py` (`has_permission`, `permission_query_conditions`), sidebars and demo data.
+- **`fetch_from` does not fill existing rows.** Backfill with a save, not `db.set_value`.
+- **A hook key that is already in a comment still looks present.** After you edit `hooks.py`, check the loaded hook with `frappe.get_hooks`, not with a text search.
+- **Every dialog or modal of an old frontend needs a Desk home:** a form field, a button on the form, a list-view button, or a dialog. List the frontend's dialogs and tick each one off.
+
 ## Checklist
 
 Check each item before you merge a new or changed DocType.
@@ -192,3 +213,8 @@ Check each item before you merge a new or changed DocType.
 - [ ] Sensitive fields are at `permlevel: 1`.
 - [ ] A test runs as each role and checks the matrix.
 - [ ] The form has a button for each state change.
+- [ ] `scripts/audit_doctype_layout.py` reports 0 FAIL, and each WARN is judged.
+- [ ] A record that several people work on uses assignment, with a lead field kept in sync.
+- [ ] People, rates and similar lists are DocTypes with list views, not reports.
+- [ ] Connections (`links`) exist for every child relation and are grouped.
+- [ ] Each form was opened after migrate.
