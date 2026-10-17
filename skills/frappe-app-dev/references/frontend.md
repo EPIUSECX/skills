@@ -13,3 +13,5 @@ Every new app gets an empty `www/`, and a Vue SPA also ships `www/<route>.html`,
 An app can use multiple types simultaneously (e.g. Desk for admin + Vue SPA for users).
 
 For the app's tile on the Apps screen, its rail (Dock) and its module Sidebars on v16.50, use the `frappe-desk-navigation` skill.
+
+Any of the three frontends, including a change to CSS on a page that already exists, also uses the `frappe-design-system` skill. Render the route and compare it. A consistency script is not that check.

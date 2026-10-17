@@ -4,12 +4,13 @@
  *
  *   node scripts/audit-ui.mjs --base http://127.0.0.1:8000 --out references/visual-audit
  *
- * Requires puppeteer-core on NODE_PATH and Chrome. Does not change site data
- * beyond a normal Administrator login.
+ * Requires puppeteer-core and Chrome. Login uses FRAPPE_USER and FRAPPE_PASSWORD.
+ * Does not change site data beyond that login.
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { resolveCredentials } from './credentials.mjs'
 
 const args = Object.fromEntries(
   process.argv.slice(2).reduce((pairs, arg, i, all) => {
@@ -29,8 +30,9 @@ page.setDefaultTimeout(20000)
 
 await page.goto(`${base}/login`, { waitUntil: 'domcontentloaded' })
 await page.waitForSelector('#login_email')
-await page.type('#login_email', process.env.FRAPPE_USER || 'Administrator')
-await page.type('#login_password', process.env.FRAPPE_PASSWORD || 'admin')
+const credentials = resolveCredentials(true)
+await page.type('#login_email', credentials.user)
+await page.type('#login_password', credentials.password)
 await Promise.all([
   page.waitForNavigation({ waitUntil: 'domcontentloaded' }).catch(() => {}),
   page.click('form.form-login button[type="submit"]'),

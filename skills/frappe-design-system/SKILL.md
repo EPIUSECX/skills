@@ -1,12 +1,15 @@
 ---
 name: frappe-design-system
 description: >-
-  Build or review Frappe frontends so they look and behave like Frappe Desk.
-  Use when creating a Frappe frontend, a Vue or Frappe UI page, a custom Desk
-  page, a dashboard, a CRM-style record with a right-hand panel, a Cohenix
-  interface, or when auditing visual consistency. Covers native Desk (Mode A)
-  and a standalone Vue shell (Mode B), Espresso tokens, and the dock
-  profiles for Frappe Desk 16.50 and later, including v16.52.
+  Mandatory for any Frappe interface: new or existing Desk Pages, Workspaces,
+  Form and List views, Vue or Frappe UI screens, CSS or SCSS, typography,
+  padding, spacing, colours, icons, navigation, sidebars, docks, responsive
+  layout, and visual review. Use it when creating, modifying, or auditing a
+  Frappe frontend, including a change that only restyles a page that already
+  exists. Covers native Desk (Mode A) and a standalone Vue shell (Mode B),
+  Espresso tokens, and the dock profiles for Frappe Desk 16.50 and later,
+  including v16.52. A static CSS check is not verification. Render the page
+  and compare it.
 ---
 
 # Frappe design system
@@ -49,32 +52,57 @@ Pick the dock profile for the Desk version you are matching:
 
 ## Before you write UI
 
-1. Open [tokens/tokens.json](tokens/tokens.json) and [tokens/variables.css](tokens/variables.css).
-2. Open the component row in [references/components.md](references/components.md). Prefer a native Desk control or a Frappe UI component over a new one.
-3. Open the page recipe in [references/layouts.md](references/layouts.md) or [references/dashboards.md](references/dashboards.md).
-4. Run `node scripts/check-design-consistency.mjs` on the files you add.
+1. Record the Frappe version on the bench (`bench version` or the site's `tabInstalled Application`). Pick the dock profile for that version. Do not assume 16.50.
+2. Load this skill and, when the change touches the Apps tile, Dock, or Sidebar records, the `frappe-desk-navigation` skill. Navigation records belong to that skill. This skill owns how those surfaces are drawn.
+3. Open [tokens/tokens.json](tokens/tokens.json) and [tokens/variables.css](tokens/variables.css).
+4. Open the component row in [references/components.md](references/components.md). Prefer a native Desk control or a Frappe UI component over a new one.
+5. Open the page recipe in [references/layouts.md](references/layouts.md) or [references/dashboards.md](references/dashboards.md). Inspect the existing page and the closest native Desk screen before editing.
+6. Run `node scripts/check-design-consistency.mjs` on the files you add. That script is a hint. It is not visual verification.
+
+## Visual verification
+
+Create, Modify, and Audit all follow the same loop. Do not stop after a static CSS check. Do not claim a browser pass you did not run.
+
+**Inspect → Implement → Render → Compare → Correct → Verify**
+
+1. Identify the Frappe version and whether the screen is Mode A or Mode B.
+2. Load this skill and the navigation skill when the chrome is in scope.
+3. Inspect the current implementation and the native reference named in the recipe. Compare like with like: a list with a list, a number card with a number card. Do not require an unrelated page to be pixel-identical.
+4. Implement the change with the measured tokens.
+5. Launch the application (the bench site, or the example server).
+6. Open every affected route in a browser.
+7. Capture screenshots at 1440×900, 1280×800, and 390×844.
+8. Compare padding, spacing, type, weight, colour, icons, navigation, dimensions, alignment, and the three widths. `node scripts/verify-ui.mjs <spec.json>` writes `verify-report.json`. A missing selector fails the run.
+9. Use the controls a person would use: buttons, navigation, forms, dialogs, and the states the change touches (hover, focus, empty, error).
+10. Correct the defects.
+11. Repeat from Render until the report status is `pass` and `node scripts/check-evidence.mjs` says the screenshots are newer than the UI sources.
+
+Login comes from `FRAPPE_USER` and `FRAPPE_PASSWORD`. Do not write a password into a spec, a script, or a commit. If the app cannot be launched, say that visual verification did not run. A consistency script exiting 0 is not a substitute.
+
+The procedure is written out in [references/visual-verification.md](references/visual-verification.md). An app repo installs the enforcement files from [cursor/](cursor/).
 
 ## Workflows
 
 ### Create
 
 1. Choose Mode A or Mode B.
-2. Choose the dock profile if you draw a dock.
+2. Choose the dock profile if you draw a dock. Leave an app that already ships `data-dock="v16.50"` on that profile until the product moves.
 3. Build from [assets/templates/shell.css](assets/templates/shell.css) and the example closest to the page.
 4. Use only the spacing steps in [references/spacing.md](references/spacing.md).
-5. With a bench up, run `node scripts/compare-pages.mjs tests/visual/parity-static.json` (or a spec you add for the new page). Without a bench, run `node tests/visual/geometry.test.mjs`.
+5. Run the visual verification loop. With a bench up, `node scripts/compare-pages.mjs tests/visual/parity-static.json` checks the skill examples. For an application route, write a spec and run `node scripts/verify-ui.mjs`. Without a bench, run `node tests/visual/geometry.test.mjs` and say the live pages were not opened.
 
 ### Modify
 
 1. Read the existing shell first. ESS and Cargo ship the v16.50 dock. Leave that profile in place until the product moves to a later Desk. New pages use the default profile.
 2. Change tokens, not one-off pixel values.
-3. Re-run the consistency script on the touched files.
+3. Re-run the consistency script on the touched files, then the visual verification loop on the routes those files render. A one-line CSS edit still needs a render.
 
 ### Audit
 
-1. Measure the running Desk with `node scripts/audit-ui.mjs` when a bench is up.
+1. Measure the running Desk with `node scripts/audit-ui.mjs` when a bench is up. It needs `FRAPPE_USER` and `FRAPPE_PASSWORD`.
 2. Compare computed custom properties to `tokens.json`.
 3. List mismatches as the v16.50 profile, the current profile (v16.52), or drift. Drift is a value that matches neither.
+4. Open the affected routes at 1440×900, 1280×800, and 390×844. Record what was not opened.
 
 ### Reproduce
 
@@ -110,6 +138,9 @@ Pick the dock profile for the Desk version you are matching:
 node scripts/validate-tokens.mjs
 node scripts/check-design-consistency.mjs
 node tests/components/tokens.test.mjs
+node tests/report.test.mjs
+node tests/credentials.test.mjs
+node tests/evidence.test.mjs
 # Needs puppeteer-core and Chrome. Optional, when a bench is running:
 node scripts/audit-ui.mjs --out references/visual-audit
 node tests/visual/geometry.test.mjs
@@ -143,3 +174,4 @@ node scripts/compare-pages.mjs tests/visual/parity-mobile.json
 | [references/cohenix-patterns.md](references/cohenix-patterns.md) | ESS and Cargo versus Desk |
 | [references/anti-patterns.md](references/anti-patterns.md) | What to reject |
 | [references/gap-report.md](references/gap-report.md) | What was verified and what was not |
+| [references/visual-verification.md](references/visual-verification.md) | The render loop, specs, and evidence |

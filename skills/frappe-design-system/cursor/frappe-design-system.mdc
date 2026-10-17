@@ -1,0 +1,12 @@
+---
+description: Frappe screens must match Desk and be checked in a browser
+alwaysApply: true
+---
+
+# Frappe design system
+
+Any change to a Frappe Desk page, Workspace, Form, List, Vue or Frappe UI screen, stylesheet, icon, sidebar, or dock uses the `frappe-design-system` skill. Navigation records also use `frappe-desk-navigation`.
+
+Do not finish UI work on a static CSS check. Render the affected routes, capture 1440×900, 1280×800, and 390×844, and compare them with the native reference named in that skill. Repeat until `verify-report.json` has `"status": "pass"` and `"visual": true`.
+
+If the app cannot be launched, say visual verification did not run. Do not invent a password. Read `FRAPPE_USER` and `FRAPPE_PASSWORD` from the environment.

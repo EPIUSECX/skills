@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "command": "node skills/frappe-design-system/scripts/check-evidence.mjs .cursor/frappe-design-qa.json",
+        "timeout": 30
+      }
+    ]
+  }
+}
